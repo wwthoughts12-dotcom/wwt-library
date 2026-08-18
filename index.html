@@ -2,30 +2,26 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
-
   <meta name="theme-color" content="#160D11">
-  <meta name="color-scheme" content="light">
-
   <title>Wild wild thoughts — библиотека</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     :root {
-      --background: #F7F2EB;
-      --card: #E8DDD0;
-      --accent: #D4C1AE;
-      --button: #B89B7A;
-      --accent-text: #8B7355;
-      --text: #4A4038;
-      --wine: #84303E;
-      --white: #FFFDFC;
-      --green: #647B5B;
+      --background: #f7f2eb;
+      --card: #e8ddd0;
+      --accent: #d4c1ae;
+      --button: #b89b7a;
+      --accent-text: #8b7355;
+      --text: #4a4038;
+      --wine: #84303e;
+      --white: #fffdfc;
+      --green: #647b5b;
       --shadow: 0 18px 50px rgba(74, 64, 56, 0.12);
       --soft-shadow: 0 10px 30px rgba(74, 64, 56, 0.09);
       --nav-height: 78px;
@@ -58,9 +54,9 @@
         ),
         linear-gradient(
           145deg,
-          #FBF8F4 0%,
+          #fbf8f4 0%,
           var(--background) 46%,
-          #EFE5D9 100%
+          #efe5d9 100%
         );
       font-family: Georgia, "Times New Roman", serif;
     }
@@ -263,19 +259,24 @@
     }
 
     .primary-button,
-    .secondary-button {
-      min-height: 46px;
-      padding: 12px 18px;
+    .secondary-button,
+    .small-button {
       border: 0;
-      border-radius: 15px;
       cursor: pointer;
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 850;
       transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
         background 0.25s ease;
+    }
+
+    .primary-button,
+    .secondary-button {
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 15px;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 850;
     }
 
     .primary-button {
@@ -290,7 +291,8 @@
     }
 
     .primary-button:active,
-    .secondary-button:active {
+    .secondary-button:active,
+    .small-button:active {
       transform: scale(0.97);
     }
 
@@ -341,7 +343,7 @@
 
     .announcement {
       position: relative;
-      min-height: 260px;
+      min-height: 225px;
       padding: 20px;
       overflow: hidden;
       border-radius: 24px;
@@ -349,30 +351,22 @@
 
     .announcement.has-cover {
       color: white;
-    }
-
-    .announcement-cover {
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
+      background-position: center;
+      background-size: cover;
     }
 
     .announcement.has-cover::before {
       position: absolute;
       z-index: 1;
       inset: 0;
-      content: "";
       background:
         linear-gradient(
           90deg,
-          rgba(22, 13, 17, 0.93) 0%,
-          rgba(22, 13, 17, 0.75) 55%,
-          rgba(22, 13, 17, 0.26) 100%
+          rgba(22, 13, 17, 0.91) 0%,
+          rgba(22, 13, 17, 0.72) 56%,
+          rgba(22, 13, 17, 0.22) 100%
         );
+      content: "";
     }
 
     .announcement-content {
@@ -386,7 +380,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       color: var(--wine);
-      background: rgba(255, 253, 252, 0.86);
+      background: rgba(255, 253, 252, 0.83);
       font-family: system-ui, sans-serif;
       font-size: 9px;
       font-weight: 900;
@@ -395,7 +389,7 @@
     }
 
     .announcement h3 {
-      max-width: 82%;
+      max-width: 80%;
       margin: 13px 0 5px;
       font-size: 25px;
       font-weight: 500;
@@ -404,7 +398,7 @@
     .announcement-author {
       margin: 0;
       color: inherit;
-      opacity: 0.82;
+      opacity: 0.8;
       font-family: system-ui, sans-serif;
       font-size: 12px;
       font-weight: 700;
@@ -469,10 +463,6 @@
       backdrop-filter: blur(10px);
     }
 
-    .announcement:not(.has-cover) .countdown-item {
-      background: rgba(255, 253, 252, 0.52);
-    }
-
     .countdown-value {
       display: block;
       font-size: 18px;
@@ -488,7 +478,68 @@
       text-transform: uppercase;
     }
 
-    /* Книги */
+    /* Серии и книги */
+
+    .horizontal-scroll {
+      display: flex;
+      gap: 12px;
+      margin-inline: -16px;
+      padding: 4px 16px 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x proximity;
+    }
+
+    .horizontal-scroll::-webkit-scrollbar,
+    .chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .series-card {
+      position: relative;
+      flex: 0 0 210px;
+      min-height: 124px;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 21px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(232, 221, 208, 0.94),
+          rgba(212, 193, 174, 0.72)
+        );
+      box-shadow: var(--soft-shadow);
+      cursor: pointer;
+      scroll-snap-align: start;
+    }
+
+    .series-card::after {
+      position: absolute;
+      right: -24px;
+      bottom: -35px;
+      width: 105px;
+      height: 105px;
+      border: 18px solid rgba(255, 255, 255, 0.27);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .series-count {
+      color: var(--accent-text);
+      font-family: system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .series-card h4 {
+      position: relative;
+      z-index: 2;
+      margin: 13px 0 0;
+      font-size: 20px;
+      font-weight: 500;
+    }
 
     .books-grid {
       display: grid;
@@ -579,7 +630,7 @@
       font-size: 11px;
     }
 
-    .trope-preview {
+    .trop-preview {
       display: flex;
       gap: 5px;
       margin-top: 10px;
@@ -675,11 +726,13 @@
     }
 
     .sort-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
       margin-top: 10px;
     }
 
     .sort-select {
-      width: 100%;
       min-width: 0;
       height: 44px;
       padding: 0 34px 0 12px;
@@ -691,6 +744,17 @@
       font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 750;
+    }
+
+    .small-button {
+      min-width: 44px;
+      padding: 0 13px;
+      border-radius: 14px;
+      color: var(--white);
+      background: var(--button);
+      font-family: system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 850;
     }
 
     .filter-title {
@@ -709,10 +773,6 @@
       overflow-x: auto;
       padding-bottom: 4px;
       scrollbar-width: none;
-    }
-
-    .chips::-webkit-scrollbar {
-      display: none;
     }
 
     .chip {
@@ -805,6 +865,10 @@
       background: #121212;
     }
 
+    .spotify-frame.compact {
+      height: 152px;
+    }
+
     .spotify-link {
       display: inline-flex;
       align-items: center;
@@ -814,20 +878,55 @@
       padding: 10px 15px;
       border-radius: 13px;
       color: white;
-      background: #1DB954;
+      background: #1db954;
       font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 850;
       text-decoration: none;
     }
 
-    /* Арты — вкладка намеренно пустая */
+    /* Арты */
 
     .arts-grid {
-      min-height: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    /* Пустые состояния */
+    .art-card {
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: var(--soft-shadow);
+      cursor: pointer;
+    }
+
+    .art-card:nth-child(3n) {
+      grid-column: 1 / -1;
+      min-height: 250px;
+    }
+
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+    }
+
+    .art-caption {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 38px 15px 14px;
+      color: white;
+      background: linear-gradient(transparent, rgba(22, 13, 17, 0.74));
+      font-family: system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 850;
+    }
 
     .empty-state {
       grid-column: 1 / -1;
@@ -852,7 +951,7 @@
       line-height: 1.55;
     }
 
-    /* Нижнее меню */
+    /* Навигация */
 
     .bottom-nav {
       position: fixed;
@@ -1021,7 +1120,7 @@
 
     .modal-tabs {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 5px;
       margin: 22px 0 18px;
       padding: 5px;
@@ -1078,14 +1177,24 @@
       min-height: 46px;
       margin-top: 18px;
       padding: 12px 18px;
-      border: 0;
       border-radius: 15px;
       color: white;
       background: var(--wine);
-      cursor: pointer;
       font-family: system-ui, sans-serif;
       font-size: 12px;
       font-weight: 850;
+      text-decoration: none;
+    }
+
+    .quote {
+      position: relative;
+      margin: 0 0 12px;
+      padding: 18px 18px 18px 25px;
+      border-radius: 18px;
+      background: rgba(232, 221, 208, 0.6);
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1.65;
     }
 
     .about-content {
@@ -1119,8 +1228,6 @@
       line-height: 1.7;
     }
 
-    /* Уведомления */
-
     .toast {
       position: fixed;
       z-index: 500;
@@ -1150,6 +1257,15 @@
     @media (min-width: 680px) {
       .books-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .arts-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .art-card:nth-child(3n) {
+        grid-column: auto;
+        min-height: 220px;
       }
 
       .modal-overlay {
@@ -1190,6 +1306,10 @@
       .modal-book-cover {
         width: 105px;
       }
+
+      .spotify-frame {
+        height: 352px;
+      }
     }
   </style>
 </head>
@@ -1202,18 +1322,11 @@
         <h1 class="brand-title">Wild wild thoughts</h1>
       </div>
 
-      <button
-        class="connection loading"
-        id="connectionButton"
-        type="button"
-        title="Обновить данные"
-      >
+      <button class="connection loading" id="connectionButton" type="button">
         <span class="connection-dot"></span>
         <span id="connectionText">загрузка…</span>
       </button>
     </header>
-
-    <!-- Главная -->
 
     <section class="view active" id="homeView">
       <article class="hero glass">
@@ -1225,24 +1338,20 @@
           </h2>
 
           <p>
-            Любимые истории, книжные тропы и Spotify-плейлисты —
-            в одной уютной библиотеке.
+            Любимые истории, книжные тропы и Spotify-плейлисты — в одной
+            библиотеке.
           </p>
 
           <div class="hero-actions">
-            <button
-              class="primary-button"
-              type="button"
-              data-action="open-catalog"
-            >
+            <button class="primary-button" type="button" data-action="open-catalog">
               Открыть каталог
             </button>
 
-            <button
-              class="secondary-button"
-              type="button"
-              data-action="open-about"
-            >
+            <button class="secondary-button" type="button" data-action="random-book">
+              Случайная книга
+            </button>
+
+            <button class="secondary-button" type="button" data-action="open-about">
               О НАС
             </button>
           </div>
@@ -1259,13 +1368,21 @@
 
       <section class="section">
         <div class="section-heading">
+          <h3>По сериям</h3>
+
+          <button class="text-button" type="button" data-action="open-catalog">
+            Смотреть все →
+          </button>
+        </div>
+
+        <div class="horizontal-scroll" id="homeSeries"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
           <h3>Новые переводы</h3>
 
-          <button
-            class="text-button"
-            type="button"
-            data-action="open-catalog"
-          >
+          <button class="text-button" type="button" data-action="open-catalog">
             Смотреть все →
           </button>
         </div>
@@ -1274,18 +1391,11 @@
       </section>
     </section>
 
-    <!-- Каталог -->
-
     <section class="view" id="catalogView">
       <div class="section-heading">
         <h2>Каталог</h2>
 
-        <button
-          class="text-button"
-          type="button"
-          data-action="favorites-filter"
-          id="favoritesFilterButton"
-        >
+        <button class="text-button" type="button" data-action="favorites-filter">
           ♡ Избранное
         </button>
       </div>
@@ -1311,14 +1421,7 @@
             placeholder="Название или автор"
           >
 
-          <button
-            class="clear-search"
-            id="clearSearch"
-            type="button"
-            aria-label="Очистить поиск"
-          >
-            ×
-          </button>
+          <button class="clear-search" id="clearSearch" type="button">×</button>
         </div>
 
         <div class="sort-row">
@@ -1328,31 +1431,29 @@
             <option value="author">По автору</option>
             <option value="series">По сериям</option>
           </select>
+
+          <button class="small-button" type="button" data-action="random-book">
+            Случайная
+          </button>
         </div>
 
         <p class="filter-title">Серии</p>
         <div class="chips" id="seriesChips"></div>
 
         <p class="filter-title">Тропы</p>
-        <div class="chips" id="tropeChips"></div>
+        <div class="chips" id="tropChips"></div>
       </section>
 
       <div class="results-meta">
         <span id="resultsCount">0 книг</span>
 
-        <button
-          class="text-button"
-          type="button"
-          data-action="reset-filters"
-        >
+        <button class="text-button" type="button" data-action="reset-filters">
           Сбросить
         </button>
       </div>
 
       <div class="books-grid" id="catalogBooks"></div>
     </section>
-
-    <!-- Spotify -->
 
     <section class="view" id="playlistsView">
       <div class="section-heading">
@@ -1361,8 +1462,6 @@
 
       <div class="spotify-list" id="spotifyList"></div>
     </section>
-
-    <!-- Арты — вкладка оставлена пустой -->
 
     <section class="view" id="artsView">
       <div class="section-heading">
@@ -1373,78 +1472,45 @@
     </section>
   </main>
 
-  <!-- Нижнее меню -->
-
   <nav class="bottom-nav">
     <div class="nav-inner">
       <button class="nav-button active" type="button" data-view="home">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <path d="m3 11 9-8 9 8"></path>
           <path d="M5 10v10h14V10"></path>
           <path d="M9 20v-6h6v6"></path>
         </svg>
-
         Главная
       </button>
 
       <button class="nav-button" type="button" data-view="catalog">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
-          <path
-            d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"
-          ></path>
-
-          <path
-            d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"
-          ></path>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
+          <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"></path>
         </svg>
-
         Каталог
       </button>
 
       <button class="nav-button" type="button" data-view="playlists">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M8.5 10.5c2.6-.7 5.5-.5 7.8.8"></path>
           <path d="M9.2 13c2-.5 4.4-.3 6.2.7"></path>
           <path d="M10 15.4c1.4-.3 3-.2 4.3.5"></path>
         </svg>
-
         Spotify
       </button>
 
       <button class="nav-button" type="button" data-view="arts">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="3" y="4" width="18" height="16" rx="3"></rect>
           <circle cx="9" cy="10" r="2"></circle>
           <path d="m4 17 5-4 3 3 3-2 5 4"></path>
         </svg>
-
         Арты
       </button>
     </div>
   </nav>
-
-  <!-- Модальное окно книги -->
 
   <div class="modal-overlay" id="bookModal">
     <article class="modal" role="dialog" aria-modal="true">
@@ -1463,8 +1529,6 @@
     </article>
   </div>
 
-  <!-- О нас -->
-
   <div class="modal-overlay" id="aboutModal">
     <article class="modal" role="dialog" aria-modal="true">
       <div class="modal-handle"></div>
@@ -1480,22 +1544,17 @@
 
       <div class="about-content">
         <div class="about-mark">W</div>
-
         <p class="eyebrow">Wild wild thoughts</p>
         <h2>О нашей библиотеке</h2>
 
         <p>
           Здесь собраны готовые переводы, книжные тропы,
-          Spotify-плейлисты и материалы Wild wild thoughts.
-          Добавляйте книги в избранное и отмечайте статус чтения.
+          Spotify-плейлисты и арты. Книги можно добавлять в избранное
+          и отмечать статус чтения.
         </p>
 
-        <div class="modal-actions" style="justify-content: center;">
-          <button
-            class="primary-button"
-            type="button"
-            data-action="open-channel"
-          >
+        <div class="modal-actions" style="justify-content:center">
+          <button class="primary-button" type="button" data-action="open-channel">
             Перейти в канал @my_wwt
           </button>
         </div>
@@ -1507,19 +1566,6 @@
 
   <script>
     "use strict";
-
-    /*
-      Google Таблица с книгами:
-      https://docs.google.com/spreadsheets/d/
-      1ZfY5a0Q4MTNaKFlsw30P5k2bIV6wCMl2ISlRdkIk9os/
-
-      Google Таблица с анонсами:
-      https://docs.google.com/spreadsheets/d/
-      1pVVtbOEgW99qR0WYGaroknTJ05P_06yXzQG7AIwGFG8/
-
-      Обе таблицы должны быть доступны:
-      "Все, у кого есть ссылка" → "Читатель".
-    */
 
     const BOOKS_SHEET_ID =
       "1ZfY5a0Q4MTNaKFlsw30P5k2bIV6wCMl2ISlRdkIk9os";
@@ -1537,10 +1583,14 @@
 
     const CHANNEL_URL = "https://t.me/my_wwt";
 
-    const BOOKS_CACHE_KEY = "wwt_books_v7";
-    const ANNOUNCEMENTS_CACHE_KEY = "wwt_announcements_v7";
-    const FAVORITES_KEY = "wwt_favorites_v7";
-    const STATUSES_KEY = "wwt_statuses_v7";
+    /*
+      Версия кэша изменена, чтобы старые данные из предыдущего
+      формата таблиц не использовались.
+    */
+    const BOOKS_CACHE_KEY = "wwt_books_v6";
+    const ANNOUNCEMENTS_CACHE_KEY = "wwt_announcements_v6";
+    const FAVORITES_KEY = "wwt_favorites_v6";
+    const STATUSES_KEY = "wwt_statuses_v6";
 
     const state = {
       books: [],
@@ -1566,17 +1616,14 @@
             stroke="currentColor"
             stroke-width="2"
           >
-            <path
-              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7
               l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21
-              l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"
-            ></path>
+              l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z">
+            </path>
           </svg>
         `;
       }
     };
-
-    /* Хранилище */
 
     function readJSON(key, fallback) {
       try {
@@ -1591,11 +1638,9 @@
       try {
         localStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
-        console.warn("Ошибка localStorage:", error);
+        console.warn("localStorage:", error);
       }
     }
-
-    /* Текст и URL */
 
     function cleanText(value = "") {
       return String(value)
@@ -1604,15 +1649,17 @@
         .trim();
     }
 
+    function normalizeKey(value = "") {
+      return cleanText(value)
+        .toLocaleLowerCase("ru")
+        .replace(/ё/g, "е")
+        .replace(/[^a-zа-я0-9]/g, "");
+    }
+
     function normalizeSearch(value = "") {
       return cleanText(value)
         .toLocaleLowerCase("ru")
         .replace(/ё/g, "е");
-    }
-
-    function normalizeKey(value = "") {
-      return normalizeSearch(value)
-        .replace(/[^a-zа-я0-9]/g, "");
     }
 
     function escapeHTML(value = "") {
@@ -1624,30 +1671,9 @@
         .replace(/'/g, "&#039;");
     }
 
-    function extractHttpUrl(value = "") {
-      const text = cleanText(value).replace(/&amp;/g, "&");
-
-      if (!text) {
-        return "";
-      }
-
-      if (/^https?:\/\//i.test(text)) {
-        return text;
-      }
-
-      const match = text.match(/https?:\/\/[^\s"'<>]+/i);
-      return match ? match[0] : "";
-    }
-
     function safeUrl(value = "") {
-      const extracted = extractHttpUrl(value);
-
-      if (!extracted) {
-        return "";
-      }
-
       try {
-        const url = new URL(extracted);
+        const url = new URL(cleanText(value), location.href);
 
         if (["http:", "https:"].includes(url.protocol)) {
           return url.href;
@@ -1657,48 +1683,29 @@
       return "";
     }
 
-    function normalizeDriveImageUrl(value = "") {
-      const original = safeUrl(value);
+    function looksLikeImage(value = "") {
+      const url = cleanText(value);
 
-      if (!original) {
-        return "";
-      }
-
-      const fileId =
-        original.match(/\/file\/d\/([^/?#]+)/)?.[1] ||
-        original.match(/[?&]id=([^&#]+)/)?.[1];
-
-      if (fileId && original.includes("drive.google.com")) {
-        return (
-          "https://drive.google.com/uc?export=view&id=" +
-          encodeURIComponent(fileId)
-        );
-      }
-
-      return original;
+      return (
+        /\.(jpg|jpeg|png|webp|gif|avif)(?:[?#].*)?$/i.test(url) ||
+        url.includes("m.media-amazon.com/images/") ||
+        url.includes("goodreads.com/") ||
+        url.includes("static.wixstatic.com/media/")
+      );
     }
-
-    /* Обложка-заглушка */
 
     function placeholderCover(book, wide = false) {
       const title = cleanText(book.title || "Wild wild thoughts");
       const author = cleanText(book.author || "@my_wwt");
-
       const width = wide ? 900 : 600;
       const height = wide ? 650 : 900;
       const limit = wide ? 28 : 21;
-
       const shortTitle =
-        title.length > limit
-          ? `${title.slice(0, limit)}…`
-          : title;
+        title.length > limit ? `${title.slice(0, limit)}…` : title;
 
       const svg = `
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="${width}"
-          height="${height}"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg"
+          width="${width}" height="${height}">
           <defs>
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#E8DDD0"/>
@@ -1778,42 +1785,17 @@
         </svg>
       `;
 
-      return (
-        "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(svg)
-      );
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
     }
 
     function getBookCover(book, wide = false) {
-      return (
-        normalizeDriveImageUrl(book.cover) ||
-        placeholderCover(book, wide)
-      );
+      return safeUrl(book.cover) || placeholderCover(book, wide);
     }
 
-    /* Разбор CSV */
-
-    function countDelimiterOutsideQuotes(line, delimiter) {
-      let count = 0;
-      let quoted = false;
-
-      for (let index = 0; index < line.length; index++) {
-        const char = line[index];
-
-        if (char === '"') {
-          if (quoted && line[index + 1] === '"') {
-            index++;
-          } else {
-            quoted = !quoted;
-          }
-        } else if (char === delimiter && !quoted) {
-          count++;
-        }
-      }
-
-      return count;
-    }
-
+    /*
+      Google gviz обычно отдаёт CSV с запятыми.
+      Дополнительно поддерживаются ; и табуляция.
+    */
     function detectDelimiter(text) {
       const line =
         text.split(/\r?\n/).find(item => cleanText(item)) || "";
@@ -1823,10 +1805,9 @@
       return candidates
         .map(delimiter => ({
           delimiter,
-          count: countDelimiterOutsideQuotes(line, delimiter)
+          count: line.split(delimiter).length
         }))
-        .sort((first, second) => second.count - first.count)[0]
-        .delimiter;
+        .sort((a, b) => b.count - a.count)[0].delimiter;
     }
 
     function parseCSV(text) {
@@ -1888,160 +1869,89 @@
       return rows;
     }
 
-    /* Заголовки таблицы книг */
-
-    const BOOK_HEADER_ALIASES = {
-      id: [
-        "id",
-        "bookid",
-        "номер"
-      ],
-
-      title: [
-        "title",
-        "название",
-        "книга",
-        "name"
-      ],
-
-      author: [
-        "author",
-        "автор"
-      ],
-
-      series: [
-        "series",
-        "seriesseries",
-        "серия",
-        "цикл",
-        "названиесерии"
-      ],
-
-      order: [
-        "order",
-        "seriesorder",
-        "порядок",
-        "номерсерии",
-        "книгавсерии"
-      ],
-
-      tropes: [
-        "trops",
-        "tropes",
-        "тропы",
-        "троп"
-      ],
-
-      description: [
-        "description",
-        "описание",
-        "аннотация"
-      ],
-
-      cover: [
-        "cover",
-        "coverlink",
-        "обложка",
-        "ссылкаобложки",
-        "urlобложки",
-        "image",
-        "картинка"
-      ],
-
-      spotify: [
-        "spotifyplaylist",
-        "spotify",
-        "playlist",
-        "спотифай",
-        "плейлист"
-      ],
-
-      ebook: [
-        "epudfile",
-        "epubfile",
-        "epub",
-        "ebook",
-        "bookfile",
-        "файл",
-        "файлекниги",
-        "файлкниги",
-        "электроннаякнига"
-      ],
-
-      addedAt: [
-        "addedat",
-        "date",
-        "дата",
-        "датадобавления"
-      ]
-    };
-
-    /* Заголовки таблицы анонсов */
-
-    const ANNOUNCEMENT_HEADER_ALIASES = {
-      id: [
-        "id",
-        "номер"
-      ],
-
-      bookId: [
-        "bookid",
-        "idкниги"
-      ],
-
-      title: [
-        "title",
-        "название",
-        "книга",
-        "анонс"
-      ],
-
-      author: [
-        "author",
-        "автор"
-      ],
-
-      cover: [
-        "cover",
-        "обложка",
-        "image",
-        "картинка"
-      ],
-
-      coverLink: [
-        "coverlink",
-        "ссылкаобложки",
-        "urlобложки"
-      ],
-
-      link: [
-        "link",
-        "url",
-        "ссылка"
-      ],
-
-      dateActive: [
-        "dateactive",
-        "active",
-        "date",
-        "дата",
-        "период",
-        "датавыхода"
-      ],
-
-      tropes: [
-        "trops",
-        "tropes",
-        "тропы",
-        "троп"
-      ]
-    };
-
-    function canonicalHeader(header, aliases) {
+    function canonicalKey(header) {
       const key = normalizeKey(header);
 
-      for (const [canonical, variants] of Object.entries(aliases)) {
-        if (variants.includes(key)) {
+      const aliases = {
+        id: ["id"],
+        bookId: ["bookid"],
+        title: ["title", "название", "книга"],
+        author: ["author", "автор"],
+
+        series: [
+          "series",
+          "seriesseries",
+          "серия",
+          "цикл"
+        ],
+
+        order: [
+          "order",
+          "seriesorder",
+          "порядок",
+          "номерсерии"
+        ],
+
+        tropes: [
+          "trops",
+          "tropes",
+          "тропы",
+          "троп"
+        ],
+
+        description: [
+          "description",
+          "описание",
+          "аннотация"
+        ],
+
+        cover: [
+          "cover",
+          "обложка",
+          "image",
+          "картинка"
+        ],
+
+        link: [
+          "link",
+          "url",
+          "ссылка"
+        ],
+
+        spotify: [
+          "spotifyplaylist",
+          "spotify",
+          "playlist",
+          "спотифай",
+          "плейлист"
+        ],
+
+        ebook: [
+          "epudfile",
+          "epubfile",
+          "ebook",
+          "bookfile",
+          "файл",
+          "файлектроннойкниги"
+        ],
+
+        dateActive: [
+          "dateactive",
+          "active",
+          "date",
+          "дата",
+          "период",
+          "датавыхода"
+        ],
+
+        quotes: [
+          "quotes",
+          "цитаты"
+        ]
+      };
+
+      for (const [canonical, values] of Object.entries(aliases)) {
+        if (values.includes(key)) {
           return canonical;
         }
       }
@@ -2049,31 +1959,25 @@
       return key;
     }
 
-    function rowsToObjects(rows, type) {
+    function rowsToObjects(rows) {
       if (!rows.length) {
         return [];
       }
 
-      const aliases =
-        type === "books"
-          ? BOOK_HEADER_ALIASES
-          : ANNOUNCEMENT_HEADER_ALIASES;
-
       const headerIndex = rows.findIndex(row => {
-        const headers = row.map(header =>
-          canonicalHeader(header, aliases)
-        );
+        const keys = row.map(canonicalKey);
 
-        return headers.includes("title");
+        return (
+          keys.includes("title") &&
+          (keys.includes("author") || keys.includes("id"))
+        );
       });
 
       if (headerIndex < 0) {
         return [];
       }
 
-      const headers = rows[headerIndex].map(header =>
-        canonicalHeader(header, aliases)
-      );
+      const headers = rows[headerIndex].map(canonicalKey);
 
       return rows.slice(headerIndex + 1).map(row => {
         const result = {};
@@ -2086,25 +1990,6 @@
 
         return result;
       });
-    }
-
-    /* Массивы тропов */
-
-    function uniqueStrings(items) {
-      const known = new Set();
-      const result = [];
-
-      items.forEach(item => {
-        const text = cleanText(item);
-        const key = normalizeSearch(text);
-
-        if (text && !known.has(key)) {
-          known.add(key);
-          result.push(text);
-        }
-      });
-
-      return result;
     }
 
     function parseList(value) {
@@ -2126,19 +2011,32 @@
         }
       } catch {}
 
-      return uniqueStrings(
-        text
-          .split(
-            /\n+|\s*\|\s*|\s*;\s*|\s*,\s*|(?:^|\s)[•●▪]\s*/u
-          )
-          .map(cleanText)
-          .filter(Boolean)
-      );
+      const result = text
+        .split(/\n+|\s*\|\s*|\s*;\s*|(?:^|\s)[•●▪]\s*/u)
+        .map(cleanText)
+        .filter(Boolean);
+
+      return uniqueStrings(result);
     }
 
-    /* Нормализация книг и анонсов */
+    function uniqueStrings(items) {
+      const known = new Set();
+      const result = [];
 
-    function normalizeBook(item, index = 0) {
+      items.forEach(item => {
+        const text = cleanText(item);
+        const key = normalizeSearch(text);
+
+        if (text && !known.has(key)) {
+          known.add(key);
+          result.push(text);
+        }
+      });
+
+      return result;
+    }
+
+    function normalizeBook(item, index) {
       return {
         id: cleanText(item.id || index + 1),
         title: cleanText(item.title || ""),
@@ -2149,31 +2047,34 @@
         description: cleanText(
           item.description || "Описание скоро появится."
         ),
-        cover: cleanText(item.cover),
+        cover: safeUrl(item.cover),
         spotify: safeUrl(item.spotify),
-        ebook: cleanText(item.ebook),
-        addedAt: cleanText(item.addedAt)
+        ebook: safeUrl(item.ebook),
+        quotes: parseList(item.quotes)
       };
     }
 
-    function normalizeAnnouncement(item, index = 0) {
-      const cover = normalizeDriveImageUrl(item.cover);
-      const coverLink = normalizeDriveImageUrl(item.coverLink);
-      const link = safeUrl(item.link);
+    function normalizeAnnouncement(item, index) {
+      const rawCover = safeUrl(item.cover);
+      const rawLink = safeUrl(item.link);
+
+      /*
+        В текущей таблице cover пустой, а в link записана обложка.
+        Поэтому ссылка-картинка автоматически используется как cover.
+      */
+      const linkIsImage = looksLikeImage(rawLink);
 
       return {
         id: cleanText(item.id || index + 1),
         bookId: cleanText(item.bookId),
         title: cleanText(item.title || ""),
         author: cleanText(item.author || ""),
-        cover: cover || coverLink,
-        link,
+        cover: rawCover || (linkIsImage ? rawLink : ""),
+        link: linkIsImage ? "" : rawLink,
         dateActive: cleanText(item.dateActive),
         tropes: parseList(item.tropes)
       };
     }
-
-    /* Даты */
 
     function parseExactDate(value) {
       const text = cleanText(value);
@@ -2187,14 +2088,7 @@
       );
 
       if (match) {
-        const [
-          ,
-          day,
-          month,
-          year,
-          hour = "0",
-          minute = "0"
-        ] = match;
+        const [, day, month, year, hour = "0", minute = "0"] = match;
 
         const date = new Date(
           Number(year),
@@ -2212,14 +2106,7 @@
       );
 
       if (match) {
-        const [
-          ,
-          year,
-          month,
-          day,
-          hour = "0",
-          minute = "0"
-        ] = match;
+        const [, year, month, day, hour = "0", minute = "0"] = match;
 
         const date = new Date(
           Number(year),
@@ -2234,22 +2121,6 @@
 
       return null;
     }
-
-    function bookDateScore(book) {
-      const parsedDate = parseExactDate(book.addedAt);
-
-      if (parsedDate) {
-        return parsedDate.getTime();
-      }
-
-      const numericId = Number(book.id);
-
-      return Number.isFinite(numericId)
-        ? numericId
-        : 0;
-    }
-
-    /* Spotify */
 
     function spotifyEmbedUrl(value) {
       const url = safeUrl(value);
@@ -2268,7 +2139,7 @@
         const parts = parsed.pathname
           .split("/")
           .filter(Boolean)
-          .filter(part => !part.startsWith("intl-"));
+          .filter(part => part !== "intl-ru");
 
         const allowedTypes = new Set([
           "playlist",
@@ -2279,9 +2150,7 @@
           "artist"
         ]);
 
-        const typeIndex = parts.findIndex(part =>
-          allowedTypes.has(part)
-        );
+        const typeIndex = parts.findIndex(part => allowedTypes.has(part));
 
         if (typeIndex < 0 || !parts[typeIndex + 1]) {
           return "";
@@ -2291,78 +2160,15 @@
         const id = parts[typeIndex + 1];
 
         return (
-          `https://open.spotify.com/embed/${type}/` +
-          `${encodeURIComponent(id)}?utm_source=generator&theme=0`
+          `https://open.spotify.com/embed/${type}/${encodeURIComponent(id)}` +
+          `?utm_source=generator&theme=0`
         );
       } catch {
         return "";
       }
     }
 
-    /* Скачивание файлов */
-
-    function normalizeBookFileUrl(value = "") {
-      const original = safeUrl(value);
-
-      if (!original) {
-        return "";
-      }
-
-      try {
-        const url = new URL(original);
-
-        if (
-          url.hostname === "drive.google.com" ||
-          url.hostname === "docs.google.com"
-        ) {
-          const fileId =
-            original.match(/\/file\/d\/([^/?#]+)/)?.[1] ||
-            url.searchParams.get("id");
-
-          if (fileId) {
-            return (
-              "https://drive.google.com/uc?" +
-              "export=download&id=" +
-              encodeURIComponent(fileId)
-            );
-          }
-        }
-
-        if (url.hostname.includes("dropbox.com")) {
-          url.searchParams.set("dl", "1");
-          return url.href;
-        }
-
-        return url.href;
-      } catch {
-        return "";
-      }
-    }
-
-    function openBookFile(value) {
-      const fileUrl = normalizeBookFileUrl(value);
-
-      if (!fileUrl) {
-        toast("В таблице не указана прямая ссылка на файл");
-        return;
-      }
-
-      try {
-        if (window.Telegram?.WebApp?.openLink) {
-          Telegram.WebApp.openLink(fileUrl, {
-            try_instant_view: false
-          });
-        } else {
-          window.open(fileUrl, "_blank", "noopener,noreferrer");
-        }
-      } catch {
-        window.open(fileUrl, "_blank", "noopener,noreferrer");
-      }
-    }
-
-    /* Загрузка Google Таблиц */
-
-    async function fetchTable(url, type) {
+    async function fetchTable(url) {
       const response = await fetch(url, {
         method: "GET",
         cache: "no-store"
@@ -2375,10 +2181,10 @@
       const text = await response.text();
 
       if (!text.trim() || text.trim().startsWith("<")) {
-        throw new Error("Google Таблица недоступна");
+        throw new Error("Таблица не опубликована для просмотра");
       }
 
-      return rowsToObjects(parseCSV(text), type);
+      return rowsToObjects(parseCSV(text));
     }
 
     function loadCachedData() {
@@ -2413,12 +2219,11 @@
       }
 
       const results = await Promise.allSettled([
-        fetchTable(BOOKS_CSV_URL, "books"),
-        fetchTable(ANNOUNCEMENTS_CSV_URL, "announcements")
+        fetchTable(BOOKS_CSV_URL),
+        fetchTable(ANNOUNCEMENTS_CSV_URL)
       ]);
 
-      let booksUpdated = false;
-      let announcementsUpdated = false;
+      let updated = false;
 
       if (results[0].status === "fulfilled") {
         const books = results[0].value
@@ -2427,16 +2232,14 @@
 
         if (books.length) {
           state.books = books;
-
           saveJSON(BOOKS_CACHE_KEY, {
             data: books,
             savedAt: new Date().toISOString()
           });
-
-          booksUpdated = true;
+          updated = true;
         }
       } else {
-        console.warn("Ошибка таблицы книг:", results[0].reason);
+        console.warn("Таблица книг:", results[0].reason);
       }
 
       if (results[1].status === "fulfilled") {
@@ -2451,28 +2254,20 @@
           savedAt: new Date().toISOString()
         });
 
-        announcementsUpdated = true;
+        updated = true;
       } else {
-        console.warn(
-          "Ошибка таблицы анонсов:",
-          results[1].reason
-        );
+        console.warn("Таблица анонсов:", results[1].reason);
       }
 
       renderAll();
+      setConnection(updated ? "online" : "cache");
 
-      if (booksUpdated || announcementsUpdated) {
-        setConnection("online");
-
-        if (force) {
-          toast("Данные обновлены");
-        }
-      } else {
-        setConnection("cache");
-
-        if (force) {
-          toast("Не удалось обновить. Используется кэш");
-        }
+      if (force) {
+        toast(
+          updated
+            ? "Данные обновлены"
+            : "Не удалось обновить. Используется кэш"
+        );
       }
     }
 
@@ -2485,25 +2280,16 @@
       if (mode === "loading") {
         button.classList.add("loading");
         text.textContent = "загрузка…";
-        return;
-      }
-
-      if (mode === "offline") {
+      } else if (mode === "offline") {
         button.classList.add("offline");
         text.textContent = "офлайн";
-        return;
-      }
-
-      if (mode === "cache") {
+      } else if (mode === "cache") {
         button.classList.add("offline");
         text.textContent = "кэш";
-        return;
+      } else {
+        text.textContent = "онлайн";
       }
-
-      text.textContent = "онлайн";
     }
-
-    /* Каталог */
 
     function getSeries() {
       const map = new Map();
@@ -2521,13 +2307,9 @@
       return [...map.entries()]
         .map(([name, books]) => ({
           name,
-          books: books.sort(
-            (first, second) => first.order - second.order
-          )
+          books: books.sort((a, b) => a.order - b.order)
         }))
-        .sort((first, second) =>
-          first.name.localeCompare(second.name, "ru")
-        );
+        .sort((a, b) => a.name.localeCompare(b.name, "ru"));
     }
 
     function getTropes() {
@@ -2541,9 +2323,9 @@
 
       return [...map.entries()]
         .sort(
-          (first, second) =>
-            second[1] - first[1] ||
-            first[0].localeCompare(second[0], "ru")
+          (a, b) =>
+            b[1] - a[1] ||
+            a[0].localeCompare(b[0], "ru")
         )
         .map(([name]) => name);
     }
@@ -2577,29 +2359,26 @@
             matchesFavorite
           );
         })
-        .sort((first, second) => {
+        .sort((a, b) => {
           if (state.sort === "title") {
-            return first.title.localeCompare(
-              second.title,
-              "ru"
-            );
+            return a.title.localeCompare(b.title, "ru");
           }
 
           if (state.sort === "author") {
             return (
-              first.author.localeCompare(second.author, "ru") ||
-              first.title.localeCompare(second.title, "ru")
+              a.author.localeCompare(b.author, "ru") ||
+              a.title.localeCompare(b.title, "ru")
             );
           }
 
           if (state.sort === "series") {
             return (
-              first.series.localeCompare(second.series, "ru") ||
-              first.order - second.order
+              a.series.localeCompare(b.series, "ru") ||
+              a.order - b.order
             );
           }
 
-          return bookDateScore(second) - bookDateScore(first);
+          return Number(b.id) - Number(a.id);
         });
     }
 
@@ -2666,19 +2445,12 @@
               ${book.order ? ` · ${book.order}` : ""}
             </div>
 
-            <h3 class="book-title">
-              ${escapeHTML(book.title)}
-            </h3>
+            <h3 class="book-title">${escapeHTML(book.title)}</h3>
+            <p class="book-author">${escapeHTML(book.author)}</p>
 
-            <p class="book-author">
-              ${escapeHTML(book.author)}
-            </p>
-
-            <div class="trope-preview">
+            <div class="trop-preview">
               ${book.tropes.slice(0, 2).map(trope => `
-                <span class="mini-chip">
-                  ${escapeHTML(trope)}
-                </span>
+                <span class="mini-chip">${escapeHTML(trope)}</span>
               `).join("")}
             </div>
 
@@ -2691,10 +2463,7 @@
                 Статус чтения
               </option>
 
-              <option
-                value="want"
-                ${status === "want" ? "selected" : ""}
-              >
+              <option value="want" ${status === "want" ? "selected" : ""}>
                 Хочу прочитать
               </option>
 
@@ -2705,10 +2474,7 @@
                 Читаю сейчас
               </option>
 
-              <option
-                value="read"
-                ${status === "read" ? "selected" : ""}
-              >
+              <option value="read" ${status === "read" ? "selected" : ""}>
                 Прочитано
               </option>
             </select>
@@ -2717,27 +2483,33 @@
       `;
     }
 
-    /* Главная */
-
     function renderHome() {
       const newest = [...state.books]
-        .sort(
-          (first, second) =>
-            bookDateScore(second) - bookDateScore(first)
-        )
+        .sort((a, b) => Number(b.id) - Number(a.id))
         .slice(0, 4);
 
       document.getElementById("homeBooks").innerHTML =
         newest.map(bookCard).join("") ||
-        emptyState(
-          "Книги пока не добавлены",
-          "Проверьте подключение к Google Таблице."
-        );
+        emptyState("Книги пока не добавлены");
+
+      document.getElementById("homeSeries").innerHTML =
+        getSeries().map(series => `
+          <article
+            class="series-card"
+            data-action="select-series"
+            data-series="${escapeHTML(series.name)}"
+          >
+            <span class="series-count">
+              ${series.books.length} ${pluralBooks(series.books.length)}
+            </span>
+
+            <h4>${escapeHTML(series.name)}</h4>
+          </article>
+        `).join("") ||
+        emptyState("Серии пока не добавлены");
 
       renderAnnouncements();
     }
-
-    /* Анонсы */
 
     function renderAnnouncements() {
       const container = document.getElementById("announcements");
@@ -2747,71 +2519,67 @@
           "Анонсы скоро появятся",
           "Следите за обновлениями в канале @my_wwt."
         );
-
         return;
       }
 
-      container.innerHTML = state.announcements
-        .map(item => {
-          const exactDate = parseExactDate(item.dateActive);
-          const cover = normalizeDriveImageUrl(item.cover);
+      container.innerHTML = state.announcements.map(item => {
+        const exactDate = parseExactDate(item.dateActive);
+        const cover = safeUrl(item.cover);
 
-          return `
-            <article
-              class="announcement glass ${cover ? "has-cover" : ""}"
-            >
-              ${cover ? `
-                <img
-                  class="announcement-cover"
-                  src="${escapeHTML(cover)}"
-                  alt="${escapeHTML(item.title)}"
-                  loading="lazy"
-                  referrerpolicy="no-referrer"
-                >
-              ` : ""}
+        const style = cover
+          ? `style="background-image:url('${escapeHTML(cover)}')"`
+          : "";
 
-              <div class="announcement-content">
-                <span class="announcement-label">
-                  Скоро
-                </span>
+        return `
+          <article
+            class="announcement glass ${cover ? "has-cover" : ""}"
+            ${style}
+          >
+            <div class="announcement-content">
+              <span class="announcement-label">Скоро</span>
 
-                <h3>${escapeHTML(item.title)}</h3>
+              <h3>${escapeHTML(item.title)}</h3>
 
-                ${item.author ? `
+              ${item.author
+                ? `
                   <p class="announcement-author">
                     ${escapeHTML(item.author)}
                   </p>
-                ` : ""}
+                `
+                : ""}
 
-                ${exactDate ? `
+              ${exactDate
+                ? `
                   <div
                     class="countdown"
-                    data-countdown="${escapeHTML(
-                      exactDate.toISOString()
-                    )}"
+                    data-countdown="${escapeHTML(exactDate.toISOString())}"
                   >
                     ${countdownHTML(exactDate)}
                   </div>
-                ` : item.dateActive ? `
-                  <div class="announcement-period">
-                    ${escapeHTML(item.dateActive)}
-                  </div>
-                ` : ""}
+                `
+                : item.dateActive
+                  ? `
+                    <div class="announcement-period">
+                      ${escapeHTML(item.dateActive)}
+                    </div>
+                  `
+                  : ""}
 
-                ${item.tropes.length ? `
+              ${item.tropes.length
+                ? `
                   <div class="announcement-tropes">
-                    ${item.tropes.map(trope => `
+                    ${item.tropes.slice(0, 8).map(trope => `
                       <span class="announcement-trope">
                         ${escapeHTML(trope)}
                       </span>
                     `).join("")}
                   </div>
-                ` : ""}
-              </div>
-            </article>
-          `;
-        })
-        .join("");
+                `
+                : ""}
+            </div>
+          </article>
+        `;
+      }).join("");
     }
 
     function countdownHTML(dateValue) {
@@ -2822,23 +2590,11 @@
 
       const distance = date.getTime() - Date.now();
 
-      if (Number.isNaN(distance)) {
-        return "";
-      }
-
       if (distance <= 0) {
         return `
-          <div
-            class="countdown-item"
-            style="grid-column: 1 / -1;"
-          >
-            <span class="countdown-value">
-              Уже вышло
-            </span>
-
-            <span class="countdown-caption">
-              Проверьте библиотеку
-            </span>
+          <div class="countdown-item" style="grid-column:1/-1">
+            <span class="countdown-value">Уже вышло</span>
+            <span class="countdown-caption">Проверьте библиотеку</span>
           </div>
         `;
       }
@@ -2867,16 +2623,10 @@
     }
 
     function updateCountdowns() {
-      document.querySelectorAll("[data-countdown]").forEach(
-        element => {
-          element.innerHTML = countdownHTML(
-            element.dataset.countdown
-          );
-        }
-      );
+      document.querySelectorAll("[data-countdown]").forEach(element => {
+        element.innerHTML = countdownHTML(element.dataset.countdown);
+      });
     }
-
-    /* Фильтры */
 
     function renderFilters() {
       document.getElementById("seriesChips").innerHTML = `
@@ -2892,9 +2642,7 @@
         ${getSeries().map(series => `
           <button
             class="chip ${
-              state.selectedSeries === series.name
-                ? "active"
-                : ""
+              state.selectedSeries === series.name ? "active" : ""
             }"
             type="button"
             data-action="filter-series"
@@ -2905,7 +2653,7 @@
         `).join("")}
       `;
 
-      document.getElementById("tropeChips").innerHTML = `
+      document.getElementById("tropChips").innerHTML = `
         <button
           class="chip ${!state.selectedTrope ? "active" : ""}"
           type="button"
@@ -2918,9 +2666,7 @@
         ${getTropes().map(trope => `
           <button
             class="chip ${
-              state.selectedTrope === trope
-                ? "active"
-                : ""
+              state.selectedTrope === trope ? "active" : ""
             }"
             type="button"
             data-action="filter-trope"
@@ -2937,9 +2683,6 @@
 
       const books = getFilteredBooks();
       const searchInput = document.getElementById("searchInput");
-      const favoritesButton = document.getElementById(
-        "favoritesFilterButton"
-      );
 
       if (searchInput.value !== state.search) {
         searchInput.value = state.search;
@@ -2950,10 +2693,6 @@
       document
         .getElementById("clearSearch")
         .classList.toggle("visible", Boolean(state.search));
-
-      favoritesButton.textContent = state.favoritesOnly
-        ? "♥ Избранное"
-        : "♡ Избранное";
 
       document.getElementById("resultsCount").textContent =
         `${books.length} ${pluralBooks(books.length)}`;
@@ -2968,11 +2707,9 @@
         );
     }
 
-    /* Spotify */
-
     function renderSpotify() {
-      const books = state.books.filter(book =>
-        spotifyEmbedUrl(book.spotify)
+      const books = state.books.filter(
+        book => spotifyEmbedUrl(book.spotify)
       );
 
       document.getElementById("spotifyList").innerHTML =
@@ -2986,7 +2723,6 @@
                   <img
                     src="${escapeHTML(getBookCover(book))}"
                     alt=""
-                    loading="lazy"
                     referrerpolicy="no-referrer"
                   >
                 </div>
@@ -3022,10 +2758,27 @@
         );
     }
 
-    /* Арты намеренно не заполняются */
-
     function renderArts() {
-      document.getElementById("artsGrid").innerHTML = "";
+      document.getElementById("artsGrid").innerHTML =
+        state.books.map(book => `
+          <article
+            class="art-card"
+            data-action="open-book"
+            data-id="${escapeHTML(book.id)}"
+          >
+            <img
+              src="${escapeHTML(getBookCover(book, true))}"
+              alt="${escapeHTML(book.title)}"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            >
+
+            <div class="art-caption">
+              ${escapeHTML(book.title)}
+            </div>
+          </article>
+        `).join("") ||
+        emptyState("Арты пока не добавлены");
     }
 
     function renderAll() {
@@ -3042,13 +2795,12 @@
     function refreshBookSections() {
       renderHome();
       renderCatalog();
+      renderArts();
 
       if (state.modalBookId) {
         renderBookModal(state.modalBookId);
       }
     }
-
-    /* Навигация */
 
     function switchView(view) {
       document.querySelectorAll(".view").forEach(element => {
@@ -3072,8 +2824,6 @@
 
       haptic("selection");
     }
-
-    /* Модальное окно книги */
 
     function openBook(id) {
       const book = state.books.find(
@@ -3131,10 +2881,7 @@
             </p>
 
             <h2>${escapeHTML(book.title)}</h2>
-
-            <p class="modal-author">
-              ${escapeHTML(book.author)}
-            </p>
+            <p class="modal-author">${escapeHTML(book.author)}</p>
           </div>
         </div>
 
@@ -3156,10 +2903,7 @@
               Статус чтения
             </option>
 
-            <option
-              value="want"
-              ${status === "want" ? "selected" : ""}
-            >
+            <option value="want" ${status === "want" ? "selected" : ""}>
               Хочу прочитать
             </option>
 
@@ -3170,10 +2914,7 @@
               Читаю сейчас
             </option>
 
-            <option
-              value="read"
-              ${status === "read" ? "selected" : ""}
-            >
+            <option value="read" ${status === "read" ? "selected" : ""}>
               Прочитано
             </option>
           </select>
@@ -3197,6 +2938,15 @@
           >
             Spotify
           </button>
+
+          <button
+            class="modal-tab ${active("quotes")}"
+            type="button"
+            data-action="modal-tab"
+            data-tab="quotes"
+          >
+            Цитаты
+          </button>
         </div>
 
         <section
@@ -3207,58 +2957,77 @@
             ${escapeHTML(book.description)}
           </p>
 
-          ${book.tropes.length ? `
-            <div class="modal-tropes">
-              ${book.tropes.map(trope => `
-                <button
-                  class="chip"
-                  type="button"
-                  data-action="select-trope"
-                  data-trope="${escapeHTML(trope)}"
-                >
-                  ${escapeHTML(trope)}
-                </button>
-              `).join("")}
-            </div>
-          ` : ""}
+          ${book.tropes.length
+            ? `
+              <div class="modal-tropes">
+                ${book.tropes.map(trope => `
+                  <button
+                    class="chip"
+                    type="button"
+                    data-action="select-trope"
+                    data-trope="${escapeHTML(trope)}"
+                  >
+                    ${escapeHTML(trope)}
+                  </button>
+                `).join("")}
+              </div>
+            `
+            : ""}
 
-          ${book.ebook ? `
-            <button
-              class="download-button"
-              type="button"
-              data-action="download-book"
-              data-url="${escapeHTML(book.ebook)}"
-            >
-              Читать / скачать книгу
-            </button>
-          ` : ""}
+          ${book.ebook
+            ? `
+              <a
+                class="download-button"
+                href="${escapeHTML(book.ebook)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Читать / скачать книгу
+              </a>
+            `
+            : ""}
         </section>
 
         <section
           class="modal-panel ${active("playlist")}"
           data-panel="playlist"
         >
-          ${spotifyEmbed ? `
-            <iframe
-              class="spotify-frame"
-              src="${escapeHTML(spotifyEmbed)}"
-              title="Spotify — ${escapeHTML(book.title)}"
-              loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            ></iframe>
+          ${spotifyEmbed
+            ? `
+              <iframe
+                class="spotify-frame"
+                src="${escapeHTML(spotifyEmbed)}"
+                title="Spotify — ${escapeHTML(book.title)}"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              ></iframe>
 
-            <a
-              class="spotify-link"
-              href="${escapeHTML(book.spotify)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Открыть в Spotify
-            </a>
-          ` : emptyState(
-            "Плейлист пока не добавлен",
-            "Добавьте ссылку в столбец spotify_playlist."
-          )}
+              <a
+                class="spotify-link"
+                href="${escapeHTML(book.spotify)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Открыть в Spotify
+              </a>
+            `
+            : emptyState(
+                "Плейлист пока не добавлен",
+                "Добавьте ссылку в столбец spotify_playlist."
+              )}
+        </section>
+
+        <section
+          class="modal-panel ${active("quotes")}"
+          data-panel="quotes"
+        >
+          ${book.quotes.length
+            ? book.quotes.map(quote => `
+                <blockquote class="quote">
+                  ${escapeHTML(quote)}
+                </blockquote>
+              `).join("")
+            : emptyState("Цитаты скоро появятся")}
         </section>
       `;
     }
@@ -3266,23 +3035,19 @@
     function switchModalTab(tabName) {
       state.modalTab = tabName;
 
-      document.querySelectorAll("#bookModal .modal-tab").forEach(
-        tab => {
-          tab.classList.toggle(
-            "active",
-            tab.dataset.tab === tabName
-          );
-        }
-      );
+      document.querySelectorAll("#bookModal .modal-tab").forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.dataset.tab === tabName
+        );
+      });
 
-      document.querySelectorAll("#bookModal .modal-panel").forEach(
-        panel => {
-          panel.classList.toggle(
-            "active",
-            panel.dataset.panel === tabName
-          );
-        }
-      );
+      document.querySelectorAll("#bookModal .modal-panel").forEach(panel => {
+        panel.classList.toggle(
+          "active",
+          panel.dataset.panel === tabName
+        );
+      });
     }
 
     function closeBookModal() {
@@ -3290,8 +3055,6 @@
       state.modalBookId = null;
       unlockBody();
     }
-
-    /* О нас */
 
     function openAbout() {
       document.getElementById("aboutModal").classList.add("open");
@@ -3316,8 +3079,6 @@
         } catch {}
       }
     }
-
-    /* Избранное и статусы */
 
     function toggleFavorite(id) {
       const key = String(id);
@@ -3345,7 +3106,6 @@
       saveJSON(STATUSES_KEY, state.statuses);
       refreshBookSections();
       toast("Статус сохранён");
-      haptic("selection");
     }
 
     function resetFilters() {
@@ -3354,50 +3114,29 @@
       state.selectedSeries = "";
       state.selectedTrope = "";
       state.favoritesOnly = false;
-
       renderCatalog();
     }
 
-    /* Telegram и внешние ссылки */
+    function randomBook() {
+      const filtered = getFilteredBooks();
+      const books = filtered.length ? filtered : state.books;
+
+      if (!books.length) {
+        toast("В каталоге пока нет книг");
+        return;
+      }
+
+      const index = Math.floor(Math.random() * books.length);
+      openBook(books[index].id);
+    }
 
     function openChannel() {
       try {
-        if (window.Telegram?.WebApp?.openTelegramLink) {
-          Telegram.WebApp.openTelegramLink(CHANNEL_URL);
-        } else {
-          window.open(
-            CHANNEL_URL,
-            "_blank",
-            "noopener,noreferrer"
-          );
-        }
+        Telegram.WebApp.openTelegramLink(CHANNEL_URL);
       } catch {
-        window.open(
-          CHANNEL_URL,
-          "_blank",
-          "noopener,noreferrer"
-        );
+        window.open(CHANNEL_URL, "_blank", "noopener,noreferrer");
       }
     }
-
-    function haptic(type = "light") {
-      try {
-        const feedback =
-          window.Telegram?.WebApp?.HapticFeedback;
-
-        if (!feedback) {
-          return;
-        }
-
-        if (type === "selection") {
-          feedback.selectionChanged();
-        } else {
-          feedback.impactOccurred(type);
-        }
-      } catch {}
-    }
-
-    /* Уведомления */
 
     function toast(message) {
       const element = document.getElementById("toast");
@@ -3412,7 +3151,17 @@
       }, 2200);
     }
 
-    /* Обработчики */
+    function haptic(type = "light") {
+      try {
+        const feedback = Telegram.WebApp.HapticFeedback;
+
+        if (type === "selection") {
+          feedback.selectionChanged();
+        } else {
+          feedback.impactOccurred(type);
+        }
+      } catch {}
+    }
 
     document.addEventListener("click", event => {
       if (event.target.closest("select")) {
@@ -3438,6 +3187,10 @@
         switchView("catalog");
       }
 
+      if (action === "random-book") {
+        randomBook();
+      }
+
       if (action === "open-book") {
         openBook(target.dataset.id);
       }
@@ -3445,6 +3198,15 @@
       if (action === "toggle-favorite") {
         event.stopPropagation();
         toggleFavorite(target.dataset.id);
+      }
+
+      if (action === "select-series") {
+        state.selectedSeries = target.dataset.series || "";
+        state.selectedTrope = "";
+        state.favoritesOnly = false;
+
+        renderCatalog();
+        switchView("catalog");
       }
 
       if (action === "filter-series") {
@@ -3479,10 +3241,6 @@
         switchModalTab(target.dataset.tab);
       }
 
-      if (action === "download-book") {
-        openBookFile(target.dataset.url);
-      }
-
       if (action === "close-book-modal") {
         closeBookModal();
       }
@@ -3501,8 +3259,7 @@
     });
 
     document.addEventListener("change", event => {
-      const statusSelect =
-        event.target.closest("[data-status-id]");
+      const statusSelect = event.target.closest("[data-status-id]");
 
       if (statusSelect) {
         updateStatus(
@@ -3511,45 +3268,6 @@
         );
       }
     });
-
-    document.addEventListener(
-      "error",
-      event => {
-        const image = event.target;
-
-        if (
-          image.classList?.contains("announcement-cover")
-        ) {
-          const card = image.closest(".announcement");
-
-          if (card) {
-            card.classList.remove("has-cover");
-          }
-
-          image.remove();
-          return;
-        }
-
-        if (
-          image.classList?.contains("cover") ||
-          image.classList?.contains("modal-book-cover")
-        ) {
-          const bookId =
-            image.closest("[data-id]")?.dataset.id ||
-            state.modalBookId;
-
-          const book = state.books.find(
-            item => String(item.id) === String(bookId)
-          );
-
-          if (book && !image.dataset.fallbackApplied) {
-            image.dataset.fallbackApplied = "true";
-            image.src = placeholderCover(book);
-          }
-        }
-      },
-      true
-    );
 
     document
       .getElementById("searchInput")
@@ -3562,7 +3280,6 @@
       .getElementById("clearSearch")
       .addEventListener("click", () => {
         state.search = "";
-        document.getElementById("searchInput").value = "";
         renderCatalog();
       });
 
@@ -3579,23 +3296,21 @@
         loadData(true);
       });
 
-    document.querySelectorAll(".modal-overlay").forEach(
-      overlay => {
-        overlay.addEventListener("click", event => {
-          if (event.target !== overlay) {
-            return;
-          }
+    document.querySelectorAll(".modal-overlay").forEach(overlay => {
+      overlay.addEventListener("click", event => {
+        if (event.target !== overlay) {
+          return;
+        }
 
-          if (overlay.id === "bookModal") {
-            closeBookModal();
-          }
+        if (overlay.id === "bookModal") {
+          closeBookModal();
+        }
 
-          if (overlay.id === "aboutModal") {
-            closeAbout();
-          }
-        });
-      }
-    );
+        if (overlay.id === "aboutModal") {
+          closeAbout();
+        }
+      });
+    });
 
     window.addEventListener("online", () => {
       loadData(true);
@@ -3603,13 +3318,8 @@
 
     window.addEventListener("offline", () => {
       setConnection("offline");
-
-      toast(
-        "Офлайн-режим: используются сохранённые данные"
-      );
+      toast("Офлайн-режим: используются сохранённые данные");
     });
-
-    /* Telegram Web App */
 
     function initializeTelegram() {
       try {
@@ -3646,8 +3356,6 @@
         console.warn("Telegram WebApp:", error);
       }
     }
-
-    /* Запуск */
 
     initializeTelegram();
     loadCachedData();
