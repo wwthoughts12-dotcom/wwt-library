@@ -2,26 +2,29 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
+
   <meta name="theme-color" content="#160D11">
+
   <title>Wild wild thoughts — библиотека</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     :root {
-      --background: #f7f2eb;
-      --card: #e8ddd0;
-      --accent: #d4c1ae;
-      --button: #b89b7a;
-      --accent-text: #8b7355;
-      --text: #4a4038;
-      --wine: #84303e;
-      --white: #fffdfc;
-      --green: #647b5b;
+      --background: #F7F2EB;
+      --card: #E8DDD0;
+      --accent: #D4C1AE;
+      --button: #B89B7A;
+      --accent-text: #8B7355;
+      --text: #4A4038;
+      --wine: #84303E;
+      --white: #FFFDFC;
+      --green: #647B5B;
       --shadow: 0 18px 50px rgba(74, 64, 56, 0.12);
       --soft-shadow: 0 10px 30px rgba(74, 64, 56, 0.09);
       --nav-height: 78px;
@@ -54,9 +57,9 @@
         ),
         linear-gradient(
           145deg,
-          #fbf8f4 0%,
+          #FBF8F4 0%,
           var(--background) 46%,
-          #efe5d9 100%
+          #EFE5D9 100%
         );
       font-family: Georgia, "Times New Roman", serif;
     }
@@ -215,30 +218,7 @@
       right: -60px;
       width: 210px;
       height: 210px;
-      background: rgba(255, 255, 255, 0.32);
-    }
-
-    .hero::after {
-      right: 80px;
-      bottom: -90px;
-      width: 170px;
-      height: 170px;
-      background: rgba(184, 155, 122, 0.16);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 620px;
-    }
-
-    .hero h2 {
-      max-width: 590px;
-      margin: 8px 0 14px;
-      font-size: clamp(29px, 8vw, 48px);
-      font-weight: 500;
-      line-height: 1.04;
-      letter-spacing: -0.045em;
+      background: rgbspacing: -0.045em;
     }
 
     .hero p {
@@ -259,24 +239,18 @@
     }
 
     .primary-button,
-    .secondary-button,
-    .small-button {
-      border: 0;
-      cursor: pointer;
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
-    }
-
-    .primary-button,
     .secondary-button {
       min-height: 46px;
       padding: 12px 18px;
+      border: 0;
       border-radius: 15px;
+      cursor: pointer;
       font-family: system-ui, sans-serif;
       font-size: 12px;
       font-weight: 850;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
     .primary-button {
@@ -291,8 +265,7 @@
     }
 
     .primary-button:active,
-    .secondary-button:active,
-    .small-button:active {
+    .secondary-button:active {
       transform: scale(0.97);
     }
 
@@ -343,7 +316,7 @@
 
     .announcement {
       position: relative;
-      min-height: 225px;
+      min-height: 260px;
       padding: 20px;
       overflow: hidden;
       border-radius: 24px;
@@ -351,22 +324,31 @@
 
     .announcement.has-cover {
       color: white;
-      background-position: center;
-      background-size: cover;
+      background: #24171C;
+    }
+
+    .announcement-cover {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
     }
 
     .announcement.has-cover::before {
       position: absolute;
       z-index: 1;
       inset: 0;
+      content: "";
       background:
         linear-gradient(
           90deg,
-          rgba(22, 13, 17, 0.91) 0%,
-          rgba(22, 13, 17, 0.72) 56%,
-          rgba(22, 13, 17, 0.22) 100%
+          rgba(22, 13, 17, 0.93) 0%,
+          rgba(22, 13, 17, 0.75) 55%,
+          rgba(22, 13, 17, 0.24) 100%
         );
-      content: "";
     }
 
     .announcement-content {
@@ -380,7 +362,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       color: var(--wine);
-      background: rgba(255, 253, 252, 0.83);
+      background: rgba(255, 253, 252, 0.88);
       font-family: system-ui, sans-serif;
       font-size: 9px;
       font-weight: 900;
@@ -389,7 +371,7 @@
     }
 
     .announcement h3 {
-      max-width: 80%;
+      max-width: 82%;
       margin: 13px 0 5px;
       font-size: 25px;
       font-weight: 500;
@@ -398,7 +380,7 @@
     .announcement-author {
       margin: 0;
       color: inherit;
-      opacity: 0.8;
+      opacity: 0.82;
       font-family: system-ui, sans-serif;
       font-size: 12px;
       font-weight: 700;
@@ -447,6 +429,22 @@
       background: rgba(255, 253, 252, 0.55);
     }
 
+    .announcement-link {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      padding: 9px 13px;
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255, 253, 252, 0.88);
+      font-family: system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
     .countdown {
       display: grid;
       max-width: 440px;
@@ -478,68 +476,7 @@
       text-transform: uppercase;
     }
 
-    /* Серии и книги */
-
-    .horizontal-scroll {
-      display: flex;
-      gap: 12px;
-      margin-inline: -16px;
-      padding: 4px 16px 12px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      scroll-snap-type: x proximity;
-    }
-
-    .horizontal-scroll::-webkit-scrollbar,
-    .chips::-webkit-scrollbar {
-      display: none;
-    }
-
-    .series-card {
-      position: relative;
-      flex: 0 0 210px;
-      min-height: 124px;
-      padding: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      border-radius: 21px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(232, 221, 208, 0.94),
-          rgba(212, 193, 174, 0.72)
-        );
-      box-shadow: var(--soft-shadow);
-      cursor: pointer;
-      scroll-snap-align: start;
-    }
-
-    .series-card::after {
-      position: absolute;
-      right: -24px;
-      bottom: -35px;
-      width: 105px;
-      height: 105px;
-      border: 18px solid rgba(255, 255, 255, 0.27);
-      border-radius: 50%;
-      content: "";
-    }
-
-    .series-count {
-      color: var(--accent-text);
-      font-family: system-ui, sans-serif;
-      font-size: 10px;
-      font-weight: 850;
-      text-transform: uppercase;
-    }
-
-    .series-card h4 {
-      position: relative;
-      z-index: 2;
-      margin: 13px 0 0;
-      font-size: 20px;
-      font-weight: 500;
-    }
+    /* Книги */
 
     .books-grid {
       display: grid;
@@ -726,13 +663,11 @@
     }
 
     .sort-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
       margin-top: 10px;
     }
 
     .sort-select {
+      width: 100%;
       min-width: 0;
       height: 44px;
       padding: 0 34px 0 12px;
@@ -744,17 +679,6 @@
       font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 750;
-    }
-
-    .small-button {
-      min-width: 44px;
-      padding: 0 13px;
-      border-radius: 14px;
-      color: var(--white);
-      background: var(--button);
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 850;
     }
 
     .filter-title {
@@ -773,6 +697,10 @@
       overflow-x: auto;
       padding-bottom: 4px;
       scrollbar-width: none;
+    }
+
+    .chips::-webkit-scrollbar {
+      display: none;
     }
 
     .chip {
@@ -865,20 +793,16 @@
       background: #121212;
     }
 
-    .spotify-frame.compact {
-      height: 152px;
-    }
-
     .spotify-link {
       display: inline-flex;
+      min-height: 44px;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
       margin-top: 10px;
       padding: 10px 15px;
       border-radius: 13px;
       color: white;
-      background: #1db954;
+      background: #1DB954;
       font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 850;
@@ -888,45 +812,10 @@
     /* Арты */
 
     .arts-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      min-height: 1px;
     }
 
-    .art-card {
-      position: relative;
-      min-height: 220px;
-      overflow: hidden;
-      border-radius: 22px;
-      background: var(--card);
-      box-shadow: var(--soft-shadow);
-      cursor: pointer;
-    }
-
-    .art-card:nth-child(3n) {
-      grid-column: 1 / -1;
-      min-height: 250px;
-    }
-
-    .art-card img {
-      width: 100%;
-      height: 100%;
-      min-height: inherit;
-      object-fit: cover;
-    }
-
-    .art-caption {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      padding: 38px 15px 14px;
-      color: white;
-      background: linear-gradient(transparent, rgba(22, 13, 17, 0.74));
-      font-family: system-ui, sans-serif;
-      font-size: 10px;
-      font-weight: 850;
-    }
+    /* Пустые состояния */
 
     .empty-state {
       grid-column: 1 / -1;
@@ -951,7 +840,7 @@
       line-height: 1.55;
     }
 
-    /* Навигация */
+    /* Нижнее меню */
 
     .bottom-nav {
       position: fixed;
@@ -1120,7 +1009,7 @@
 
     .modal-tabs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 5px;
       margin: 22px 0 18px;
       padding: 5px;
@@ -1172,29 +1061,19 @@
 
     .download-button {
       display: inline-flex;
+      min-height: 46px;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
       margin-top: 18px;
       padding: 12px 18px;
+      border: 0;
       border-radius: 15px;
       color: white;
       background: var(--wine);
+      cursor: pointer;
       font-family: system-ui, sans-serif;
       font-size: 12px;
       font-weight: 850;
-      text-decoration: none;
-    }
-
-    .quote {
-      position: relative;
-      margin: 0 0 12px;
-      padding: 18px 18px 18px 25px;
-      border-radius: 18px;
-      background: rgba(232, 221, 208, 0.6);
-      font-size: 14px;
-      font-style: italic;
-      line-height: 1.65;
     }
 
     .about-content {
@@ -1259,15 +1138,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .arts-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .art-card:nth-child(3n) {
-        grid-column: auto;
-        min-height: 220px;
-      }
-
       .modal-overlay {
         align-items: center;
         padding: 22px;
@@ -1306,10 +1176,6 @@
       .modal-book-cover {
         width: 105px;
       }
-
-      .spotify-frame {
-        height: 352px;
-      }
     }
   </style>
 </head>
@@ -1322,11 +1188,18 @@
         <h1 class="brand-title">Wild wild thoughts</h1>
       </div>
 
-      <button class="connection loading" id="connectionButton" type="button">
+      <button
+        class="connection loading"
+        id="connectionButton"
+        type="button"
+        title="Обновить данные"
+      >
         <span class="connection-dot"></span>
         <span id="connectionText">загрузка…</span>
       </button>
     </header>
+
+    <!-- Главная -->
 
     <section class="view active" id="homeView">
       <article class="hero glass">
@@ -1338,20 +1211,24 @@
           </h2>
 
           <p>
-            Любимые истории, книжные тропы и Spotify-плейлисты — в одной
-            библиотеке.
+            Любимые истории, книжные тропы и Spotify-плейлисты —
+            в одной библиотеке.
           </p>
 
           <div class="hero-actions">
-            <button class="primary-button" type="button" data-action="open-catalog">
+            <button
+              class="primary-button"
+              type="button"
+              data-action="open-catalog"
+            >
               Открыть каталог
             </button>
 
-            <button class="secondary-button" type="button" data-action="random-book">
-              Случайная книга
-            </button>
-
-            <button class="secondary-button" type="button" data-action="open-about">
+            <button
+              class="secondary-button"
+              type="button"
+              data-action="open-about"
+            >
               О НАС
             </button>
           </div>
@@ -1368,21 +1245,13 @@
 
       <section class="section">
         <div class="section-heading">
-          <h3>По сериям</h3>
-
-          <button class="text-button" type="button" data-action="open-catalog">
-            Смотреть все →
-          </button>
-        </div>
-
-        <div class="horizontal-scroll" id="homeSeries"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-heading">
           <h3>Новые переводы</h3>
 
-          <button class="text-button" type="button" data-action="open-catalog">
+          <button
+            class="text-button"
+            type="button"
+            data-action="open-catalog"
+          >
             Смотреть все →
           </button>
         </div>
@@ -1391,11 +1260,17 @@
       </section>
     </section>
 
+    <!-- Каталог -->
+
     <section class="view" id="catalogView">
       <div class="section-heading">
         <h2>Каталог</h2>
 
-        <button class="text-button" type="button" data-action="favorites-filter">
+        <button
+          class="text-button"
+          type="button"
+          data-action="favorites-filter"
+        >
           ♡ Избранное
         </button>
       </div>
@@ -1421,7 +1296,14 @@
             placeholder="Название или автор"
           >
 
-          <button class="clear-search" id="clearSearch" type="button">×</button>
+          <button
+            class="clear-search"
+            id="clearSearch"
+            type="button"
+            aria-label="Очистить поиск"
+          >
+            ×
+          </button>
         </div>
 
         <div class="sort-row">
@@ -1431,29 +1313,31 @@
             <option value="author">По автору</option>
             <option value="series">По сериям</option>
           </select>
-
-          <button class="small-button" type="button" data-action="random-book">
-            Случайная
-          </button>
         </div>
 
         <p class="filter-title">Серии</p>
         <div class="chips" id="seriesChips"></div>
 
         <p class="filter-title">Тропы</p>
-        <div class="chips" id="tropChips"></div>
+        <div class="chips" id="tropeChips"></div>
       </section>
 
       <div class="results-meta">
         <span id="resultsCount">0 книг</span>
 
-        <button class="text-button" type="button" data-action="reset-filters">
+        <button
+          class="text-button"
+          type="button"
+          data-action="reset-filters"
+        >
           Сбросить
         </button>
       </div>
 
       <div class="books-grid" id="catalogBooks"></div>
     </section>
+
+    <!-- Spotify -->
 
     <section class="view" id="playlistsView">
       <div class="section-heading">
@@ -1462,6 +1346,8 @@
 
       <div class="spotify-list" id="spotifyList"></div>
     </section>
+
+    <!-- Арты намеренно остаются пустыми -->
 
     <section class="view" id="artsView">
       <div class="section-heading">
@@ -1472,45 +1358,73 @@
     </section>
   </main>
 
+  <!-- Нижнее меню -->
+
   <nav class="bottom-nav">
     <div class="nav-inner">
       <button class="nav-button active" type="button" data-view="home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
           <path d="m3 11 9-8 9 8"></path>
           <path d="M5 10v10h14V10"></path>
           <path d="M9 20v-6h6v6"></path>
         </svg>
+
         Главная
       </button>
 
       <button class="nav-button" type="button" data-view="catalog">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
           <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
           <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"></path>
         </svg>
+
         Каталог
       </button>
 
       <button class="nav-button" type="button" data-view="playlists">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M8.5 10.5c2.6-.7 5.5-.5 7.8.8"></path>
           <path d="M9.2 13c2-.5 4.4-.3 6.2.7"></path>
           <path d="M10 15.4c1.4-.3 3-.2 4.3.5"></path>
         </svg>
+
         Spotify
       </button>
 
       <button class="nav-button" type="button" data-view="arts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
           <rect x="3" y="4" width="18" height="16" rx="3"></rect>
           <circle cx="9" cy="10" r="2"></circle>
           <path d="m4 17 5-4 3 3 3-2 5 4"></path>
         </svg>
+
         Арты
       </button>
     </div>
   </nav>
+
+  <!-- Модальное окно книги -->
 
   <div class="modal-overlay" id="bookModal">
     <article class="modal" role="dialog" aria-modal="true">
@@ -1529,6 +1443,8 @@
     </article>
   </div>
 
+  <!-- О нас -->
+
   <div class="modal-overlay" id="aboutModal">
     <article class="modal" role="dialog" aria-modal="true">
       <div class="modal-handle"></div>
@@ -1544,17 +1460,23 @@
 
       <div class="about-content">
         <div class="about-mark">W</div>
+
         <p class="eyebrow">Wild wild thoughts</p>
+
         <h2>О нашей библиотеке</h2>
 
         <p>
-          Здесь собраны готовые переводы, книжные тропы,
-          Spotify-плейлисты и арты. Книги можно добавлять в избранное
+          Здесь собраны готовые переводы, книжные тропы и
+          Spotify-плейлисты. Книги можно добавлять в избранное
           и отмечать статус чтения.
         </p>
 
         <div class="modal-actions" style="justify-content:center">
-          <button class="primary-button" type="button" data-action="open-channel">
+          <button
+            class="primary-button"
+            type="button"
+            data-action="open-channel"
+          >
             Перейти в канал @my_wwt
           </button>
         </div>
@@ -1566,6 +1488,8 @@
 
   <script>
     "use strict";
+
+    /* Google Таблицы */
 
     const BOOKS_SHEET_ID =
       "1ZfY5a0Q4MTNaKFlsw30P5k2bIV6wCMl2ISlRdkIk9os";
@@ -1583,14 +1507,12 @@
 
     const CHANNEL_URL = "https://t.me/my_wwt";
 
-    /*
-      Версия кэша изменена, чтобы старые данные из предыдущего
-      формата таблиц не использовались.
-    */
-    const BOOKS_CACHE_KEY = "wwt_books_v6";
-    const ANNOUNCEMENTS_CACHE_KEY = "wwt_announcements_v6";
-    const FAVORITES_KEY = "wwt_favorites_v6";
-    const STATUSES_KEY = "wwt_statuses_v6";
+    /* Новые версии кэша */
+
+    const BOOKS_CACHE_KEY = "wwt_books_v8";
+    const ANNOUNCEMENTS_CACHE_KEY = "wwt_announcements_v8";
+    const FAVORITES_KEY = "wwt_favorites_v8";
+    const STATUSES_KEY = "wwt_statuses_v8";
 
     const state = {
       books: [],
@@ -1616,14 +1538,17 @@
             stroke="currentColor"
             stroke-width="2"
           >
-            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7
               l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21
-              l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z">
-            </path>
+              l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"
+            ></path>
           </svg>
         `;
       }
     };
+
+    /* Общие функции */
 
     function readJSON(key, fallback) {
       try {
@@ -1638,7 +1563,7 @@
       try {
         localStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
-        console.warn("localStorage:", error);
+        console.warn("Ошибка localStorage:", error);
       }
     }
 
@@ -1671,9 +1596,37 @@
         .replace(/'/g, "&#039;");
     }
 
+    function extractHttpUrl(value = "") {
+      const text = cleanText(value);
+
+      if (!text) {
+        return "";
+      }
+
+      const quotedMatch = text.match(/"(https?:\/\/[^"]+)"/i);
+
+      if (quotedMatch) {
+        return quotedMatch[1];
+      }
+
+      const directMatch = text.match(/https?:\/\/[^\s<>"']+/i);
+
+      if (!directMatch) {
+        return "";
+      }
+
+      return directMatch[0].replace(/[),;]+$/g, "");
+    }
+
     function safeUrl(value = "") {
+      const extracted = extractHttpUrl(value);
+
+      if (!extracted) {
+        return "";
+      }
+
       try {
-        const url = new URL(cleanText(value), location.href);
+        const url = new URL(extracted);
 
         if (["http:", "https:"].includes(url.protocol)) {
           return url.href;
@@ -1683,6 +1636,39 @@
       return "";
     }
 
+    function normalizeImageUrl(value = "") {
+      const original = safeUrl(value);
+
+      if (!original) {
+        return "";
+      }
+
+      try {
+        const url = new URL(original);
+
+        if (
+          url.hostname === "drive.google.com" ||
+          url.hostname === "docs.google.com"
+        ) {
+          const fileId =
+            original.match(/\/file\/d\/([^/?#]+)/)?.[1] ||
+            url.searchParams.get("id");
+
+          if (fileId) {
+            return (
+              "https://drive.google.com/thumbnail?id=" +
+              encodeURIComponent(fileId) +
+              "&sz=w1200"
+            );
+          }
+        }
+
+        return url.href;
+      } catch {
+        return "";
+      }
+    }
+
     function looksLikeImage(value = "") {
       const url = cleanText(value);
 
@@ -1690,22 +1676,26 @@
         /\.(jpg|jpeg|png|webp|gif|avif)(?:[?#].*)?$/i.test(url) ||
         url.includes("m.media-amazon.com/images/") ||
         url.includes("goodreads.com/") ||
-        url.includes("static.wixstatic.com/media/")
+        url.includes("static.wixstatic.com/media/") ||
+        url.includes("drive.google.com/thumbnail")
       );
     }
 
-    function placeholderCover(book, wide = false) {
+    function placeholderCover(book) {
       const title = cleanText(book.title || "Wild wild thoughts");
       const author = cleanText(book.author || "@my_wwt");
-      const width = wide ? 900 : 600;
-      const height = wide ? 650 : 900;
-      const limit = wide ? 28 : 21;
+
       const shortTitle =
-        title.length > limit ? `${title.slice(0, limit)}…` : title;
+        title.length > 21
+          ? `${title.slice(0, 21)}…`
+          : title;
 
       const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg"
-          width="${width}" height="${height}">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="600"
+          height="900"
+        >
           <defs>
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#E8DDD0"/>
@@ -1717,7 +1707,7 @@
           <rect width="100%" height="100%" fill="url(#g)"/>
 
           <circle
-            cx="${width - 80}"
+            cx="520"
             cy="90"
             r="150"
             fill="none"
@@ -1727,10 +1717,10 @@
           />
 
           <rect
-            x="${wide ? 80 : 58}"
-            y="${wide ? 80 : 95}"
-            width="${wide ? width - 160 : width - 116}"
-            height="${wide ? height - 160 : height - 190}"
+            x="58"
+            y="95"
+            width="484"
+            height="710"
             rx="34"
             fill="#FFFDFC"
             fill-opacity=".22"
@@ -1744,7 +1734,7 @@
             text-anchor="middle"
             fill="#4A4038"
             font-family="Georgia, serif"
-            font-size="${wide ? 48 : 44}"
+            font-size="44"
           >
             ${escapeHTML(shortTitle)}
           </text>
@@ -1765,7 +1755,7 @@
             text-anchor="middle"
             fill="#8B7355"
             font-family="Arial, sans-serif"
-            font-size="${wide ? 20 : 19}"
+            font-size="19"
           >
             ${escapeHTML(author)}
           </text>
@@ -1785,17 +1775,44 @@
         </svg>
       `;
 
-      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      return (
+        "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg)
+      );
     }
 
-    function getBookCover(book, wide = false) {
-      return safeUrl(book.cover) || placeholderCover(book, wide);
+    function getBookCover(book) {
+      return normalizeImageUrl(book.cover) || placeholderCover(book);
     }
 
-    /*
-      Google gviz обычно отдаёт CSV с запятыми.
-      Дополнительно поддерживаются ; и табуляция.
-    */
+    /* CSV */
+
+    function countDelimiterOutsideQuotes(line, delimiter) {
+      let count = 0;
+      let quoted = false;
+
+      for (let index = 0; index < line.length; index++) {
+        const char = line[index];
+        const next = line[index + 1];
+
+        if (char === '"' && quoted && next === '"') {
+          index++;
+          continue;
+        }
+
+        if (char === '"') {
+          quoted = !quoted;
+          continue;
+        }
+
+        if (char === delimiter && !quoted) {
+          count++;
+        }
+      }
+
+      return count;
+    }
+
     function detectDelimiter(text) {
       const line =
         text.split(/\r?\n/).find(item => cleanText(item)) || "";
@@ -1805,7 +1822,7 @@
       return candidates
         .map(delimiter => ({
           delimiter,
-          count: line.split(delimiter).length
+          count: countDelimiterOutsideQuotes(line, delimiter)
         }))
         .sort((a, b) => b.count - a.count)[0].delimiter;
     }
@@ -1873,10 +1890,26 @@
       const key = normalizeKey(header);
 
       const aliases = {
-        id: ["id"],
-        bookId: ["bookid"],
-        title: ["title", "название", "книга"],
-        author: ["author", "автор"],
+        id: [
+          "id"
+        ],
+
+        bookId: [
+          "bookid",
+          "idкниги"
+        ],
+
+        title: [
+          "title",
+          "название",
+          "названиекниги",
+          "книга"
+        ],
+
+        author: [
+          "author",
+          "автор"
+        ],
 
         series: [
           "series",
@@ -1889,7 +1922,8 @@
           "order",
           "seriesorder",
           "порядок",
-          "номерсерии"
+          "номерсерии",
+          "номер"
         ],
 
         tropes: [
@@ -1907,9 +1941,16 @@
 
         cover: [
           "cover",
+          "coverurl",
           "обложка",
           "image",
           "картинка"
+        ],
+
+        coverLink: [
+          "coverlink",
+          "ссылкаобложки",
+          "urlобложки"
         ],
 
         link: [
@@ -1923,30 +1964,40 @@
           "spotify",
           "playlist",
           "спотифай",
-          "плейлист"
+          "плейлист",
+          "ссылканаспотифай"
         ],
 
         ebook: [
           "epudfile",
           "epubfile",
+          "epub",
           "ebook",
           "bookfile",
           "файл",
-          "файлектроннойкниги"
+          "файлекниги",
+          "файлкниги",
+          "электроннаякнига"
+        ],
+
+        addedAt: [
+          "addedat",
+          "added",
+          "датадобавления",
+          "добавлено"
+        ],
+
+        dateValue: [
+          "date",
+          "дата"
         ],
 
         dateActive: [
           "dateactive",
           "active",
-          "date",
-          "дата",
           "период",
-          "датавыхода"
-        ],
-
-        quotes: [
-          "quotes",
-          "цитаты"
+          "датавыхода",
+          "датаактивности"
         ]
       };
 
@@ -1964,14 +2015,19 @@
         return [];
       }
 
-      const headerIndex = rows.findIndex(row => {
-        const keys = row.map(canonicalKey);
+      const headerIndex = rows
+        .slice(0, 15)
+        .findIndex(row => {
+          const keys = row.map(canonicalKey);
 
-        return (
-          keys.includes("title") &&
-          (keys.includes("author") || keys.includes("id"))
-        );
-      });
+          return (
+            keys.includes("title") &&
+            (
+              keys.includes("author") ||
+              keys.includes("id")
+            )
+          );
+        });
 
       if (headerIndex < 0) {
         return [];
@@ -1979,17 +2035,19 @@
 
       const headers = rows[headerIndex].map(canonicalKey);
 
-      return rows.slice(headerIndex + 1).map(row => {
-        const result = {};
+      return rows
+        .slice(headerIndex + 1)
+        .map(row => {
+          const result = {};
 
-        headers.forEach((header, index) => {
-          if (header) {
-            result[header] = row[index] ?? "";
-          }
+          headers.forEach((header, index) => {
+            if (header) {
+              result[header] = row[index] ?? "";
+            }
+          });
+
+          return result;
         });
-
-        return result;
-      });
     }
 
     function parseList(value) {
@@ -2011,12 +2069,16 @@
         }
       } catch {}
 
-      const result = text
-        .split(/\n+|\s*\|\s*|\s*;\s*|(?:^|\s)[•●▪]\s*/u)
-        .map(cleanText)
-        .filter(Boolean);
-
-      return uniqueStrings(result);
+      return uniqueStrings(
+        text
+          .split(/\n+|\s*\|\s*|\s*;\s*|(?:^|\s)[•●▪]\s*/u)
+          .map(item =>
+            cleanText(item)
+              .replace(/^\*+|\*+$/g, "")
+              .replace(/^["“”]+|["“”]+$/g, "")
+          )
+          .filter(Boolean)
+      );
     }
 
     function uniqueStrings(items) {
@@ -2036,6 +2098,8 @@
       return result;
     }
 
+    /* Нормализация данных */
+
     function normalizeBook(item, index) {
       return {
         id: cleanText(item.id || index + 1),
@@ -2047,31 +2111,33 @@
         description: cleanText(
           item.description || "Описание скоро появится."
         ),
-        cover: safeUrl(item.cover),
+        cover: normalizeImageUrl(item.cover || item.coverLink),
         spotify: safeUrl(item.spotify),
-        ebook: safeUrl(item.ebook),
-        quotes: parseList(item.quotes)
+        ebook: cleanText(item.ebook),
+        addedAt: cleanText(item.addedAt || item.dateValue)
       };
     }
 
     function normalizeAnnouncement(item, index) {
-      const rawCover = safeUrl(item.cover);
+      const cover = normalizeImageUrl(item.cover);
+      const coverLink = normalizeImageUrl(item.coverLink);
       const rawLink = safeUrl(item.link);
 
-      /*
-        В текущей таблице cover пустой, а в link записана обложка.
-        Поэтому ссылка-картинка автоматически используется как cover.
-      */
       const linkIsImage = looksLikeImage(rawLink);
+      const imageFromLink = linkIsImage
+        ? normalizeImageUrl(rawLink)
+        : "";
 
       return {
         id: cleanText(item.id || index + 1),
         bookId: cleanText(item.bookId),
         title: cleanText(item.title || ""),
         author: cleanText(item.author || ""),
-        cover: rawCover || (linkIsImage ? rawLink : ""),
+        cover: cover || coverLink || imageFromLink,
         link: linkIsImage ? "" : rawLink,
-        dateActive: cleanText(item.dateActive),
+        dateActive: cleanText(
+          item.dateActive || item.dateValue
+        ),
         tropes: parseList(item.tropes)
       };
     }
@@ -2088,7 +2154,14 @@
       );
 
       if (match) {
-        const [, day, month, year, hour = "0", minute = "0"] = match;
+        const [
+          ,
+          day,
+          month,
+          year,
+          hour = "0",
+          minute = "0"
+        ] = match;
 
         const date = new Date(
           Number(year),
@@ -2106,7 +2179,14 @@
       );
 
       if (match) {
-        const [, year, month, day, hour = "0", minute = "0"] = match;
+        const [
+          ,
+          year,
+          month,
+          day,
+          hour = "0",
+          minute = "0"
+        ] = match;
 
         const date = new Date(
           Number(year),
@@ -2121,6 +2201,26 @@
 
       return null;
     }
+
+    function getBookSortDate(book) {
+      const exactDate = parseExactDate(book.addedAt);
+
+      if (exactDate) {
+        return exactDate.getTime();
+      }
+
+      const nativeDate = Date.parse(book.addedAt);
+
+      if (!Number.isNaN(nativeDate)) {
+        return nativeDate;
+      }
+
+      const numericId = Number(book.id);
+
+      return Number.isFinite(numericId) ? numericId : 0;
+    }
+
+    /* Spotify */
 
     function spotifyEmbedUrl(value) {
       const url = safeUrl(value);
@@ -2139,7 +2239,7 @@
         const parts = parsed.pathname
           .split("/")
           .filter(Boolean)
-          .filter(part => part !== "intl-ru");
+          .filter(part => !part.startsWith("intl-"));
 
         const allowedTypes = new Set([
           "playlist",
@@ -2150,7 +2250,9 @@
           "artist"
         ]);
 
-        const typeIndex = parts.findIndex(part => allowedTypes.has(part));
+        const typeIndex = parts.findIndex(part =>
+          allowedTypes.has(part)
+        );
 
         if (typeIndex < 0 || !parts[typeIndex + 1]) {
           return "";
@@ -2160,13 +2262,86 @@
         const id = parts[typeIndex + 1];
 
         return (
-          `https://open.spotify.com/embed/${type}/${encodeURIComponent(id)}` +
-          `?utm_source=generator&theme=0`
+          `https://open.spotify.com/embed/${type}/` +
+          `${encodeURIComponent(id)}?utm_source=generator&theme=0`
         );
       } catch {
         return "";
       }
     }
+
+    /* Загрузка файлов */
+
+    function normalizeBookFileUrl(value = "") {
+      const original = safeUrl(value);
+
+      if (!original) {
+        return "";
+      }
+
+      try {
+        const url = new URL(original);
+
+        if (
+          url.hostname === "drive.google.com" ||
+          url.hostname === "docs.google.com"
+        ) {
+          const fileId =
+            original.match(/\/file\/d\/([^/?#]+)/)?.[1] ||
+            url.searchParams.get("id");
+
+          if (fileId) {
+            return (
+              "https://drive.google.com/uc?" +
+              "export=download&id=" +
+              encodeURIComponent(fileId)
+            );
+          }
+        }
+
+        if (url.hostname.includes("dropbox.com")) {
+          url.searchParams.set("dl", "1");
+          return url.href;
+        }
+
+        return url.href;
+      } catch {
+        return "";
+      }
+    }
+
+    function openBookFile(value) {
+      const fileUrl = normalizeBookFileUrl(value);
+
+      if (!fileUrl) {
+        toast(
+          "В таблице должна быть полная открытая ссылка на файл"
+        );
+        return;
+      }
+
+      try {
+        if (window.Telegram?.WebApp?.openLink) {
+          Telegram.WebApp.openLink(fileUrl, {
+            try_instant_view: false
+          });
+        } else {
+          window.open(
+            fileUrl,
+            "_blank",
+            "noopener,noreferrer"
+          );
+        }
+      } catch {
+        window.open(
+          fileUrl,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    }
+
+    /* Загрузка Google Таблиц */
 
     async function fetchTable(url) {
       const response = await fetch(url, {
@@ -2180,15 +2355,24 @@
 
       const text = await response.text();
 
-      if (!text.trim() || text.trim().startsWith("<")) {
-        throw new Error("Таблица не опубликована для просмотра");
+      if (
+        !text.trim() ||
+        text.trim().startsWith("<")
+      ) {
+        throw new Error(
+          "Таблица недоступна для просмотра"
+        );
       }
 
       return rowsToObjects(parseCSV(text));
     }
 
     function loadCachedData() {
-      const booksCache = readJSON(BOOKS_CACHE_KEY, null);
+      const booksCache = readJSON(
+        BOOKS_CACHE_KEY,
+        null
+      );
+
       const announcementsCache = readJSON(
         ANNOUNCEMENTS_CACHE_KEY,
         null
@@ -2212,7 +2396,9 @@
         renderAll();
 
         if (force) {
-          toast("Нет подключения. Используется сохранённый кэш");
+          toast(
+            "Нет подключения. Используются сохранённые данные"
+          );
         }
 
         return;
@@ -2223,7 +2409,8 @@
         fetchTable(ANNOUNCEMENTS_CSV_URL)
       ]);
 
-      let updated = false;
+      let booksUpdated = false;
+      let announcementsUpdated = false;
 
       if (results[0].status === "fulfilled") {
         const books = results[0].value
@@ -2232,14 +2419,19 @@
 
         if (books.length) {
           state.books = books;
+
           saveJSON(BOOKS_CACHE_KEY, {
             data: books,
             savedAt: new Date().toISOString()
           });
-          updated = true;
+
+          booksUpdated = true;
         }
       } else {
-        console.warn("Таблица книг:", results[0].reason);
+        console.warn(
+          "Ошибка таблицы книг:",
+          results[0].reason
+        );
       }
 
       if (results[1].status === "fulfilled") {
@@ -2254,17 +2446,25 @@
           savedAt: new Date().toISOString()
         });
 
-        updated = true;
+        announcementsUpdated = true;
       } else {
-        console.warn("Таблица анонсов:", results[1].reason);
+        console.warn(
+          "Ошибка таблицы анонсов:",
+          results[1].reason
+        );
       }
 
       renderAll();
-      setConnection(updated ? "online" : "cache");
+
+      if (booksUpdated || announcementsUpdated) {
+        setConnection("online");
+      } else {
+        setConnection("cache");
+      }
 
       if (force) {
         toast(
-          updated
+          booksUpdated || announcementsUpdated
             ? "Данные обновлены"
             : "Не удалось обновить. Используется кэш"
         );
@@ -2272,44 +2472,47 @@
     }
 
     function setConnection(mode) {
-      const button = document.getElementById("connectionButton");
-      const text = document.getElementById("connectionText");
+      const button =
+        document.getElementById("connectionButton");
+
+      const text =
+        document.getElementById("connectionText");
 
       button.classList.remove("loading", "offline");
 
       if (mode === "loading") {
         button.classList.add("loading");
         text.textContent = "загрузка…";
-      } else if (mode === "offline") {
+        return;
+      }
+
+      if (mode === "offline") {
         button.classList.add("offline");
         text.textContent = "офлайн";
-      } else if (mode === "cache") {
+        return;
+      }
+
+      if (mode === "cache") {
         button.classList.add("offline");
         text.textContent = "кэш";
-      } else {
-        text.textContent = "онлайн";
+        return;
       }
+
+      text.textContent = "онлайн";
     }
 
+    /* Фильтрация */
+
     function getSeries() {
-      const map = new Map();
+      const series = new Set();
 
       state.books.forEach(book => {
-        const name = book.series || "Вне серии";
-
-        if (!map.has(name)) {
-          map.set(name, []);
-        }
-
-        map.get(name).push(book);
+        series.add(book.series || "Вне серии");
       });
 
-      return [...map.entries()]
-        .map(([name, books]) => ({
-          name,
-          books: books.sort((a, b) => a.order - b.order)
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name, "ru"));
+      return [...series].sort((a, b) =>
+        a.localeCompare(b, "ru")
+      );
     }
 
     function getTropes() {
@@ -2378,7 +2581,10 @@
             );
           }
 
-          return Number(b.id) - Number(a.id);
+          return (
+            getBookSortDate(b) -
+            getBookSortDate(a)
+          );
         });
     }
 
@@ -2404,14 +2610,24 @@
       return `
         <div class="empty-state">
           <h3>${escapeHTML(title)}</h3>
-          ${text ? `<p>${escapeHTML(text)}</p>` : ""}
+
+          ${text
+            ? `<p>${escapeHTML(text)}</p>`
+            : ""}
         </div>
       `;
     }
 
+    /* Карточка книги */
+
     function bookCard(book) {
-      const favorite = state.favorites.has(String(book.id));
-      const status = state.statuses[book.id] || "";
+      const favorite =
+        state.favorites.has(String(book.id));
+
+      const status =
+        state.statuses[book.id] || "";
+
+      const fallback = placeholderCover(book);
 
       return `
         <article
@@ -2421,8 +2637,9 @@
         >
           <div class="cover-wrap">
             <img
-              class="cover"
+              class="cover book-image"
               src="${escapeHTML(getBookCover(book))}"
+              data-fallback="${escapeHTML(fallback)}"
               alt="${escapeHTML(book.title)}"
               loading="lazy"
               referrerpolicy="no-referrer"
@@ -2442,16 +2659,29 @@
           <div class="book-info">
             <div class="book-series">
               ${escapeHTML(book.series)}
-              ${book.order ? ` · ${book.order}` : ""}
+
+              ${book.order
+                ? ` · ${book.order}`
+                : ""}
             </div>
 
-            <h3 class="book-title">${escapeHTML(book.title)}</h3>
-            <p class="book-author">${escapeHTML(book.author)}</p>
+            <h3 class="book-title">
+              ${escapeHTML(book.title)}
+            </h3>
+
+            <p class="book-author">
+              ${escapeHTML(book.author)}
+            </p>
 
             <div class="trop-preview">
-              ${book.tropes.slice(0, 2).map(trope => `
-                <span class="mini-chip">${escapeHTML(trope)}</span>
-              `).join("")}
+              ${book.tropes
+                .slice(0, 2)
+                .map(trope => `
+                  <span class="mini-chip">
+                    ${escapeHTML(trope)}
+                  </span>
+                `)
+                .join("")}
             </div>
 
             <select
@@ -2459,11 +2689,17 @@
               data-status-id="${escapeHTML(book.id)}"
               aria-label="Статус чтения"
             >
-              <option value="" ${status === "" ? "selected" : ""}>
+              <option
+                value=""
+                ${status === "" ? "selected" : ""}
+              >
                 Статус чтения
               </option>
 
-              <option value="want" ${status === "want" ? "selected" : ""}>
+              <option
+                value="want"
+                ${status === "want" ? "selected" : ""}
+              >
                 Хочу прочитать
               </option>
 
@@ -2474,7 +2710,10 @@
                 Читаю сейчас
               </option>
 
-              <option value="read" ${status === "read" ? "selected" : ""}>
+              <option
+                value="read"
+                ${status === "read" ? "selected" : ""}
+              >
                 Прочитано
               </option>
             </select>
@@ -2483,103 +2722,132 @@
       `;
     }
 
+    /* Главная */
+
     function renderHome() {
       const newest = [...state.books]
-        .sort((a, b) => Number(b.id) - Number(a.id))
+        .sort(
+          (a, b) =>
+            getBookSortDate(b) -
+            getBookSortDate(a)
+        )
         .slice(0, 4);
 
       document.getElementById("homeBooks").innerHTML =
         newest.map(bookCard).join("") ||
-        emptyState("Книги пока не добавлены");
-
-      document.getElementById("homeSeries").innerHTML =
-        getSeries().map(series => `
-          <article
-            class="series-card"
-            data-action="select-series"
-            data-series="${escapeHTML(series.name)}"
-          >
-            <span class="series-count">
-              ${series.books.length} ${pluralBooks(series.books.length)}
-            </span>
-
-            <h4>${escapeHTML(series.name)}</h4>
-          </article>
-        `).join("") ||
-        emptyState("Серии пока не добавлены");
+        emptyState(
+          "Книги пока не добавлены",
+          "Проверьте доступ к Google Таблице."
+        );
 
       renderAnnouncements();
     }
 
+    /* Анонсы */
+
     function renderAnnouncements() {
-      const container = document.getElementById("announcements");
+      const container =
+        document.getElementById("announcements");
 
       if (!state.announcements.length) {
         container.innerHTML = emptyState(
           "Анонсы скоро появятся",
           "Следите за обновлениями в канале @my_wwt."
         );
+
         return;
       }
 
-      container.innerHTML = state.announcements.map(item => {
-        const exactDate = parseExactDate(item.dateActive);
-        const cover = safeUrl(item.cover);
+      container.innerHTML =
+        state.announcements
+          .map(item => {
+            const exactDate =
+              parseExactDate(item.dateActive);
 
-        const style = cover
-          ? `style="background-image:url('${escapeHTML(cover)}')"`
-          : "";
+            const cover =
+              normalizeImageUrl(item.cover);
 
-        return `
-          <article
-            class="announcement glass ${cover ? "has-cover" : ""}"
-            ${style}
-          >
-            <div class="announcement-content">
-              <span class="announcement-label">Скоро</span>
-
-              <h3>${escapeHTML(item.title)}</h3>
-
-              ${item.author
-                ? `
-                  <p class="announcement-author">
-                    ${escapeHTML(item.author)}
-                  </p>
-                `
-                : ""}
-
-              ${exactDate
-                ? `
-                  <div
-                    class="countdown"
-                    data-countdown="${escapeHTML(exactDate.toISOString())}"
-                  >
-                    ${countdownHTML(exactDate)}
-                  </div>
-                `
-                : item.dateActive
+            return `
+              <article
+                class="announcement glass ${cover ? "has-cover" : ""}"
+              >
+                ${cover
                   ? `
-                    <div class="announcement-period">
-                      ${escapeHTML(item.dateActive)}
-                    </div>
+                    <img
+                      class="announcement-cover"
+                      src="${escapeHTML(cover)}"
+                      alt="${escapeHTML(item.title)}"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+                    >
                   `
                   : ""}
 
-              ${item.tropes.length
-                ? `
-                  <div class="announcement-tropes">
-                    ${item.tropes.slice(0, 8).map(trope => `
-                      <span class="announcement-trope">
-                        ${escapeHTML(trope)}
-                      </span>
-                    `).join("")}
-                  </div>
-                `
-                : ""}
-            </div>
-          </article>
-        `;
-      }).join("");
+                <div class="announcement-content">
+                  <span class="announcement-label">
+                    Скоро
+                  </span>
+
+                  <h3>${escapeHTML(item.title)}</h3>
+
+                  ${item.author
+                    ? `
+                      <p class="announcement-author">
+                        ${escapeHTML(item.author)}
+                      </p>
+                    `
+                    : ""}
+
+                  ${exactDate
+                    ? `
+                      <div
+                        class="countdown"
+                        data-countdown="${escapeHTML(
+                          exactDate.toISOString()
+                        )}"
+                      >
+                        ${countdownHTML(exactDate)}
+                      </div>
+                    `
+                    : item.dateActive
+                      ? `
+                        <div class="announcement-period">
+                          ${escapeHTML(item.dateActive)}
+                        </div>
+                      `
+                      : ""}
+
+                  ${item.tropes.length
+                    ? `
+                      <div class="announcement-tropes">
+                        ${item.tropes
+                          .map(trope => `
+                            <span class="announcement-trope">
+                              ${escapeHTML(trope)}
+                            </span>
+                          `)
+                          .join("")}
+                      </div>
+                    `
+                    : ""}
+
+                  ${item.link
+                    ? `
+                      <a
+                        class="announcement-link"
+                        href="${escapeHTML(item.link)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Подробнее
+                      </a>
+                    `
+                    : ""}
+                </div>
+              </article>
+            `;
+          })
+          .join("");
     }
 
     function countdownHTML(dateValue) {
@@ -2588,45 +2856,68 @@
           ? dateValue
           : new Date(dateValue);
 
-      const distance = date.getTime() - Date.now();
+      const distance =
+        date.getTime() - Date.now();
 
       if (distance <= 0) {
         return `
-          <div class="countdown-item" style="grid-column:1/-1">
-            <span class="countdown-value">Уже вышло</span>
-            <span class="countdown-caption">Проверьте библиотеку</span>
+          <div
+            class="countdown-item"
+            style="grid-column:1/-1"
+          >
+            <span class="countdown-value">
+              Уже вышло
+            </span>
+
+            <span class="countdown-caption">
+              Проверьте библиотеку
+            </span>
           </div>
         `;
       }
 
-      const days = Math.floor(distance / 86400000);
-      const hours = Math.floor((distance / 3600000) % 24);
-      const minutes = Math.floor((distance / 60000) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
+      const days =
+        Math.floor(distance / 86400000);
+
+      const hours =
+        Math.floor((distance / 3600000) % 24);
+
+      const minutes =
+        Math.floor((distance / 60000) % 60);
+
+      const seconds =
+        Math.floor((distance / 1000) % 60);
 
       return [
         ["Дни", days],
         ["Часы", hours],
         ["Мин", minutes],
         ["Сек", seconds]
-      ].map(([caption, value]) => `
-        <div class="countdown-item">
-          <span class="countdown-value">
-            ${String(value).padStart(2, "0")}
-          </span>
+      ]
+        .map(([caption, value]) => `
+          <div class="countdown-item">
+            <span class="countdown-value">
+              ${String(value).padStart(2, "0")}
+            </span>
 
-          <span class="countdown-caption">
-            ${caption}
-          </span>
-        </div>
-      `).join("");
+            <span class="countdown-caption">
+              ${caption}
+            </span>
+          </div>
+        `)
+        .join("");
     }
 
     function updateCountdowns() {
-      document.querySelectorAll("[data-countdown]").forEach(element => {
-        element.innerHTML = countdownHTML(element.dataset.countdown);
-      });
+      document
+        .querySelectorAll("[data-countdown]")
+        .forEach(element => {
+          element.innerHTML =
+            countdownHTML(element.dataset.countdown);
+        });
     }
+
+    /* Каталог */
 
     function renderFilters() {
       document.getElementById("seriesChips").innerHTML = `
@@ -2639,21 +2930,25 @@
           Все серии
         </button>
 
-        ${getSeries().map(series => `
-          <button
-            class="chip ${
-              state.selectedSeries === series.name ? "active" : ""
-            }"
-            type="button"
-            data-action="filter-series"
-            data-series="${escapeHTML(series.name)}"
-          >
-            ${escapeHTML(series.name)}
-          </button>
-        `).join("")}
+        ${getSeries()
+          .map(series => `
+            <button
+              class="chip ${
+                state.selectedSeries === series
+                  ? "active"
+                  : ""
+              }"
+              type="button"
+              data-action="filter-series"
+              data-series="${escapeHTML(series)}"
+            >
+              ${escapeHTML(series)}
+            </button>
+          `)
+          .join("")}
       `;
 
-      document.getElementById("tropChips").innerHTML = `
+      document.getElementById("tropeChips").innerHTML = `
         <button
           class="chip ${!state.selectedTrope ? "active" : ""}"
           type="button"
@@ -2663,18 +2958,22 @@
           Все тропы
         </button>
 
-        ${getTropes().map(trope => `
-          <button
-            class="chip ${
-              state.selectedTrope === trope ? "active" : ""
-            }"
-            type="button"
-            data-action="filter-trope"
-            data-trope="${escapeHTML(trope)}"
-          >
-            ${escapeHTML(trope)}
-          </button>
-        `).join("")}
+        ${getTropes()
+          .map(trope => `
+            <button
+              class="chip ${
+                state.selectedTrope === trope
+                  ? "active"
+                  : ""
+              }"
+              type="button"
+              data-action="filter-trope"
+              data-trope="${escapeHTML(trope)}"
+            >
+              ${escapeHTML(trope)}
+            </button>
+          `)
+          .join("")}
       `;
     }
 
@@ -2682,17 +2981,23 @@
       renderFilters();
 
       const books = getFilteredBooks();
-      const searchInput = document.getElementById("searchInput");
+
+      const searchInput =
+        document.getElementById("searchInput");
 
       if (searchInput.value !== state.search) {
         searchInput.value = state.search;
       }
 
-      document.getElementById("sortSelect").value = state.sort;
+      document.getElementById("sortSelect").value =
+        state.sort;
 
       document
         .getElementById("clearSearch")
-        .classList.toggle("visible", Boolean(state.search));
+        .classList.toggle(
+          "visible",
+          Boolean(state.search)
+        );
 
       document.getElementById("resultsCount").textContent =
         `${books.length} ${pluralBooks(books.length)}`;
@@ -2707,78 +3012,82 @@
         );
     }
 
+    /* Spotify */
+
     function renderSpotify() {
       const books = state.books.filter(
-        book => spotifyEmbedUrl(book.spotify)
+        book => safeUrl(book.spotify)
       );
 
       document.getElementById("spotifyList").innerHTML =
-        books.map(book => {
-          const embed = spotifyEmbedUrl(book.spotify);
+        books
+          .map(book => {
+            const embed =
+              spotifyEmbedUrl(book.spotify);
 
-          return `
-            <article class="spotify-card glass">
-              <div class="spotify-card-head">
-                <div class="spotify-cover">
-                  <img
-                    src="${escapeHTML(getBookCover(book))}"
-                    alt=""
-                    referrerpolicy="no-referrer"
-                  >
+            return `
+              <article class="spotify-card glass">
+                <div class="spotify-card-head">
+                  <div class="spotify-cover">
+                    <img
+                      class="book-image"
+                      src="${escapeHTML(getBookCover(book))}"
+                      data-fallback="${escapeHTML(
+                        placeholderCover(book)
+                      )}"
+                      alt=""
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+                    >
+                  </div>
+
+                  <div>
+                    <h3>${escapeHTML(book.title)}</h3>
+
+                    <p>
+                      ${escapeHTML(book.author)}
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <h3>${escapeHTML(book.title)}</h3>
-                  <p>${escapeHTML(book.author)}</p>
-                </div>
-              </div>
+                ${embed
+                  ? `
+                    <iframe
+                      class="spotify-frame"
+                      src="${escapeHTML(embed)}"
+                      title="Spotify — ${escapeHTML(book.title)}"
+                      loading="lazy"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    ></iframe>
+                  `
+                  : `
+                    <div class="empty-state">
+                      <h3>Плейлист откроется в Spotify</h3>
+                    </div>
+                  `}
 
-              <iframe
-                class="spotify-frame"
-                src="${escapeHTML(embed)}"
-                title="Spotify — ${escapeHTML(book.title)}"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              ></iframe>
-
-              <a
-                class="spotify-link"
-                href="${escapeHTML(book.spotify)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Открыть в Spotify
-              </a>
-            </article>
-          `;
-        }).join("") ||
+                <a
+                  class="spotify-link"
+                  href="${escapeHTML(book.spotify)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Открыть в Spotify
+                </a>
+              </article>
+            `;
+          })
+          .join("") ||
         emptyState(
           "Spotify-плейлисты пока не добавлены",
           "Добавьте ссылки в столбец spotify_playlist."
         );
     }
 
-    function renderArts() {
-      document.getElementById("artsGrid").innerHTML =
-        state.books.map(book => `
-          <article
-            class="art-card"
-            data-action="open-book"
-            data-id="${escapeHTML(book.id)}"
-          >
-            <img
-              src="${escapeHTML(getBookCover(book, true))}"
-              alt="${escapeHTML(book.title)}"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-            >
+    /* Арты намеренно пустые */
 
-            <div class="art-caption">
-              ${escapeHTML(book.title)}
-            </div>
-          </article>
-        `).join("") ||
-        emptyState("Арты пока не добавлены");
+    function renderArts() {
+      document.getElementById("artsGrid").innerHTML = "";
     }
 
     function renderAll() {
@@ -2795,27 +3104,33 @@
     function refreshBookSections() {
       renderHome();
       renderCatalog();
-      renderArts();
+      renderSpotify();
 
       if (state.modalBookId) {
         renderBookModal(state.modalBookId);
       }
     }
 
-    function switchView(view) {
-      document.querySelectorAll(".view").forEach(element => {
-        element.classList.toggle(
-          "active",
-          element.id === `${view}View`
-        );
-      });
+    /* Навигация */
 
-      document.querySelectorAll(".nav-button").forEach(button => {
-        button.classList.toggle(
-          "active",
-          button.dataset.view === view
-        );
-      });
+    function switchView(view) {
+      document
+        .querySelectorAll(".view")
+        .forEach(element => {
+          element.classList.toggle(
+            "active",
+            element.id === `${view}View`
+          );
+        });
+
+      document
+        .querySelectorAll(".nav-button")
+        .forEach(button => {
+          button.classList.toggle(
+            "active",
+            button.dataset.view === view
+          );
+        });
 
       window.scrollTo({
         top: 0,
@@ -2824,6 +3139,8 @@
 
       haptic("selection");
     }
+
+    /* Модальное окно книги */
 
     function openBook(id) {
       const book = state.books.find(
@@ -2839,11 +3156,14 @@
 
       renderBookModal(id);
 
-      document.getElementById("bookModal").classList.add("open");
+      document
+        .getElementById("bookModal")
+        .classList.add("open");
+
       document.body.classList.add("modal-open");
 
       try {
-        Telegram.WebApp.BackButton.show();
+        window.Telegram?.WebApp?.BackButton?.show();
       } catch {}
 
       haptic("light");
@@ -2858,18 +3178,28 @@
         return;
       }
 
-      const favorite = state.favorites.has(String(book.id));
-      const status = state.statuses[book.id] || "";
-      const spotifyEmbed = spotifyEmbedUrl(book.spotify);
+      const favorite =
+        state.favorites.has(String(book.id));
+
+      const status =
+        state.statuses[book.id] || "";
+
+      const spotifyEmbed =
+        spotifyEmbedUrl(book.spotify);
 
       const active = tab =>
         state.modalTab === tab ? "active" : "";
 
-      document.getElementById("bookModalContent").innerHTML = `
+      document.getElementById(
+        "bookModalContent"
+      ).innerHTML = `
         <div class="modal-book-head">
           <img
-            class="modal-book-cover"
+            class="modal-book-cover book-image"
             src="${escapeHTML(getBookCover(book))}"
+            data-fallback="${escapeHTML(
+              placeholderCover(book)
+            )}"
             alt="${escapeHTML(book.title)}"
             referrerpolicy="no-referrer"
           >
@@ -2877,11 +3207,17 @@
           <div class="modal-book-meta">
             <p class="eyebrow">
               ${escapeHTML(book.series)}
-              ${book.order ? ` · книга ${book.order}` : ""}
+
+              ${book.order
+                ? ` · книга ${book.order}`
+                : ""}
             </p>
 
             <h2>${escapeHTML(book.title)}</h2>
-            <p class="modal-author">${escapeHTML(book.author)}</p>
+
+            <p class="modal-author">
+              ${escapeHTML(book.author)}
+            </p>
           </div>
         </div>
 
@@ -2892,18 +3228,26 @@
             data-action="toggle-favorite"
             data-id="${escapeHTML(book.id)}"
           >
-            ${favorite ? "♥ В избранном" : "♡ В избранное"}
+            ${favorite
+              ? "♥ В избранном"
+              : "♡ В избранное"}
           </button>
 
           <select
             class="sort-select"
             data-status-id="${escapeHTML(book.id)}"
           >
-            <option value="" ${status === "" ? "selected" : ""}>
+            <option
+              value=""
+              ${status === "" ? "selected" : ""}
+            >
               Статус чтения
             </option>
 
-            <option value="want" ${status === "want" ? "selected" : ""}>
+            <option
+              value="want"
+              ${status === "want" ? "selected" : ""}
+            >
               Хочу прочитать
             </option>
 
@@ -2914,7 +3258,10 @@
               Читаю сейчас
             </option>
 
-            <option value="read" ${status === "read" ? "selected" : ""}>
+            <option
+              value="read"
+              ${status === "read" ? "selected" : ""}
+            >
               Прочитано
             </option>
           </select>
@@ -2938,15 +3285,6 @@
           >
             Spotify
           </button>
-
-          <button
-            class="modal-tab ${active("quotes")}"
-            type="button"
-            data-action="modal-tab"
-            data-tab="quotes"
-          >
-            Цитаты
-          </button>
         </div>
 
         <section
@@ -2960,30 +3298,32 @@
           ${book.tropes.length
             ? `
               <div class="modal-tropes">
-                ${book.tropes.map(trope => `
-                  <button
-                    class="chip"
-                    type="button"
-                    data-action="select-trope"
-                    data-trope="${escapeHTML(trope)}"
-                  >
-                    ${escapeHTML(trope)}
-                  </button>
-                `).join("")}
+                ${book.tropes
+                  .map(trope => `
+                    <button
+                      class="chip"
+                      type="button"
+                      data-action="select-trope"
+                      data-trope="${escapeHTML(trope)}"
+                    >
+                      ${escapeHTML(trope)}
+                    </button>
+                  `)
+                  .join("")}
               </div>
             `
             : ""}
 
           ${book.ebook
             ? `
-              <a
+              <button
                 class="download-button"
-                href="${escapeHTML(book.ebook)}"
-                target="_blank"
-                rel="noopener noreferrer"
+                type="button"
+                data-action="download-book"
+                data-url="${escapeHTML(book.ebook)}"
               >
                 Читать / скачать книгу
-              </a>
+              </button>
             `
             : ""}
         </section>
@@ -3016,57 +3356,60 @@
                 "Добавьте ссылку в столбец spotify_playlist."
               )}
         </section>
-
-        <section
-          class="modal-panel ${active("quotes")}"
-          data-panel="quotes"
-        >
-          ${book.quotes.length
-            ? book.quotes.map(quote => `
-                <blockquote class="quote">
-                  ${escapeHTML(quote)}
-                </blockquote>
-              `).join("")
-            : emptyState("Цитаты скоро появятся")}
-        </section>
       `;
     }
 
     function switchModalTab(tabName) {
       state.modalTab = tabName;
 
-      document.querySelectorAll("#bookModal .modal-tab").forEach(tab => {
-        tab.classList.toggle(
-          "active",
-          tab.dataset.tab === tabName
-        );
-      });
+      document
+        .querySelectorAll("#bookModal .modal-tab")
+        .forEach(tab => {
+          tab.classList.toggle(
+            "active",
+            tab.dataset.tab === tabName
+          );
+        });
 
-      document.querySelectorAll("#bookModal .modal-panel").forEach(panel => {
-        panel.classList.toggle(
-          "active",
-          panel.dataset.panel === tabName
-        );
-      });
+      document
+        .querySelectorAll("#bookModal .modal-panel")
+        .forEach(panel => {
+          panel.classList.toggle(
+            "active",
+            panel.dataset.panel === tabName
+          );
+        });
     }
 
     function closeBookModal() {
-      document.getElementById("bookModal").classList.remove("open");
+      document
+        .getElementById("bookModal")
+        .classList.remove("open");
+
       state.modalBookId = null;
+
       unlockBody();
     }
 
+    /* О нас */
+
     function openAbout() {
-      document.getElementById("aboutModal").classList.add("open");
+      document
+        .getElementById("aboutModal")
+        .classList.add("open");
+
       document.body.classList.add("modal-open");
 
       try {
-        Telegram.WebApp.BackButton.show();
+        window.Telegram?.WebApp?.BackButton?.show();
       } catch {}
     }
 
     function closeAbout() {
-      document.getElementById("aboutModal").classList.remove("open");
+      document
+        .getElementById("aboutModal")
+        .classList.remove("open");
+
       unlockBody();
     }
 
@@ -3075,10 +3418,12 @@
         document.body.classList.remove("modal-open");
 
         try {
-          Telegram.WebApp.BackButton.hide();
+          window.Telegram?.WebApp?.BackButton?.hide();
         } catch {}
       }
     }
+
+    /* Избранное и статусы */
 
     function toggleFavorite(id) {
       const key = String(id);
@@ -3092,7 +3437,11 @@
         haptic("medium");
       }
 
-      saveJSON(FAVORITES_KEY, [...state.favorites]);
+      saveJSON(
+        FAVORITES_KEY,
+        [...state.favorites]
+      );
+
       refreshBookSections();
     }
 
@@ -3103,7 +3452,11 @@
         delete state.statuses[id];
       }
 
-      saveJSON(STATUSES_KEY, state.statuses);
+      saveJSON(
+        STATUSES_KEY,
+        state.statuses
+      );
+
       refreshBookSections();
       toast("Статус сохранён");
     }
@@ -3114,32 +3467,37 @@
       state.selectedSeries = "";
       state.selectedTrope = "";
       state.favoritesOnly = false;
+
       renderCatalog();
     }
 
-    function randomBook() {
-      const filtered = getFilteredBooks();
-      const books = filtered.length ? filtered : state.books;
-
-      if (!books.length) {
-        toast("В каталоге пока нет книг");
-        return;
-      }
-
-      const index = Math.floor(Math.random() * books.length);
-      openBook(books[index].id);
-    }
+    /* Telegram и уведомления */
 
     function openChannel() {
       try {
-        Telegram.WebApp.openTelegramLink(CHANNEL_URL);
+        if (window.Telegram?.WebApp?.openTelegramLink) {
+          Telegram.WebApp.openTelegramLink(
+            CHANNEL_URL
+          );
+        } else {
+          window.open(
+            CHANNEL_URL,
+            "_blank",
+            "noopener,noreferrer"
+          );
+        }
       } catch {
-        window.open(CHANNEL_URL, "_blank", "noopener,noreferrer");
+        window.open(
+          CHANNEL_URL,
+          "_blank",
+          "noopener,noreferrer"
+        );
       }
     }
 
     function toast(message) {
-      const element = document.getElementById("toast");
+      const element =
+        document.getElementById("toast");
 
       element.textContent = message;
       element.classList.add("visible");
@@ -3153,7 +3511,12 @@
 
     function haptic(type = "light") {
       try {
-        const feedback = Telegram.WebApp.HapticFeedback;
+        const feedback =
+          window.Telegram?.WebApp?.HapticFeedback;
+
+        if (!feedback) {
+          return;
+        }
 
         if (type === "selection") {
           feedback.selectionChanged();
@@ -3163,19 +3526,23 @@
       } catch {}
     }
 
+    /* События */
+
     document.addEventListener("click", event => {
       if (event.target.closest("select")) {
         return;
       }
 
-      const navigation = event.target.closest("[data-view]");
+      const navigation =
+        event.target.closest("[data-view]");
 
       if (navigation) {
         switchView(navigation.dataset.view);
         return;
       }
 
-      const target = event.target.closest("[data-action]");
+      const target =
+        event.target.closest("[data-action]");
 
       if (!target) {
         return;
@@ -3187,10 +3554,6 @@
         switchView("catalog");
       }
 
-      if (action === "random-book") {
-        randomBook();
-      }
-
       if (action === "open-book") {
         openBook(target.dataset.id);
       }
@@ -3200,27 +3563,24 @@
         toggleFavorite(target.dataset.id);
       }
 
-      if (action === "select-series") {
-        state.selectedSeries = target.dataset.series || "";
-        state.selectedTrope = "";
-        state.favoritesOnly = false;
-
-        renderCatalog();
-        switchView("catalog");
-      }
-
       if (action === "filter-series") {
-        state.selectedSeries = target.dataset.series || "";
+        state.selectedSeries =
+          target.dataset.series || "";
+
         renderCatalog();
       }
 
       if (action === "filter-trope") {
-        state.selectedTrope = target.dataset.trope || "";
+        state.selectedTrope =
+          target.dataset.trope || "";
+
         renderCatalog();
       }
 
       if (action === "select-trope") {
-        state.selectedTrope = target.dataset.trope || "";
+        state.selectedTrope =
+          target.dataset.trope || "";
+
         state.favoritesOnly = false;
 
         closeBookModal();
@@ -3229,7 +3589,9 @@
       }
 
       if (action === "favorites-filter") {
-        state.favoritesOnly = !state.favoritesOnly;
+        state.favoritesOnly =
+          !state.favoritesOnly;
+
         renderCatalog();
       }
 
@@ -3239,6 +3601,10 @@
 
       if (action === "modal-tab") {
         switchModalTab(target.dataset.tab);
+      }
+
+      if (action === "download-book") {
+        openBookFile(target.dataset.url);
       }
 
       if (action === "close-book-modal") {
@@ -3259,7 +3625,8 @@
     });
 
     document.addEventListener("change", event => {
-      const statusSelect = event.target.closest("[data-status-id]");
+      const statusSelect =
+        event.target.closest("[data-status-id]");
 
       if (statusSelect) {
         updateStatus(
@@ -3269,100 +3636,40 @@
       }
     });
 
+    /* Ошибки изображений */
+
+    document.addEventListener(
+      "error",
+      event => {
+        const image = event.target;
+
+        if (
+          image.classList?.contains(
+            "announcement-cover"
+          )
+        ) {
+          const card =
+            image.closest(".announcement");
+
+          if (card) {
+            card.classList.remove("has-cover");
+          }
+
+          image.remove();
+          return;
+        }
+
+        if (
+          image.classList?.contains("book-image") &&
+          image.dataset.fallback &&
+          image.src !== image.dataset.fallback
+        ) {
+          image.src = image.dataset.fallback;
+        }
+      },
+      true
+    );
+
     document
       .getElementById("searchInput")
-      .addEventListener("input", event => {
-        state.search = event.target.value.trim();
-        renderCatalog();
-      });
-
-    document
-      .getElementById("clearSearch")
-      .addEventListener("click", () => {
-        state.search = "";
-        renderCatalog();
-      });
-
-    document
-      .getElementById("sortSelect")
-      .addEventListener("change", event => {
-        state.sort = event.target.value;
-        renderCatalog();
-      });
-
-    document
-      .getElementById("connectionButton")
-      .addEventListener("click", () => {
-        loadData(true);
-      });
-
-    document.querySelectorAll(".modal-overlay").forEach(overlay => {
-      overlay.addEventListener("click", event => {
-        if (event.target !== overlay) {
-          return;
-        }
-
-        if (overlay.id === "bookModal") {
-          closeBookModal();
-        }
-
-        if (overlay.id === "aboutModal") {
-          closeAbout();
-        }
-      });
-    });
-
-    window.addEventListener("online", () => {
-      loadData(true);
-    });
-
-    window.addEventListener("offline", () => {
-      setConnection("offline");
-      toast("Офлайн-режим: используются сохранённые данные");
-    });
-
-    function initializeTelegram() {
-      try {
-        const telegram = window.Telegram?.WebApp;
-
-        if (!telegram) {
-          return;
-        }
-
-        telegram.ready();
-        telegram.expand();
-        telegram.setBackgroundColor("#160D11");
-        telegram.setHeaderColor("#160D11");
-
-        telegram.onEvent("backButtonClicked", () => {
-          if (
-            document
-              .getElementById("bookModal")
-              .classList.contains("open")
-          ) {
-            closeBookModal();
-            return;
-          }
-
-          if (
-            document
-              .getElementById("aboutModal")
-              .classList.contains("open")
-          ) {
-            closeAbout();
-          }
-        });
-      } catch (error) {
-        console.warn("Telegram WebApp:", error);
-      }
-    }
-
-    initializeTelegram();
-    loadCachedData();
-    renderAll();
-    loadData();
-
-    setInterval(updateCountdowns, 1000);
-  </script>
-</body>
-</html>
+      .addEventListener("input", e
