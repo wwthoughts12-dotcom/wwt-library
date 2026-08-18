@@ -234,10 +234,9 @@ a{text-decoration:none;color:inherit}
 .modal-actions{display:grid;grid-template-columns:1fr 46px;gap:8px;margin-top:14px}.modal-status{border-radius:13px;border:1px solid rgba(139,115,85,.12);background:rgba(255,255,255,.58);padding:0 10px;color:var(--text)}.modal-fav{border-radius:13px;background:rgba(255,255,255,.58);font-size:18px;color:var(--muted)}.modal-fav.active{color:var(--wine)}
 .modal-tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-top:18px;padding:4px;border-radius:14px;background:rgba(212,193,174,.25)}.modal-tab{height:38px;border-radius:11px;background:transparent;color:var(--muted);font-size:11px;font-weight:700}.modal-tab.active{background:rgba(255,255,255,.74);color:var(--text);box-shadow:0 3px 10px rgba(74,64,56,.06)}
 .modal-tab-content{display:none;padding-top:17px}.modal-tab-content.active{display:block}
-.description{margin:0;color:var(--muted);font-size:13px;line-height:1.72;white-space:pre-line}
+.description{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.78;white-space:pre-line}
 .trop-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.trop-tag{padding:7px 9px;border-radius:10px;background:rgba(184,155,122,.14);color:var(--accent-dark);font-size:10px}
 .quote{margin:0 0 9px;padding:14px;border-left:3px solid var(--button);border-radius:0 12px 12px 0;background:rgba(255,255,255,.45);font:13px/1.65 Georgia,serif;color:var(--muted)}
-.book-arts-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.book-arts-mini img,.book-arts-mini .mini-art-placeholder{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#DCCEBF}.mini-art-placeholder{display:flex;align-items:center;justify-content:center;color:#725D4A;font:12px Georgia,serif}
 
 .art-modal{width:min(100%,520px);max-height:92vh;overflow:auto;padding:15px;border-radius:24px;background:var(--bg);box-shadow:0 20px 60px rgba(47,38,32,.24);transform:scale(.97) translateY(8px);transition:transform .35s ease}.art-modal-backdrop.open .art-modal{transform:scale(1) translateY(0)}.art-modal img{display:block;width:100%;max-height:65vh;object-fit:contain;border-radius:16px}.art-close{float:right;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.75);font-size:20px;color:var(--text)}.art-modal-body{clear:both;padding-top:5px}.art-modal-title{margin:6px 0 6px;font:600 24px Georgia,serif}.art-modal-description{margin:0;color:var(--muted);font-size:13px;line-height:1.7}.art-modal-book{margin-top:12px;padding:12px;border-radius:13px;background:rgba(255,255,255,.48);cursor:pointer}.art-modal-book b{display:block;font:600 15px Georgia,serif}.art-modal-book span{color:var(--muted);font-size:10px}
 
@@ -317,12 +316,7 @@ a{text-decoration:none;color:inherit}
 
     <section id="homeSpotifyShortcut"></section>
 
-    <section class="about-card">
-      <h3 class="about-title">О нас</h3>
-      <p class="about-text">Wild wild thoughts — пространство для тех, кто любит хорошие истории, красивые переводы и атмосферу книжного мира.</p>
-      <a class="channel-button" href="https://t.me/my_wwt" target="_blank" rel="noopener noreferrer">Перейти в канал</a>
-      <button id="aboutBtn" class="channel-button about-outline" type="button">О НАС</button>
-    </section>
+
   </main>
 
   <main id="page-catalog" class="page">
@@ -470,9 +464,11 @@ a{text-decoration:none;color:inherit}
   ============================================================ */
   const BOOKS_SHEET_ID = "1ZfY5a0Q4MTNaKFlsw30P5k2bIV6wCMl2ISlRdkIk9os";
   const BOOKS_SHEET_NAME = "Книги";
+  const BOOKS_SHEET_GID = "0";
 
   const ANNOUNCEMENTS_SHEET_ID = "1pVVtbOEgW99qR0WYGaroknTJ05P_06yXzQG7AIwGFG8";
   const ANNOUNCEMENTS_SHEET_NAME = "Анонсы";
+  const ANNOUNCEMENTS_SHEET_GID = "0";
 
   /*
     Для артов, вставленных непосредственно в ячейки Google Sheets,
@@ -577,12 +573,7 @@ a{text-decoration:none;color:inherit}
 
   let announcements = [];
   let arts = [];
-
-  const fallbackArts = [
-    {id:1,book_id:1,category:"Сцены",title:"Первая встреча",image:"",description:"Визуал к книге «Нужен твой номер»."},
-    {id:2,book_id:1,category:"Персонажи",title:"Главные герои",image:"",description:"Персонажи книги."},
-    {id:3,book_id:2,category:"Эстетика",title:"Blake",image:"",description:"Эстетика книги «Нужны твои ночи»."}
-  ];
+  const fallbackArts = [];
 
   /* ============================================================
      STATE / STORAGE
@@ -638,6 +629,23 @@ a{text-decoration:none;color:inherit}
       const item = JSON.parse(raw);
       return !!item?.savedAt && Date.now() - item.savedAt < CACHE_TTL;
     } catch(e) { return false; }
+  }
+
+  function normalizeCachedBook(b, index) {
+    return {
+      ...b,
+      id: Number(b.id) || index + 1,
+      title: b.title || `Книга ${index + 1}`,
+      author: b.author || "",
+      series: b.series || "",
+      series_order: Number(b.series_order) || 0,
+      trops: Array.isArray(b.trops) ? b.trops : splitList(b.trops || ""),
+      description: b.description || "",
+      cover: b.cover || "",
+      releaseDate: b.releaseDate || "",
+      spotifyPlaylist: normalizeSpotify(b.spotifyPlaylist || b.spotify_playlist || b.spotify || ""),
+      quotes: []
+    };
   }
 
   function escapeHTML(value="") {
@@ -699,8 +707,8 @@ a{text-decoration:none;color:inherit}
     });
   }
 
-  function gvizCSVUrl(id,sheet) {
-    return `https://docs.google.com/spreadsheets/d/${encodeURIComponent(id)}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheet)}`;
+  function gvizCSVUrl(id,sheet,gid="0") {
+    return `https://docs.google.com/spreadsheets/d/${encodeURIComponent(id)}/gviz/tq?gid=${encodeURIComponent(gid)}&tqx=out:csv`;
   }
 
   /* ============================================================
@@ -709,7 +717,7 @@ a{text-decoration:none;color:inherit}
   function normalizeBook(row,index){
     const id=Number(sheetValue(row,"id","номер"));
     const seriesOrder=Number(sheetValue(row,"series_order","series order","номер в серии","порядок"));
-    const spotify=normalizeSpotify(sheetValue(row,"spotify_playlist","spotify","spotify_url","spotify_playlist_url","плейлист spotify"));
+    const spotify=normalizeSpotify(sheetValue(row,"spotify_playlist","spotify playlist","spotify","spotify_url","spotify_playlist_url","spotify link","spotify_link","плейлист spotify","ссылка spotify"));
     return {
       id:Number.isFinite(id)&&id>0?id:index+1,
       title:sheetValue(row,"title","название","книга")||`Книга ${index+1}`,
@@ -728,17 +736,26 @@ a{text-decoration:none;color:inherit}
   function normalizeSpotify(v) {
     const raw=String(v||"").trim();
     if (!raw) return "";
-    if (raw.includes("open.spotify.com/playlist/")) return raw;
+
     if (raw.startsWith("spotify:playlist:")) {
-      const id=raw.replace("spotify:playlist:","").split("?")[0];
+      const id=raw.replace("spotify:playlist:","").split("?")[0].trim();
       return id ? `https://open.spotify.com/playlist/${id}` : "";
     }
-    if (/^[A-Za-z0-9]{15,}$/.test(raw)) return `https://open.spotify.com/playlist/${raw}`;
+
+    const match=raw.match(/open\.spotify\.com\/playlist\/([A-Za-z0-9]+)(?:\?.*)?$/i);
+    if (match) {
+      return `https://open.spotify.com/playlist/${match[1]}`;
+    }
+
+    if (/^[A-Za-z0-9]{15,}$/.test(raw)) {
+      return `https://open.spotify.com/playlist/${raw}`;
+    }
+
     return "";
   }
 
   async function loadBooksFromSheets(){
-    const url=gvizCSVUrl(BOOKS_SHEET_ID,BOOKS_SHEET_NAME);
+    const url=gvizCSVUrl(BOOKS_SHEET_ID,BOOKS_SHEET_NAME,BOOKS_SHEET_GID);
     try{
       const response=await fetch(url,{cache:"no-store"});
       if(!response.ok)throw new Error(`Books HTTP ${response.status}`);
@@ -746,7 +763,7 @@ a{text-decoration:none;color:inherit}
       const rows=parseCSV(csv);
       const remote=rows.map(normalizeBook).filter(b=>b.title);
       if(!remote.length)throw new Error("No books in sheet");
-      books=remote;
+      books=remote.map(normalizeCachedBook);
       cacheSave(STORAGE.books,books);
       refreshAll();
       return true;
@@ -781,7 +798,7 @@ a{text-decoration:none;color:inherit}
   }
 
   async function loadAnnouncements(){
-    const url=gvizCSVUrl(ANNOUNCEMENTS_SHEET_ID,ANNOUNCEMENTS_SHEET_NAME);
+    const url=gvizCSVUrl(ANNOUNCEMENTS_SHEET_ID,ANNOUNCEMENTS_SHEET_NAME,ANNOUNCEMENTS_SHEET_GID);
     try{
       const response=await fetch(url,{cache:"no-store"});
       if(!response.ok)throw new Error(`Announcements HTTP ${response.status}`);
@@ -807,7 +824,7 @@ a{text-decoration:none;color:inherit}
   ============================================================ */
   async function loadArts(){
     if(!ARTS_API_URL){
-      arts=fallbackArts.slice();
+      arts=[];
       renderArts();
       return false;
     }
@@ -824,11 +841,10 @@ a{text-decoration:none;color:inherit}
         image:a.image||a.imageUrl||"",
         description:a.description||""
       }));
-      if(!arts.length)arts=fallbackArts.slice();
       renderArts();
       return true;
     }catch(e){
-      arts=fallbackArts.slice();
+      arts=[];
       renderArts();
       console.warn("Arts API:",e);
       return false;
@@ -1541,7 +1557,6 @@ a{text-decoration:none;color:inherit}
      ABOUT
   ============================================================ */
   const aboutModal=document.getElementById("aboutModal");
-  document.getElementById("aboutBtn").onclick=()=>{aboutModal.classList.add("open");document.body.classList.add("modal-open")};
   document.getElementById("aboutClose").onclick=()=>{aboutModal.classList.remove("open");document.body.classList.remove("modal-open")};
   aboutModal.addEventListener("click",e=>{if(e.target===aboutModal){aboutModal.classList.remove("open");document.body.classList.remove("modal-open")}});
 
@@ -1570,7 +1585,7 @@ a{text-decoration:none;color:inherit}
     loadSpotifyAPI();
 
     const cachedBooks=cacheLoad(STORAGE.books);
-    if(Array.isArray(cachedBooks)&&cachedBooks.length)books=cachedBooks;
+    if(Array.isArray(cachedBooks)&&cachedBooks.length)books=cachedBooks.map(normalizeCachedBook);
 
     const cachedAnnouncements=cacheLoad(STORAGE.announcements);
     if(Array.isArray(cachedAnnouncements))announcements=cachedAnnouncements;
