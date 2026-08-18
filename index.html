@@ -311,20 +311,6 @@ a{text-decoration:none;color:inherit}
       <div class="empty-text">Они появятся здесь после загрузки данных из Google Таблицы.</div>
     </div>
 
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">Коллекции</div>
-        <h2 class="section-title">По сериям</h2>
-      </div>
-    </div>
-
-    <div id="homeSeries" class="series-list"></div>
-
-    <section id="homeAnnouncements"></section>
-
-    <section id="homeSpotifyShortcut"></section>
-
-
   </main>
 
   <main id="page-catalog" class="page">
@@ -482,11 +468,11 @@ a{text-decoration:none;color:inherit}
   ============================================================ */
   const BOOKS_SHEET_ID = "1ZfY5a0Q4MTNaKFlsw30P5k2bIV6wCMl2ISlRdkIk9os";
   const BOOKS_SHEET_NAME = "Книги";
-  const BOOKS_SHEET_GID = "0";
+  const BOOKS_SHEET_GID = "Книги";
 
   const ANNOUNCEMENTS_SHEET_ID = "1pVVtbOEgW99qR0WYGaroknTJ05P_06yXzQG7AIwGFG8";
   const ANNOUNCEMENTS_SHEET_NAME = "Анонсы";
-  const ANNOUNCEMENTS_SHEET_GID = "0";
+  const ANNOUNCEMENTS_SHEET_GID = "Анонсы";
 
   /*
     Для артов, вставленных непосредственно в ячейки Google Sheets,
@@ -497,13 +483,7 @@ a{text-decoration:none;color:inherit}
   /*
     Формат данных Arts API:
     [
-      {
-        "id": 1,
-        "book_id": 1,
-        "category": "Сцены",
-        "title": "Первая встреча",
-        "image": "https://...",
-        "description": "..."
+  "
       }
     ]
   */
@@ -543,8 +523,6 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"https://open.spotify.com/playlist/6ZEDxZpgidOFdrBloDNUa9",
       fileUrl:"https://disk.yandex.ru/i/PJwZrZ-XicisnA",
-      fileName:"",
-      quotes:[]
     },
     {
       id:2,
@@ -571,7 +549,7 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"https://open.spotify.com/playlist/1psZP5G3oTfLbqs2w2Vx2t",
       fileUrl:"https://disk.yandex.ru/i/ddTwLVCrSoZSFw",
-      fileName:"",
+  
       quotes:[]
     },
     {
@@ -597,7 +575,7 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"https://open.spotify.com/playlist/5ggQnUtreOVtbgfGZSdb5T",
       fileUrl:"https://disk.yandex.ru/i/ktGDSXs5EPt-Ng",
-      fileName:"",
+      
       quotes:[]
     },
     {
@@ -619,7 +597,7 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"https://open.spotify.com/playlist/3ALhklcSIQ2oLviVHPeFkU",
       fileUrl:"https://disk.yandex.ru/i/GElIOpD9wAgpiQ",
-      fileName:"",
+      
       quotes:[]
     },
     {
@@ -644,7 +622,7 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"https://open.spotify.com/playlist/3ATUcG6tpqr6URRyy9vWna",
       fileUrl:"https://disk.yandex.ru/i/0xN0dEm1q825QA",
-      fileName:"",
+      
       quotes:[]
     },
     {
@@ -659,7 +637,7 @@ a{text-decoration:none;color:inherit}
       releaseDate:"",
       spotifyPlaylist:"",
       fileUrl:"",
-      fileName:"",
+      
       quotes:[]
     }
   ];
