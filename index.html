@@ -99,10 +99,6 @@ a{text-decoration:none;color:inherit}
   display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:999px;
   background:rgba(184,155,122,.16);color:var(--accent-dark);font-size:12px;font-weight:800
 }
-.hero-random{
-  display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;
-  background:rgba(255,255,255,.58);color:var(--accent-dark);font-size:12px;font-weight:800
-}
 
 .search-box{position:relative;margin-top:20px}
 .search-box input{
@@ -236,7 +232,7 @@ a{text-decoration:none;color:inherit}
 .modal-cover-container{display:flex;justify-content:center;padding:28px 24px 14px}.modal-cover{width:min(215px,58vw);aspect-ratio:.68;overflow:hidden;border-radius:16px;box-shadow:0 18px 35px rgba(74,64,56,.18)}.modal-cover img{width:100%;height:100%;object-fit:cover}
 .modal-main{padding:6px 22px}.modal-series{color:var(--accent-dark);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.modal-title{margin:7px 0 4px;font:600 28px/1.08 Georgia,serif}.modal-author{color:var(--muted);font-size:12px}
 .modal-actions{display:grid;grid-template-columns:1fr 46px;gap:8px;margin-top:14px}.modal-status{border-radius:13px;border:1px solid rgba(139,115,85,.12);background:rgba(255,255,255,.58);padding:0 10px;color:var(--text)}.modal-fav{border-radius:13px;background:rgba(255,255,255,.58);font-size:18px;color:var(--muted)}.modal-fav.active{color:var(--wine)}
-.modal-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:18px;padding:4px;border-radius:14px;background:rgba(212,193,174,.25)}.modal-tab{height:38px;border-radius:11px;background:transparent;color:var(--muted);font-size:11px;font-weight:700}.modal-tab.active{background:rgba(255,255,255,.74);color:var(--text);box-shadow:0 3px 10px rgba(74,64,56,.06)}
+.modal-tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-top:18px;padding:4px;border-radius:14px;background:rgba(212,193,174,.25)}.modal-tab{height:38px;border-radius:11px;background:transparent;color:var(--muted);font-size:11px;font-weight:700}.modal-tab.active{background:rgba(255,255,255,.74);color:var(--text);box-shadow:0 3px 10px rgba(74,64,56,.06)}
 .modal-tab-content{display:none;padding-top:17px}.modal-tab-content.active{display:block}
 .description{margin:0;color:var(--muted);font-size:13px;line-height:1.72;white-space:pre-line}
 .trop-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.trop-tag{padding:7px 9px;border-radius:10px;background:rgba(184,155,122,.14);color:var(--accent-dark);font-size:10px}
@@ -284,7 +280,6 @@ a{text-decoration:none;color:inherit}
 
         <div class="hero-actions">
           <a class="hero-pill" href="https://t.me/my_wwt" target="_blank" rel="noopener noreferrer">♡ @my_wwt</a>
-          <button id="randomHomeBtn" class="hero-random" type="button">✦ Случайная книга</button>
         </div>
       </div>
     </section>
@@ -360,8 +355,6 @@ a{text-decoration:none;color:inherit}
       </select>
     </div>
 
-    <button id="randomCatalogBtn" class="control-button" style="width:100%;margin-top:8px" type="button">✦ Случайная книга</button>
-
     <div class="section-heading" style="margin-top:24px">
       <div><div class="eyebrow">Книги</div><h2 class="section-title"><span id="catalogCount">0</span> книг</h2></div>
     </div>
@@ -421,21 +414,15 @@ a{text-decoration:none;color:inherit}
         <div class="modal-tabs">
           <button class="modal-tab active" data-tab="description" type="button">Описание</button>
           <button class="modal-tab" data-tab="playlist" type="button">Spotify</button>
-          <button class="modal-tab" data-tab="quotes" type="button">Цитаты</button>
         </div>
 
         <div id="tab-description" class="modal-tab-content active">
           <p id="bookModalDescription" class="description"></p>
           <div style="margin-top:14px"><div class="eyebrow">Тропы</div><div id="bookModalTrops" class="trop-list"></div></div>
-          <div id="bookModalArtsWrap" class="hidden" style="margin-top:18px">
-            <div class="section-heading" style="margin:0 0 8px"><div><div class="eyebrow">Visual library</div><div style="font:600 18px Georgia,serif">Арты к книге</div></div></div>
-            <div id="bookModalArts" class="book-arts-mini"></div>
-            <button id="bookModalArtsAll" class="channel-button about-outline" type="button">Смотреть все арты →</button>
-          </div>
+          
         </div>
 
         <div id="tab-playlist" class="modal-tab-content"></div>
-        <div id="tab-quotes" class="modal-tab-content"></div>
       </div>
     </div>
   </div>
@@ -448,7 +435,7 @@ a{text-decoration:none;color:inherit}
       <div class="eyebrow">Wild wild thoughts</div>
       <h2 class="art-modal-title">О нас</h2>
       <p class="art-modal-description">Добро пожаловать в библиотеку готовых переводов Wild wild thoughts.</p>
-      <p class="art-modal-description" style="margin-top:10px">Здесь собраны книги, серии, тропы, Spotify-плейлисты, цитаты и визуальные материалы.</p>
+      <p class="art-modal-description" style="margin-top:10px">Здесь собраны книги, серии, тропы, Spotify-плейлисты и визуальные материалы.</p>
       <a class="channel-button" href="https://t.me/my_wwt" target="_blank" rel="noopener noreferrer">Перейти в @my_wwt</a>
     </div>
   </div>
@@ -493,6 +480,19 @@ a{text-decoration:none;color:inherit}
     Если оставить пустым, приложение покажет локальные/демо-арты.
   */
   const ARTS_API_URL = "";
+  /*
+    Формат данных Arts API:
+    [
+      {
+        "id": 1,
+        "book_id": 1,
+        "category": "Сцены",
+        "title": "Первая встреча",
+        "image": "https://...",
+        "description": "..."
+      }
+    ]
+  */
 
   const CACHE_TTL = 15 * 60 * 1000;
   const STORAGE = {
@@ -721,7 +721,7 @@ a{text-decoration:none;color:inherit}
       cover:sheetValue(row,"cover","cover_url","обложка","ссылка на обложку")||"",
       releaseDate:sheetValue(row,"release_date","releasedate","date","дата","дата выхода")||"",
       spotifyPlaylist:spotify,
-      quotes:splitList(sheetValue(row,"quotes","цитаты"))
+      quotes:[]
     };
   }
 
@@ -1218,54 +1218,152 @@ a{text-decoration:none;color:inherit}
   function renderArts(){
     const filters=document.getElementById("artsFilters");
     const grid=document.getElementById("artsGrid");
-    const categories=["Все",...new Set(arts.map(a=>a.category).filter(Boolean))];
+    if(!filters||!grid)return;
 
-    filters.innerHTML=categories.map(c=>`<button class="chip ${state.artsCategory===c?"active":""}" data-art-cat="${escapeHTML(c)}" type="button">${escapeHTML(c)}</button>`).join("");
+    const categories=[
+      "Все",
+      ...new Set(
+        arts
+          .map(a=>a.category)
+          .filter(Boolean)
+      )
+    ];
+
+    filters.innerHTML=categories.map(c=>`
+      <button
+        class="chip ${state.artsCategory===c?"active":""}"
+        data-art-cat="${escapeHTML(c)}"
+        type="button"
+      >
+        ${escapeHTML(c)}
+      </button>
+    `).join("");
+
     filters.querySelectorAll("[data-art-cat]").forEach(btn=>{
-      btn.onclick=()=>{state.artsCategory=btn.dataset.artCat;renderArts();};
+      btn.onclick=()=>{
+        state.artsCategory=btn.dataset.artCat;
+        renderArts();
+      };
     });
 
-    const list=state.artsCategory==="Все"?arts:arts.filter(a=>a.category===state.artsCategory);
-    if(!list.length){
-      grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">✦</div><div class="empty-title">Артов пока нет</div><div class="empty-text">Добавьте арты в таблицу.</div></div>`;
+    const filtered =
+      state.artsCategory==="Все"
+        ? arts
+        : arts.filter(
+            a=>a.category===state.artsCategory
+          );
+
+    const grouped={};
+
+    filtered.forEach(art=>{
+      const bookId=Number(art.book_id);
+      if(!grouped[bookId]){
+        grouped[bookId]=[];
+      }
+      grouped[bookId].push(art);
+    });
+
+    const bookIds=Object.keys(grouped);
+
+    if(!bookIds.length){
+      grid.innerHTML=`
+        <div
+          class="empty-state"
+          style="grid-column:1/-1"
+        >
+          <div class="empty-icon">✦</div>
+          <div class="empty-title">Артов пока нет</div>
+          <div class="empty-text">
+            Добавьте изображения в таблицу «Арты».
+          </div>
+        </div>
+      `;
       return;
     }
 
-    grid.innerHTML=list.map(a=>{
-      const book=getBook(a.book_id);
+    grid.innerHTML=bookIds.map(bookId=>{
+      const book=getBook(bookId);
+      if(!book)return "";
+
+      const bookArts=grouped[bookId];
+
       return `
-        <article class="art-card" data-art-id="${a.id}">
-          <div class="art-image">${a.image?`<img src="${escapeHTML(a.image)}" alt="${escapeHTML(a.title)}" loading="lazy">`:`<div class="art-placeholder"><span>✦</span><small>Wild Wild Thoughts</small></div>`}</div>
-          <div class="art-info">
-            <div class="art-category">${escapeHTML(a.category||"Другое")}</div>
-            <h3 class="art-title">${escapeHTML(a.title)}</h3>
-            ${book?`<div class="art-book">Книга: ${escapeHTML(book.title)}</div>`:""}
+        <section class="arts-book-section">
+
+          <div class="arts-book-header">
+            <div>
+              ${
+                book.series
+                  ? `
+                    <div class="eyebrow">
+                      ${escapeHTML(book.series)}
+                      ${
+                        book.series_order
+                          ? ` · #${book.series_order}`
+                          : ""
+                      }
+                    </div>
+                  `
+                  : `
+                    <div class="eyebrow">
+                      ${escapeHTML(book.author)}
+                    </div>
+                  `
+              }
+
+              <h2 class="arts-book-title">
+                ${escapeHTML(book.title)}
+              </h2>
+
+              <div class="arts-book-meta">
+                ${bookArts.length} ${
+                  bookArts.length===1
+                    ? "арт"
+                    : "артов"
+                }
+              </div>
+            </div>
           </div>
-        </article>`;
+
+          <div class="arts-gallery">
+            ${bookArts.map(art=>`
+              <article
+                class="art-card"
+                data-art-id="${art.id}"
+                aria-label="${escapeHTML(art.title||"Арт")}"
+              >
+                <div class="art-image">
+                  ${
+                    art.image
+                      ? `
+                        <img
+                          src="${escapeHTML(art.image)}"
+                          alt="${escapeHTML(art.title||book.title)}"
+                          loading="lazy"
+                        >
+                      `
+                      : `
+                        <div class="art-placeholder">
+                          <span>✦</span>
+                        </div>
+                      `
+                  }
+                </div>
+              </article>
+            `).join("")}
+          </div>
+
+        </section>
+      `;
     }).join("");
 
     grid.querySelectorAll("[data-art-id]").forEach(card=>{
-      card.onclick=()=>openArtModal(Number(card.dataset.artId));
+      card.onclick=()=>{
+        openArtModal(
+          Number(card.dataset.artId)
+        );
+      };
     });
-  }
-
-  function renderBookArts(book){
-    const wrap=document.getElementById("bookModalArtsWrap");
-    const box=document.getElementById("bookModalArts");
-    const list=artsForBook(book.id);
-    if(!list.length){
-      wrap.classList.add("hidden");
-      return;
-    }
-    wrap.classList.remove("hidden");
-    box.innerHTML=list.slice(0,6).map(a=>a.image?`<img src="${escapeHTML(a.image)}" alt="${escapeHTML(a.title)}" data-art-open="${a.id}">`:`<div class="mini-art-placeholder" data-art-open="${a.id}">✦</div>`).join("");
-    box.querySelectorAll("[data-art-open]").forEach(el=>el.onclick=()=>openArtModal(Number(el.dataset.artOpen)));
-    document.getElementById("bookModalArtsAll").onclick=()=>{
-      closeBookModal();
-      state.artsCategory="Все";
-      showPage("arts");
-      renderArts();
-    };
   }
 
   function openArtModal(artId){
@@ -1314,7 +1412,6 @@ a{text-decoration:none;color:inherit}
     document.getElementById("bookModalTrops").innerHTML=book.trops.map(t=>`<span class="trop-tag">${escapeHTML(cleanTrop(t))}</span>`).join("");
     document.getElementById("bookModalStatus").value=statuses[String(book.id)]||"";
     updateBookFavoriteButton();
-    renderBookArts(book);
 
     document.querySelectorAll(".modal-tab").forEach(t=>t.classList.toggle("active",t.dataset.tab==="description"));
     document.querySelectorAll(".modal-tab-content").forEach(c=>c.classList.toggle("active",c.id==="tab-description"));
@@ -1340,15 +1437,6 @@ a{text-decoration:none;color:inherit}
     btn.textContent=active?"♥":"♡";
   }
 
-  function renderQuotes(book){
-    const tab=document.getElementById("tab-quotes");
-    if(!book.quotes?.length){
-      tab.innerHTML=`<div class="empty-state"><div class="empty-icon">❝</div><div class="empty-title">Цитат пока нет</div><div class="empty-text">Добавьте их в колонку quotes.</div></div>`;
-      return;
-    }
-    tab.innerHTML=book.quotes.map(q=>`<blockquote class="quote">“${escapeHTML(q)}”</blockquote>`).join("");
-  }
-
   document.getElementById("bookModalClose").onclick=closeBookModal;
   document.getElementById("bookModal").addEventListener("click",e=>{if(e.target.id==="bookModal")closeBookModal()});
 
@@ -1359,7 +1447,6 @@ a{text-decoration:none;color:inherit}
       document.querySelectorAll(".modal-tab").forEach(t=>t.classList.toggle("active",t===tab));
       document.querySelectorAll(".modal-tab-content").forEach(c=>c.classList.toggle("active",c.id===`tab-${tab.dataset.tab}`));
       if(tab.dataset.tab==="playlist")renderSpotifyTab(book);
-      if(tab.dataset.tab==="quotes")renderQuotes(book);
     });
   });
 
@@ -1449,14 +1536,6 @@ a{text-decoration:none;color:inherit}
   });
 
   document.getElementById("homeViewAll").onclick=()=>showPage("catalog");
-
-  function randomBook(){
-    if(!books.length)return;
-    const book=books[Math.floor(Math.random()*books.length)];
-    openBookModal(book.id);
-  }
-  document.getElementById("randomHomeBtn").onclick=randomBook;
-  document.getElementById("randomCatalogBtn").onclick=randomBook;
 
   /* ============================================================
      ABOUT
