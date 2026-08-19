@@ -1,733 +1,1448 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Библиотека W²T</title>
-    <!-- Telegram Web App -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            background: #F7F2EB;
-            background: linear-gradient(145deg, #F7F2EB 0%, #E8DDD0 100%);
-            min-height: 100vh;
-            padding-bottom: 80px;
-            color: #4A4038;
-        }
+<title>Wild Wild Thoughts Library</title>
 
-        /* glassmorphism card */
-        .glass {
-            background: rgba(255, 248, 240, 0.55);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
-            border: 1px solid rgba(255, 245, 235, 0.5);
-            transition: all 0.2s ease;
-        }
+<meta name="theme-color" content="#F7F2EB">
 
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 16px 14px 20px;
-        }
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-        /* header */
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 4px 8px;
-        }
-        .app-header h1 {
-            font-size: 20px;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            color: #4A4038;
-        }
-        .app-header .badge {
-            background: #B89B7A;
-            color: #F7F2EB;
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        /* search & sort */
-        .toolbar {
-            display: flex;
-            gap: 8px;
-            margin: 16px 0 14px;
-            flex-wrap: wrap;
-        }
-        .search-wrap {
-            flex: 1;
-            position: relative;
-        }
-        .search-wrap input {
-            width: 100%;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 40px;
-            background: rgba(255, 248, 240, 0.6);
-            backdrop-filter: blur(4px);
-            font-size: 15px;
-            color: #4A4038;
-            outline: 1px solid rgba(184, 155, 122, 0.2);
-            transition: 0.2s;
-        }
-        .search-wrap input:focus {
-            outline: 1px solid #B89B7A;
-            background: rgba(255, 248, 240, 0.8);
-        }
-        .sort-select {
-            padding: 10px 14px;
-            border-radius: 40px;
-            border: none;
-            background: rgba(255, 248, 240, 0.6);
-            backdrop-filter: blur(4px);
-            font-size: 14px;
-            color: #4A4038;
-            outline: 1px solid rgba(184, 155, 122, 0.2);
-            min-width: 110px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* tabs (bottom) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(247, 242, 235, 0.7);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(184, 155, 122, 0.2);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0 12px;
-            z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
-        }
-        .tab-btn {
-            background: none;
-            border: none;
-            font-size: 13px;
-            color: #8B7355;
-            padding: 6px 12px;
-            border-radius: 40px;
-            transition: 0.2s;
-            font-weight: 450;
-            letter-spacing: 0.2px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-        }
-        .tab-btn.active {
-            background: #D4C1AE;
-            color: #4A4038;
-            font-weight: 500;
-        }
-        .tab-btn i {
-            font-size: 18px;
-            line-height: 1;
-        }
+<style>
 
-        /* cards grid */
-        .book-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 6px;
-        }
-        .book-card {
-            padding: 16px 16px 14px;
-            background: rgba(255, 248, 240, 0.5);
-            backdrop-filter: blur(6px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 245, 235, 0.5);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
-            transition: 0.15s;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            cursor: pointer;
-        }
-        .book-card:active { transform: scale(0.99); }
-        .book-cover {
-            width: 70px;
-            height: 100px;
-            border-radius: 14px;
-            background: #E8DDD0;
-            flex-shrink: 0;
-            object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid rgba(255, 245, 235, 0.3);
-        }
-        .book-info {
-            flex: 1;
-        }
-        .book-title {
-            font-weight: 600;
-            font-size: 17px;
-            line-height: 1.2;
-            color: #4A4038;
-        }
-        .book-author {
-            color: #8B7355;
-            font-size: 14px;
-            margin: 2px 0 6px;
-        }
-        .book-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 8px;
-            font-size: 12px;
-            color: #8B7355;
-            margin: 6px 0 4px;
-        }
-        .book-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px 10px;
-            margin-top: 6px;
-            align-items: center;
-        }
-        .action-btn {
-            background: none;
-            border: none;
-            font-size: 15px;
-            padding: 4px 6px;
-            color: #8B7355;
-            border-radius: 30px;
-            transition: 0.1s;
-            cursor: pointer;
-        }
-        .action-btn.liked { color: #84303E; }
-        .status-badge {
-            font-size: 11px;
-            background: #D4C1AE;
-            padding: 2px 12px;
-            border-radius: 30px;
-            color: #4A4038;
-            font-weight: 450;
-        }
+:root{
 
-        /* section titles */
-        .section-title {
-            font-size: 18px;
-            font-weight: 450;
-            margin: 18px 0 10px;
-            color: #4A4038;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .section-title small {
-            font-size: 13px;
-            color: #8B7355;
-            font-weight: 400;
-        }
+--bg:#F7F2EB;
+--card:#FFFDF9;
 
-        /* modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.25s;
-        }
-        .modal-overlay.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .modal-card {
-            background: #F7F2EB;
-            max-width: 420px;
-            width: 100%;
-            border-radius: 32px;
-            padding: 24px 20px 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-        }
-        .modal-tabs {
-            display: flex;
-            gap: 10px;
-            border-bottom: 1px solid #D4C1AE;
-            padding-bottom: 8px;
-            margin-bottom: 14px;
-        }
-        .modal-tab {
-            background: none;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 15px;
-            color: #8B7355;
-        }
-        .modal-tab.active {
-            background: #D4C1AE;
-            color: #4A4038;
-        }
-        .modal-body p { font-size: 14px; line-height: 1.5; color: #4A4038; }
-        .modal-body .playlist-link {
-            display: inline-block;
-            margin-top: 12px;
-            background: #B89B7A;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .close-modal {
-            margin-top: 16px;
-            background: none;
-            border: 1px solid #D4C1AE;
-            padding: 8px;
-            border-radius: 40px;
-            width: 100%;
-            color: #4A4038;
-        }
+--gold:#B89B72;
+--gold-dark:#8E7252;
 
-        /* announcement */
-        .announce-box {
-            background: #E8DDD0;
-            padding: 14px 18px;
-            border-radius: 28px;
-            margin: 14px 0 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .announce-box span {
-            font-weight: 450;
-            color: #4A4038;
-        }
+--text:#332B24;
+--muted:#8B8178;
 
-        /* series filter chips */
-        .series-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0 10px;
-        }
-        .chip {
-            background: rgba(255, 248, 240, 0.6);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            border: 1px solid #D4C1AE;
-            color: #4A4038;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .chip.active {
-            background: #B89B7A;
-            color: white;
-            border-color: #B89B7A;
-        }
+--shadow:
+0 10px 30px rgba(0,0,0,.08);
 
-        /* random book */
-        .random-card {
-            background: #D4C1AE;
-            border-radius: 28px;
-            padding: 14px 18px;
-            margin: 14px 0 8px;
-            color: #4A4038;
-            font-weight: 450;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .random-card button {
-            background: #4A4038;
-            border: none;
-            color: #F7F2EB;
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 13px;
-        }
+--radius:24px;
+}
 
-        /* empty state */
-        .empty-state { text-align: center; padding: 30px 0; color: #8B7355; }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        /* responsive */
-        @media (max-width: 420px) {
-            .book-card { padding: 12px; }
-            .book-cover { width: 60px; height: 86px; }
-        }
+body{
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+padding-bottom:95px;
+}
 
-        /* hide content by tab */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-    </style>
+h1,h2,h3{
+font-family:'Cormorant Garamond',serif;
+}
+
+.hidden{
+display:none!important;
+}
+
+.page{
+display:none;
+padding:20px;
+animation:fade .3s ease;
+}
+
+.page.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.hero{
+background:linear-gradient(
+135deg,
+#FFFDF9,
+#F5EEE6
+);
+
+border-radius:32px;
+
+padding:28px;
+
+box-shadow:var(--shadow);
+
+margin-bottom:20px;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero p{
+line-height:1.6;
+}
+
+.card{
+background:var(--card);
+
+border-radius:var(--radius);
+
+padding:18px;
+
+margin-bottom:18px;
+
+box-shadow:var(--shadow);
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(
+auto-fill,
+minmax(150px,1fr)
+);
+
+gap:16px;
+}
+
+.book-card{
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+cursor:pointer;
+
+transition:.25s;
+}
+
+.book-card:hover{
+transform:translateY(-3px);
+}
+
+.book-cover{
+width:100%;
+height:230px;
+object-fit:cover;
+display:block;
+}
+
+.book-info{
+padding:12px;
+}
+
+.book-title{
+font-weight:600;
+font-size:15px;
+margin-bottom:6px;
+}
+
+.book-author{
+font-size:13px;
+color:var(--muted);
+}
+
+.search{
+width:100%;
+
+padding:14px 18px;
+
+border:none;
+
+border-radius:18px;
+
+margin-bottom:16px;
+
+font-size:15px;
+}
+
+.filters{
+display:flex;
+gap:10px;
+overflow:auto;
+padding-bottom:10px;
+margin-bottom:15px;
+}
+
+.filter-btn{
+
+border:none;
+
+background:white;
+
+padding:10px 14px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+white-space:nowrap;
+}
+
+.filter-btn.active{
+background:var(--gold);
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.stat-card{
+
+background:white;
+
+border-radius:20px;
+
+padding:18px;
+
+text-align:center;
+}
+
+.stat-value{
+font-size:28px;
+font-weight:700;
+}
+
+.stat-label{
+color:var(--muted);
+font-size:13px;
+}
+
+.bottom-nav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+background:white;
+
+height:78px;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:
+0 -5px 20px rgba(0,0,0,.08);
+
+z-index:1000;
+}
+
+.nav-btn{
+
+background:none;
+border:none;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+
+gap:4px;
+
+font-size:12px;
+
+color:var(--muted);
+
+cursor:pointer;
+}
+
+.nav-btn.active{
+color:var(--gold);
+}
+
+.modal{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.65);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+z-index:2000;
+}
+
+.modal.show{
+display:flex;
+}
+
+.modal-content{
+
+background:white;
+
+width:100%;
+max-width:650px;
+
+max-height:90vh;
+
+overflow:auto;
+
+border-radius:30px;
+
+padding:22px;
+}
+
+.modal-cover{
+width:100%;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.btn{
+
+display:inline-block;
+
+background:var(--gold);
+
+color:white;
+
+text-decoration:none;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+margin-top:10px;
+}
+
+.favorite-btn{
+margin-left:10px;
+}
+
+.art-image{
+
+width:100%;
+
+border-radius:20px;
+
+cursor:pointer;
+}
+
+.fullscreen{
+
+position:fixed;
+
+inset:0;
+
+background:black;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+}
+
+.fullscreen img{
+max-width:95%;
+max-height:95%;
+}
+
+.loading{
+padding:30px;
+text-align:center;
+}
+
+</style>
 </head>
+
 <body>
 
-<div id="app" class="container">
-
-    <!-- Header -->
-    <div class="app-header">
-        <h1>📖 W²T</h1>
-        <span class="badge">библиотека</span>
-    </div>
-
-    <!-- Announcement -->
-    <div class="announce-box" id="announceBox">
-        <span>📅 Анонс: <span id="announceDate">скоро</span></span>
-        <span style="font-size:13px;">@my_wwt</span>
-    </div>
-
-    <!-- Random book -->
-    <div class="random-card">
-        <span>🎲 Случайная книга</span>
-        <button id="randomBookBtn">Показать</button>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="toolbar">
-        <div class="search-wrap">
-            <input type="text" id="searchInput" placeholder="Поиск по названию / автору..." />
-        </div>
-        <select class="sort-select" id="sortSelect">
-            <option value="title">По названию</option>
-            <option value="author">По автору</option>
-            <option value="series_order">По серии</option>
-        </select>
-    </div>
-
-    <!-- Series filter -->
-    <div class="series-chips" id="seriesChips"></div>
-
-    <!-- Tabs content -->
-    <div id="tabCatalog" class="tab-content active">
-        <div id="bookList" class="book-grid"></div>
-    </div>
-
-    <div id="tabPlaylists" class="tab-content">
-        <div id="playlistContainer"></div>
-    </div>
-
-    <div id="tabArt" class="tab-content">
-        <div style="padding:20px 0; text-align:center; color:#8B7355;">
-            <p>🖼️ Арты и концепты</p>
-            <p style="font-size:14px;">(вдохновение к книгам)</p>
-            <div style="display:flex; justify-content:center; gap:20px; margin-top:20px; flex-wrap:wrap;">
-                <span style="background:#D4C1AE; padding:8px 20px; border-radius:40px;">🎨 #Громы_Тампа</span>
-                <span style="background:#D4C1AE; padding:8px 20px; border-radius:40px;">🏎️ #Колтер</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom nav -->
-    <div class="bottom-nav">
-        <button class="tab-btn active" data-tab="catalog">📚 Каталог</button>
-        <button class="tab-btn" data-tab="playlists">🎧 Плейлисты</button>
-        <button class="tab-btn" data-tab="art">🖼️ Арты</button>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-card">
-            <div class="modal-tabs" id="modalTabs">
-                <button class="modal-tab active" data-mtab="desc">Описание</button>
-                <button class="modal-tab" data-mtab="playlist">Плейлист</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <p id="modalDescText"></p>
-                <div id="modalPlaylistArea"></div>
-            </div>
-            <button class="close-modal" id="closeModalBtn">Закрыть</button>
-        </div>
-    </div>
+<div id="loading" class="loading">
+    Загрузка библиотеки...
 </div>
 
+<!-- О НАС -->
+
+<section id="aboutPage" class="page active">
+
+    <div class="hero">
+        <h1>Wild Wild Thoughts</h1>
+
+        <p>
+            Добро пожаловать в библиотеку Wild Wild Thoughts.
+            Здесь собраны переводы современных любовных романов.
+        </p>
+
+        <br>
+
+        <strong>Строго 18+</strong>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div id="booksCount" class="stat-value">0</div>
+            <div class="stat-label">Книг</div>
+        </div>
+
+        <div class="stat-card">
+            <div id="seriesCount" class="stat-value">0</div>
+            <div class="stat-label">Серий</div>
+        </div>
+
+        <div class="stat-card">
+            <div id="playlistCount" class="stat-value">0</div>
+            <div class="stat-label">Плейлистов</div>
+        </div>
+
+        <div class="stat-card">
+            <div id="artCount" class="stat-value">0</div>
+            <div class="stat-label">Артов</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ГЛАВНАЯ -->
+
+<section id="homePage" class="page">
+
+    <div class="hero">
+        <h2>Библиотека Wild Wild Thoughts</h2>
+        <p>Luxury Collection</p>
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">
+            Новинка
+        </h2>
+
+        <div id="newBook"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">
+            Скоро выйдет
+        </h2>
+
+        <div id="announcementsContainer"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">
+            В процессе перевода
+        </h2>
+
+        <div id="translationContainer"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">
+            Серии
+        </h2>
+
+        <div id="seriesContainer"></div>
+
+    </div>
+
+</section>
+
+<!-- КАТАЛОГ -->
+
+<section id="catalogPage" class="page">
+
+    <input
+        id="searchInput"
+        class="search"
+        placeholder="🔍 Найти книгу..."
+    >
+
+    <div
+        id="seriesFilters"
+        class="filters"
+    ></div>
+
+    <div
+        id="tropeFilters"
+        class="filters"
+    ></div>
+
+    <div
+        id="catalogGrid"
+        class="grid"
+    ></div>
+
+</section>
+
+<!-- ПЛЕЙЛИСТЫ -->
+
+<section id="playlistsPage" class="page">
+
+    <h2 class="section-title">
+        Плейлисты
+    </h2>
+
+    <div
+        id="playlistGrid"
+        class="grid"
+    ></div>
+
+</section>
+
+<!-- АРТЫ -->
+
+<section id="artsPage" class="page">
+
+    <h2 class="section-title">
+        Арты
+    </h2>
+
+    <div
+        id="artsContainer"
+    ></div>
+
+</section>
+
+<!-- КАРТОЧКА КНИГИ -->
+
+<div id="bookModal" class="modal">
+
+    <div class="modal-content">
+
+        <div id="bookContent"></div>
+
+    </div>
+
+</div>
+
+<!-- ПОЛНОЭКРАННЫЙ ПРОСМОТР -->
+
+<div
+    id="fullscreenViewer"
+    class="fullscreen"
+>
+
+    <img id="fullscreenImage">
+
+</div>
+
+<!-- НИЖНЕЕ МЕНЮ -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-btn active"
+        data-page="aboutPage"
+    >
+        <span>ℹ️</span>
+        <span>О нас</span>
+    </button>
+
+    <button
+        class="nav-btn"
+        data-page="homePage"
+    >
+        <span>🏠</span>
+        <span>Главная</span>
+    </button>
+
+    <button
+        class="nav-btn"
+        data-page="catalogPage"
+    >
+        <span>📚</span>
+        <span>Каталог</span>
+    </button>
+
+    <button
+        class="nav-btn"
+        data-page="playlistsPage"
+    >
+        <span>🎧</span>
+        <span>Плейлисты</span>
+    </button>
+
+    <button
+        class="nav-btn"
+        data-page="artsPage"
+    >
+        <span>🖼</span>
+        <span>Арты</span>
+    </button>
+
+</nav>
+
 <script>
-    (function() {
-        // Данные книг (встроены)
-        const booksData = [
-            {
-                id: 1,
-                title: "Нужен твой номер",
-                author: "Мария Гудвин",
-                series: "Громы_Тампа",
-                series_order: 1,
-                trops: ["Хоккеист х смм-менеджер", "Лучший друг брата", "Сварливый х солнышко", "Фастберн", "Он влюбляется первым", "Горячие сцены🔥", "Вынужденная близость", "Появление бывшего"],
-                description: "Фиона Кэмпбелл, недавняя выпускница колледжа, начинает работать стажером в смм-отделе хоккейной команде своего брата. Она только что пережила токсичные отношения. Откажется ли она от своего плана \"никаких спортсменов\" в пользу горячего, ворчливого игрока, который, кажется, хорошо относится только к ней? Зейн Миллер, хоккеист команды колледжа, работает над исполнением своей мечты - играть в профессиональный хоккей в Тампе. Он влюблен в сестру своего лучшего друга, но сможет ли она отказаться от своего запрета ради него? Сможет ли он пробиться сквозь ее стены и завоевать ее сердце? После путешествия и пребывания в одном гостиничном номере с одной кроватью между ними вспыхивают искры. Но после ее бывшего она запрещает себе встречаться со спортсменами. Вскоре бывший Фионы играл против хоккейной команде Зейна. Бывший прокомментировал, что она даже не носит майку своего брата, потому что знает, что его номер - это все, что она должна носить. Зейн ударил его по огрождениям и попросил ее надеть его майку. Ударив бывшего о борт, он кивнул ей и сказал: \"Должен сказать, что мой номер ей очень идет, как ты думаешь?\" Будет ли этого достаточно, чтобы разжечь их искру?",
-                cover: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1680811539i/125732286.jpg",
-                playlist: "https://open.spotify.com/playlist/6ZEDxZpgidOFdrBloDNUa9?si=Q4opJwWjSHSPJFh94S78dQ"
-            },
-            {
-                id: 2,
-                title: "Нужны твои ночи",
-                author: "Мария Гудвин",
-                series: "Громы_Тампа",
-                series_order: 2,
-                trops: ["Она влюбляется первой / он влюбляется сильнее", "Хоккеист х медсестра", "Второй шанс", "СДВГ - Синдром дефицита внимания и гиперактивности", "Обретенная семья", "Лучший друг брата и его товарищ по команде", "\"Хорошая девочка\"", "Он ползет к ней", "Он называет ее принцессой", "Горячие сцены", "STFUATTDLAGG  (shut the fuck up and take that dick like a good girl) - заткнись нахрен и возьми этот член, как хорошая девочка", "Он сожжет мир ради нее"],
-                description: "Блейк Станц, профессиональный хоккеист, наслаждался беззаботной жизнью холостяка. Поэтому, когда за ужином с друзьями он объявил о желании остепениться, это потрясло до глубины души Люси, его лучшую подругу, по которой он безумно скучал и которая долгие годы игнорировала его. Люси Кэмпбелл, медсестра в отделении неотложной помощи, пережила болезненное расставание с Блейком, своим лучшим другом, после случайной пьяной связи, которую он тут же попытался забыть. После его заявления за ужином она импульсивно вступает в новые отношения, желая доказать что-то самой себе. Как долго Люси сможет притворяться с Уайаттом, прежде чем её чувства к Блейку пробьются наружу? Во время совместной поездки с друзьями Блейк говорит Люси: «Прости, что был идиотом и относился к тебе так, словно ты… словно ты не была одним из самых важных людей в моей жизни». После поездки, на ежевечернем семейном ужине, напряжение нарастает, когда Уайатт понимает, к кому Люси всё ещё питает чувства, и что этот человек сидит прямо за одним столом с ними. Сумеют ли эти двое снова найти дорогу друг к другу? Или же старые обиды окажутся слишком глубокими?",
-                cover: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1704301127i/202922425.jpg",
-                playlist: "https://open.spotify.com/playlist/1psZP5G3oTfLbqs2w2Vx2t?si=MY4LrwlxTbOox1ZohuGoLQ"
-            },
-            {
-                id: 3,
-                title: "Нужен твой покой",
-                author: "Мария Гудвин",
-                series: "Громы_Тампа",
-                series_order: 3,
-                trops: ["*Лучший друг брата*", "*Обретенная семья*", "*Отец-одиночка х няня*", "*Хоккей*", "*Она влюбляется первой, он влюбляется сильнее*", "*Фиктивный брак*", "*От друзей к влюбленным*", "*Вынужденная близость*", "*Двойное повествование*", "*\"Моя жена\"*"],
-                description: "Пенни Миллер, учительница в детском саду, всю жизнь грезила материнством. После разрыва трёхлетних отношений — её бывший назвал её «слишком скучной» — она обдумывала варианты.И вот, когда товарищу по команде её брата срочно понадобилась няня, она, не колеблясь, пришла на помощь. Люк Кэмпбелл - профессиональный хоккеист и плейбой, чья репутация в команде трещит по швам из-за его образа в СМИ. В самый разгар плей-офф его жизнь переворачивается с ног на голову: на пороге появляется девушка, с которой у него был секс на одну ночь, с ребёнком, о существовании которого Люк и не подозревал. Сестра товарища по команде соглашается стать няней его дочери, и в её лице он обретает тот самый долгожданный мир, которого так не хватало. Чтобы спасти репутацию и сохранить место в команде, Люк соглашается на фиктивный брак с Пенни, которая в свою очередь надеется, что он поможет ей обрести уверенность в себе. Идиллия рушится, когда возвращается бывшая Люка, жаждущая вернуть семью, а бывший Пенни вдруг видит в ней ту самую яркую и уверенную женщину, о которой всегда мечтал. Выберут ли они привычный уют прежних отношений? Или же решатся на риск ради новой, ещё неизвестной любви?",
-                cover: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1711158422i/210278477.jpg",
-                playlist: "https://open.spotify.com/playlist/5ggQnUtreOVtbgfGZSdb5T?si=muh7-1A_SvOcUH4mPPfSAQ"
-            },
-            {
-                id: 4,
-                title: "Заводите моторы",
-                author: "Ребекка Чейз",
-                series: "Гоночная_команда_«Колтер»",
-                series_order: 1,
-                trops: ["*Исправленный плохиш*", "*Она - его босс*", "*Лучший друг брата*", "*Форумала 1*", "*Вынужденная близость*", "*От врагов к влюбленным*"],
-                description: "Он горячий, легендарный пилот Формулы-1, человек, который положил конец моей гоночной карьере, и лучший друг моего брата... и теперь он моя единственная надежда на выживание. Мечты Сенны Колтер стать гонщиком закончились после аварии; теперь она глава провальной команды Формулы-1 своей семьи. Она полна решимости добиться успеха, даже если это означает борьбу с людьми, которые считают, что женщина в свои двадцать не может быть боссом в спорте, где доминируют мужчины. Единственный шанс ее команды на выживание — лучший друг ее брата и ее подростковая страсть, Коннор Дейн. Он также новый высокомерный гонщик ее команды. Коннор много лет носит на себе вину за то, что стал причиной аварии Сенны. Находиться рядом с Сенной — это пытка, особенно учитывая секреты, которые он скрывает, но он обещал ее брату, что будет защищать ее любой ценой. Они начинают сезон, вцепившись друг другу в глотки, но несомненная искра между ними заставляет их сдаться своим желаниям и пересечь опасную черту. Это начинается как тайные, жаркие отношения, но по мере того, как их чувства друг к другу усиливаются, скрывать их становится все труднее. На карту поставлено так много: команда, их карьера, их дружба и их репутация. Но, может быть, все это стоит того ради любви.",
-                cover: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1736722169i/223535922.jpg",
-                playlist: "https://open.spotify.com/playlist/3ALhklcSIQ2oLviVHPeFkU?si=78xf2JrEQiudhl_qoe1vcQ"
-            },
-            {
-                id: 5,
-                title: "Готовься к любви",
-                author: "Ребекка Чейз",
-                series: "Одиночная",
-                series_order: 0,
-                trops: ["*Новелла*", "*От незнакомцев к влюбленным*", "*Хороший мальчик*", "*Он влюбляется первым и сильно*", "*Обретенная семья*", "*Горячие сцены*", "*\"Ничего не получится\"*", "Приняли не за того", "Подшучивания"],
-                description: "Проблема ворволась в мою кулинарную школу в облике наглого красавчика-офицера. Идеальный пресс, мощные бёдра и огромное… сердце. Последнее, что мне сейчас нужно, — это отвлечение. Он меня погубит. И, кажется, я готова ему это позволить! У Эмбер Клауд две цели: построить успешную семейную кулинарную школу и продолжить дело бабушки с дедушкой. Она знает: такой любви, как у них, ей не найти, а мимолётным романам не место в её планах. Кейлин Линч —  офицер морского флота, чьего исчезновения никто бы и не заметил. Он никогда не был влюблён, а его работа делает отношения невозможными. Но за маской весельчака и внешностью «булочки с корицей» скрывается мужчина, который отчаянно мечтает о настоящем доме и семье. То, что начиналось как забавная путаница с личностями и флирт, перерастает в связь, которую уже не игнорировать. Но между секретными миссиями Кейлина и убеждением Эмбер, что отношения строятся на доверии и времени, у них нет ни шанса. Даже если страсть на кухонной стойке твердит об обратном. Неделя — слишком малый срок, чтобы рисковать наследием семьи. А «долго и счастливо» выпадает не всем. Так почему же этому будущему так невозможно противостоять?",
-                cover: "https://static.wixstatic.com/media/450a93_0ab0193999164da8bd1f4af6bbd455b4~mv2.png/v1/fill/w_667,h_1000,al_c,q_90,usm_0.66_1.00_0.01/450a93_0ab0193999164da8bd1f4af6bbd455b4~mv2.png",
-                playlist: "https://open.spotify.com/playlist/3ATUcG6tpqr6URRyy9vWna?si=KxEaQF53QsOcaxfFF_AzMw"
-            }
-        ];
 
-        // Состояние
-        let books = [...booksData];
-        let filteredBooks = [...books];
-        let currentTab = 'catalog';
-        let selectedSeries = 'Все';
-        let likedIds = JSON.parse(localStorage.getItem('wwt_liked') || '[]');
-        let statuses = JSON.parse(localStorage.getItem('wwt_statuses') || '{}');
+const BOOKS_URL =
+'https://sheetsjson.onrender.com/v1/fetch?csv_url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vQI8CHOf1D1itshzP1MtTu4KDz803QihzIa6WXq-anfYkOA_k_OV27sRDET04qVr202wnqCB7X95ogO%2Fpub%3Foutput%3Dcsv';
 
-        // DOM
-        const bookListEl = document.getElementById('bookList');
-        const searchInput = document.getElementById('searchInput');
-        const sortSelect = document.getElementById('sortSelect');
-        const seriesChips = document.getElementById('seriesChips');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modalDescText = document.getElementById('modalDescText');
-        const modalPlaylistArea = document.getElementById('modalPlaylistArea');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const announceDate = document.getElementById('announceDate');
-        const randomBtn = document.getElementById('randomBookBtn');
+const ANNOUNCEMENTS_URL =
+'https://sheetsjson.onrender.com/v1/fetch?csv_url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vTlVHOEmWsc7BjxeB1w0dcqsTuPCstHe7lrA5fIPUNMFaoLmPSjqyzO3LPkoUpxQNY8ShrWCXBXyf_X%2Fpub%3Foutput%3Dcsv';
 
-        // инициализация Telegram
-        if (window.Telegram && Telegram.WebApp) {
-            Telegram.WebApp.expand();
-            Telegram.WebApp.setBackgroundColor('#F7F2EB');
-            Telegram.WebApp.setHeaderColor('#F7F2EB');
-        }
+const ARTS_URL =
+'https://sheetsjson.onrender.com/v1/fetch?csv_url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vSho-xQsv1AtpTa-k_wDgcO968CYzd546FRuxVXAsWHDt1Y8Ey6yYOL_kEJ5cKiNC7VcYeMtfSYboQE%2Fpub%3Foutput%3Dcsv';
 
-        // анонс (статичный пример)
-        announceDate.textContent = '15 сентября 2026';
+let books = [];
+let announcements = [];
+let arts = [];
 
-        // рендер
-        function renderBooks(list) {
-            if (!list.length) {
-                bookListEl.innerHTML = `<div class="empty-state">📭 Книг не найдено</div>`;
-                return;
-            }
-            let html = '';
-            list.forEach(book => {
-                const liked = likedIds.includes(book.id);
-                const status = statuses[book.id] || '';
-                html += `
-                    <div class="book-card" data-id="${book.id}">
-                        <img class="book-cover" src="${book.cover}" alt="${book.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2270%22 height=%22100%22%3E%3Crect width=%2270%22 height=%22100%22 fill=%22%23D4C1AE%22/%3E%3Ctext x=%225%22 y=%2230%22 fill=%22%234A4038%22 font-size=%2212%22%3E${book.title.slice(0,12)}%3C/text%3E%3C/svg%3E'" />
-                        <div class="book-info">
-                            <div class="book-title">${book.title}</div>
-                            <div class="book-author">${book.author}</div>
-                            <div class="book-meta"><span>${book.series}</span> <span>#${book.series_order || '—'}</span></div>
-                            <div class="book-actions">
-                                <button class="action-btn liked-btn ${liked ? 'liked' : ''}" data-id="${book.id}">❤️</button>
-                                <select class="status-select" data-id="${book.id}" style="background:none;border:1px solid #D4C1AE;border-radius:30px;padding:2px 10px;font-size:11px;color:#4A4038;">
-                                    <option value="">—</option>
-                                    <option value="Хочу прочитать" ${status === 'Хочу прочитать' ? 'selected' : ''}>Хочу</option>
-                                    <option value="Читаю сейчас" ${status === 'Читаю сейчас' ? 'selected' : ''}>Читаю</option>
-                                    <option value="Прочитано" ${status === 'Прочитано' ? 'selected' : ''}>Прочитано</option>
-                                </select>
-                                ${status ? `<span class="status-badge">${status}</span>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            bookListEl.innerHTML = html;
-        }
+let currentSeries = 'Все';
+let currentTrope = 'Все';
 
-        function filterAndRender() {
-            let list = [...books];
-            const query = searchInput.value.toLowerCase().trim();
-            if (query) {
-                list = list.filter(b => b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query));
-            }
-            if (selectedSeries !== 'Все') {
-                list = list.filter(b => b.series === selectedSeries);
-            }
-            const sortBy = sortSelect.value;
-            if (sortBy === 'title') list.sort((a,b) => a.title.localeCompare(b.title));
-            else if (sortBy === 'author') list.sort((a,b) => a.author.localeCompare(b.author));
-            else if (sortBy === 'series_order') list.sort((a,b) => (a.series_order || 0) - (b.series_order || 0));
-            filteredBooks = list;
-            renderBooks(list);
-            renderPlaylists(list);
-        }
+const favorites =
+JSON.parse(
+localStorage.getItem('favorites') || '[]'
+);
 
-        // серии
-        function renderSeriesChips() {
-            const seriesSet = new Set(books.map(b => b.series));
-            const seriesList = ['Все', ...Array.from(seriesSet)];
-            let html = seriesList.map(s => `<span class="chip ${s === selectedSeries ? 'active' : ''}" data-series="${s}">${s}</span>`).join('');
-            seriesChips.innerHTML = html;
-        }
-
-        // плейлисты
-        function renderPlaylists(list) {
-            const container = document.getElementById('playlistContainer');
-            if (!list.length) {
-                container.innerHTML = '<div class="empty-state">🎵 Нет плейлистов</div>';
-                return;
-            }
-            let html = '<div class="book-grid">';
-            list.forEach(b => {
-                html += `
-                    <div class="book-card" style="cursor:default;">
-                        <img class="book-cover" src="${b.cover}" alt="" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2270%22 height=%22100%22%3E%3Crect width=%2270%22 height=%22100%22 fill=%22%23D4C1AE%22/%3E%3Ctext x=%225%22 y=%2230%22 fill=%22%234A4038%22 font-size=%2212%22%3E${b.title.slice(0,12)}%3C/text%3E%3C/svg%3E'" />
-                        <div class="book-info">
-                            <div class="book-title">${b.title}</div>
-                            <div class="book-author">${b.author}</div>
-                            <a href="${b.playlist}" target="_blank" style="display:inline-block;margin-top:8px;background:#B89B7A;color:white;padding:6px 16px;border-radius:40px;text-decoration:none;font-size:13px;">🎧 Открыть плейлист</a>
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        // модалка
-        let currentModalBook = null;
-        function openModal(book) {
-            currentModalBook = book;
-            modalDescText.textContent = book.description || 'Описание отсутствует';
-            modalPlaylistArea.innerHTML = `<a href="${book.playlist}" target="_blank" class="playlist-link">🎶 Слушать плейлист (Spotify)</a>`;
-            modalOverlay.classList.add('open');
-        }
-        function closeModal() { modalOverlay.classList.remove('open'); }
-
-        // обработчики
-        document.addEventListener('click', (e) => {
-            const card = e.target.closest('.book-card');
-            if (card && !e.target.closest('.book-actions') && !e.target.closest('.status-select') && !e.target.closest('.liked-btn')) {
-                const id = parseInt(card.dataset.id);
-                const book = books.find(b => b.id === id);
-                if (book) openModal(book);
-            }
-            // liked
-            if (e.target.classList.contains('liked-btn')) {
-                const id = parseInt(e.target.dataset.id);
-                const idx = likedIds.indexOf(id);
-                if (idx > -1) likedIds.splice(idx, 1);
-                else likedIds.push(id);
-                localStorage.setItem('wwt_liked', JSON.stringify(likedIds));
-                filterAndRender();
-            }
-            // status
-            if (e.target.classList.contains('status-select')) {
-                const id = parseInt(e.target.dataset.id);
-                const val = e.target.value;
-                if (val) statuses[id] = val;
-                else delete statuses[id];
-                localStorage.setItem('wwt_statuses', JSON.stringify(statuses));
-                filterAndRender();
-            }
-            // series chip
-            if (e.target.classList.contains('chip')) {
-                selectedSeries = e.target.dataset.series;
-                renderSeriesChips();
-                filterAndRender();
-            }
-            // tab
-            if (e.target.closest('.tab-btn')) {
-                const btn = e.target.closest('.tab-btn');
-                const tab = btn.dataset.tab;
-                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-                document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentTab = tab;
-                if (tab === 'playlists') renderPlaylists(filteredBooks);
-            }
-            // modal close
-            if (e.target === closeModalBtn || e.target === modalOverlay) closeModal();
-            // modal tabs
-            if (e.target.classList.contains('modal-tab')) {
-                document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
-                e.target.classList.add('active');
-                const mt = e.target.dataset.mtab;
-                if (mt === 'desc') {
-                    modalDescText.style.display = 'block';
-                    modalPlaylistArea.style.display = 'none';
-                } else {
-                    modalDescText.style.display = 'none';
-                    modalPlaylistArea.style.display = 'block';
-                }
-            }
-        });
-
-        // случайная книга
-        randomBtn.addEventListener('click', () => {
-            if (!filteredBooks.length) return;
-            const rand = filteredBooks[Math.floor(Math.random() * filteredBooks.length)];
-            openModal(rand);
-        });
-
-        // поиск и сортировка
-        searchInput.addEventListener('input', filterAndRender);
-        sortSelect.addEventListener('change', filterAndRender);
-
-        // инициализация
-        renderSeriesChips();
-        filterAndRender();
-        // по умолчанию показываем каталог
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.getElementById('tabCatalog').classList.add('active');
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelector('.tab-btn[data-tab="catalog"]').classList.add('active');
-
-        // модальные вкладки изначально
-        modalDescText.style.display = 'block';
-        modalPlaylistArea.style.display = 'none';
-    })();
 </script>
+const favorites =
+JSON.parse(
+localStorage.getItem('favorites') || '[]'
+);
+    async function loadData() {
+
+    try {
+
+        const [
+            booksResponse,
+            announcementsResponse,
+            artsResponse
+        ] = await Promise.all([
+            fetch(BOOKS_URL),
+            fetch(ANNOUNCEMENTS_URL),
+            fetch(ARTS_URL)
+        ]);
+
+        books = await booksResponse.json();
+        announcements = await announcementsResponse.json();
+        arts = await artsResponse.json();
+
+        updateStats();
+
+        renderHome();
+
+        renderCatalog();
+
+        renderPlaylists();
+
+        renderArts();
+
+        document
+            .getElementById('loading')
+            .style.display = 'none';
+
+    } catch(error){
+
+        console.error(error);
+
+        document.getElementById('loading').innerHTML =
+        'Ошибка загрузки данных';
+
+    }
+
+}
+
+function updateStats(){
+
+    document.getElementById('booksCount').textContent =
+    books.length;
+
+    const uniqueSeries =
+    [...new Set(
+        books.map(
+            b => b.series
+        )
+    )];
+
+    document.getElementById('seriesCount').textContent =
+    uniqueSeries.length;
+
+    document.getElementById('playlistCount').textContent =
+    books.filter(
+        b => b.spotify_playlist
+    ).length;
+
+    let totalArts = 0;
+
+    arts.forEach(art => {
+
+        if(!art.arts) return;
+
+        totalArts +=
+        art.arts.split('|').length;
+
+    });
+
+    document.getElementById('artCount').textContent =
+    totalArts;
+
+}
+
+function renderHome(){
+
+    renderNewBook();
+
+    renderAnnouncements();
+
+    renderSeries();
+
+}
+
+function renderNewBook(){
+
+    const container =
+    document.getElementById('newBook');
+
+    if(!books.length){
+
+        container.innerHTML =
+        'Пока нет книг';
+
+        return;
+    }
+
+    const book = books[0];
+
+    container.innerHTML = `
+        <div class="book-card"
+             onclick="openBook('${book.ID}')">
+
+            <img
+                src="${book.cover_url}"
+                class="book-cover"
+            >
+
+            <div class="book-info">
+
+                <div class="book-title">
+                    ${book.title}
+                </div>
+
+                <div class="book-author">
+                    ${book.author}
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+function renderAnnouncements(){
+
+    const container =
+    document.getElementById(
+        'announcementsContainer'
+    );
+
+    container.innerHTML = '';
+
+    announcements.forEach(item => {
+
+        container.innerHTML += `
+        <div class="card">
+
+            <strong>
+                ${item.title}
+            </strong>
+
+            <br><br>
+
+            ${item.tropes || ''}
+
+            <br><br>
+
+            📅 ${item["date active"] || ''}
+
+        </div>
+        `;
+
+    });
+
+}
+
+function renderSeries(){
+
+    const container =
+    document.getElementById(
+        'seriesContainer'
+    );
+
+    const seriesMap = {};
+
+    books.forEach(book => {
+
+        if(!seriesMap[book.series]){
+
+            seriesMap[book.series] = 0;
+
+        }
+
+        seriesMap[book.series]++;
+
+    });
+
+    container.innerHTML = '';
+
+    Object.keys(seriesMap)
+        .sort()
+        .forEach(series => {
+
+            container.innerHTML += `
+            <div class="card">
+
+                <strong>
+                    ${series}
+                </strong>
+
+                <br>
+
+                ${seriesMap[series]} книг
+
+            </div>
+            `;
+
+        });
+
+}
+
+function renderCatalog(){
+
+    buildSeriesFilters();
+
+    buildTropeFilters();
+
+    drawCatalog();
+
+}
+
+function buildSeriesFilters(){
+
+    const wrapper =
+    document.getElementById(
+        'seriesFilters'
+    );
+
+    const series =
+    [
+        'Все',
+        ...new Set(
+            books.map(
+                b => b.series
+            )
+        )
+    ];
+
+    wrapper.innerHTML = '';
+
+    series.forEach(item => {
+
+        wrapper.innerHTML += `
+        <button
+            class="filter-btn ${
+                item === currentSeries
+                ? 'active'
+                : ''
+            }"
+            onclick="selectSeries('${item}')">
+
+            ${item}
+
+        </button>
+        `;
+
+    });
+
+}
+
+function buildTropeFilters(){
+
+    const wrapper =
+    document.getElementById(
+        'tropeFilters'
+    );
+
+    const tropeSet =
+    new Set();
+
+    books.forEach(book => {
+
+        if(!book.trops) return;
+
+        book.trops
+            .split(',')
+            .forEach(t => {
+
+                tropeSet.add(
+                    t.trim()
+                );
+
+            });
+
+    });
+
+    const tropes =
+    ['Все', ...tropeSet];
+
+    wrapper.innerHTML = '';
+
+    tropes.forEach(item => {
+
+        wrapper.innerHTML += `
+        <button
+            class="filter-btn ${
+                item === currentTrope
+                ? 'active'
+                : ''
+            }"
+            onclick="selectTrope('${item}')">
+
+            ${item}
+
+        </button>
+        `;
+
+    });
+
+}
+
+function selectSeries(series){
+
+    currentSeries = series;
+
+    buildSeriesFilters();
+
+    drawCatalog();
+
+}
+
+function selectTrope(trope){
+
+    currentTrope = trope;
+
+    buildTropeFilters();
+
+    drawCatalog();
+
+}
+
+function drawCatalog(){
+
+    const grid =
+    document.getElementById(
+        'catalogGrid'
+    );
+
+    const search =
+    document
+        .getElementById(
+            'searchInput'
+        )
+        .value
+        .toLowerCase();
+
+    let filtered =
+    [...books];
+
+    if(currentSeries !== 'Все'){
+
+        filtered =
+        filtered.filter(
+            book =>
+            book.series === currentSeries
+        );
+
+    }
+
+    if(currentTrope !== 'Все'){
+
+        filtered =
+        filtered.filter(
+            book =>
+            (book.trops || '')
+            .includes(currentTrope)
+        );
+
+    }
+
+    if(search){
+
+        filtered =
+        filtered.filter(book => {
+
+            return (
+                book.title
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                book.author
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                book.series
+                    .toLowerCase()
+                    .includes(search)
+            );
+
+        });
+
+    }
+
+    grid.innerHTML = '';
+
+    filtered.forEach(book => {
+
+        grid.innerHTML += `
+        <div
+            class="book-card"
+            onclick="openBook('${book.ID}')">
+
+            <img
+                src="${book.cover_url}"
+                class="book-cover"
+            >
+
+            <div class="book-info">
+
+                <div class="book-title">
+                    ${book.title}
+                </div>
+
+                <div class="book-author">
+                    ${book.author}
+                </div>
+
+            </div>
+
+        </div>
+        `;
+
+    });
+
+}
+
+document
+.getElementById('searchInput')
+.addEventListener(
+    'input',
+    drawCatalog
+);
+    function openBook(id){
+
+    const book =
+    books.find(
+        b => String(b.ID) === String(id)
+    );
+
+    if(!book) return;
+
+    const modal =
+    document.getElementById(
+        'bookModal'
+    );
+
+    const isFavorite =
+    favorites.includes(
+        String(book.ID)
+    );
+
+    const spotifyEmbed =
+    book.spotify_playlist
+    ?
+    book.spotify_playlist
+        .replace(
+            'open.spotify.com/',
+            'open.spotify.com/embed/'
+        )
+    :
+    '';
+
+    document.getElementById(
+        'bookContent'
+    ).innerHTML = `
+
+        <img
+            src="${book.cover_url}"
+            class="modal-cover"
+        >
+
+        <h2>
+            ${book.title}
+        </h2>
+
+        <br>
+
+        <p>
+            <strong>Автор:</strong>
+            ${book.author}
+        </p>
+
+        <br>
+
+        <p>
+            <strong>Серия:</strong>
+            ${book.series}
+        </p>
+
+        <br>
+
+        <p>
+            <strong>Тропы:</strong>
+            ${book.trops || '-'}
+        </p>
+
+        <br>
+
+        <p>
+            ${book.description || ''}
+        </p>
+
+        ${
+            spotifyEmbed
+            ?
+            `
+            <br>
+
+            <iframe
+                src="${spotifyEmbed}"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allowfullscreen
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen"
+                loading="lazy">
+            </iframe>
+            `
+            :
+            ''
+        }
+
+        <br>
+
+        <a
+            href="${book.file_url}"
+            target="_blank"
+            class="btn">
+            Скачать книгу
+        </a>
+
+        <button
+            class="btn favorite-btn"
+            onclick="toggleFavorite('${book.ID}')">
+
+            ${
+                isFavorite
+                ? '❤️ В избранном'
+                : '🤍 В избранное'
+            }
+
+        </button>
+
+    `;
+
+    modal.classList.add(
+        'show'
+    );
+
+}
+
+function toggleFavorite(id){
+
+    const index =
+    favorites.indexOf(
+        String(id)
+    );
+
+    if(index > -1){
+
+        favorites.splice(
+            index,
+            1
+        );
+
+    } else {
+
+        favorites.push(
+            String(id)
+        );
+
+    }
+
+    localStorage.setItem(
+        'favorites',
+        JSON.stringify(
+            favorites
+        )
+    );
+
+    openBook(id);
+
+}
+
+document
+.getElementById('bookModal')
+.addEventListener(
+    'click',
+    function(e){
+
+        if(
+            e.target.id ===
+            'bookModal'
+        ){
+
+            this.classList.remove(
+                'show'
+            );
+
+        }
+
+    }
+);
+
+function renderPlaylists(){
+
+    const container =
+    document.getElementById(
+        'playlistGrid'
+    );
+
+    container.innerHTML = '';
+
+    books
+    .filter(
+        book =>
+        book.spotify_playlist
+    )
+    .forEach(book => {
+
+        container.innerHTML += `
+
+        <div
+            class="book-card"
+            onclick="
+            window.open(
+            '${book.spotify_playlist}',
+            '_blank'
+            )">
+
+            <img
+                src="${book.cover_url}"
+                class="book-cover"
+            >
+
+            <div
+                class="book-info">
+
+                <div
+                    class="book-title">
+
+                    ${book.title}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function renderArts(){
+
+    const container =
+    document.getElementById(
+        'artsContainer'
+    );
+
+    container.innerHTML = '';
+
+    arts.forEach(item => {
+
+        const images =
+        (item.arts || '')
+        .split('|')
+        .filter(Boolean);
+
+        let gallery = '';
+
+        images.forEach(img => {
+
+            gallery += `
+            <img
+                src="${img}"
+                class="art-image"
+                onclick="
+                openArt(
+                '${img}'
+                )
+                "
+            >
+            <br><br>
+            `;
+
+        });
+
+        container.innerHTML += `
+
+        <div class="card">
+
+            <h3>
+                ${item.title}
+            </h3>
+
+            <br>
+
+            ${gallery}
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function openArt(src){
+
+    document
+    .getElementById(
+        'fullscreenImage'
+    )
+    .src = src;
+
+    document
+    .getElementById(
+        'fullscreenViewer'
+    )
+    .style.display =
+    'flex';
+
+}
+
+document
+.getElementById(
+    'fullscreenViewer'
+)
+.addEventListener(
+    'click',
+    function(){
+
+        this.style.display =
+        'none';
+
+    }
+);
+
+document
+.querySelectorAll(
+    '.nav-btn'
+)
+.forEach(btn => {
+
+    btn.addEventListener(
+        'click',
+        () => {
+
+            document
+            .querySelectorAll(
+                '.page'
+            )
+            .forEach(page => {
+
+                page.classList.remove(
+                    'active'
+                );
+
+            });
+
+            document
+            .querySelectorAll(
+                '.nav-btn'
+            )
+            .forEach(nav => {
+
+                nav.classList.remove(
+                    'active'
+                );
+
+            });
+
+            document
+            .getElementById(
+                btn.dataset.page
+            )
+            .classList.add(
+                'active'
+            );
+
+            btn.classList.add(
+                'active'
+            );
+
+        }
+    );
+
+});
+
+if(window.Telegram){
+
+    Telegram.WebApp.ready();
+
+    Telegram.WebApp.expand();
+
+}
+
+loadData();
+
 </body>
 </html>
